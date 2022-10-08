@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any
 
@@ -42,7 +43,8 @@ def test_simple_parsing():
         "created_date": "2019-06-26T15:17:31.000+0000",
         "user": {
             "id": 1,
-            "username": "bwayne"
+            "username": "bwayne",
+            "created": datetime.now()
         }
     }
     parsed_dict = parse_dict(data)
