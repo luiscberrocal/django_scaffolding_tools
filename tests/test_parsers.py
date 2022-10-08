@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Dict, Any
 
-from django_scaffolding_tools.parsers import parse_dict
+from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list
 
 
 def quick_write(data: Dict[str, Any], file:str):
@@ -31,13 +31,23 @@ def test_simple_parsing():
             "name": "Nino Deicas",
             "user_reference": "US-jmh3gb4kj5h34",
             "email": "buyer@gmail.com",
+            "address": {
+                "street": "123th street",
+                "state": "FL",
+                "zip_code": "99999999"
+            }
         },
         "order_id": "4m1OdghPUQtg",
         "notification_url": "http://www.merchant.com/notifications",
-        "created_date": "2019-06-26T15:17:31.000+0000"
+        "created_date": "2019-06-26T15:17:31.000+0000",
+        "user": {
+            "id": 1,
+            "username": "bwayne"
+        }
     }
     parsed_dict = parse_dict(data)
-    import pprint
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(parsed_dict)
     quick_write(parsed_dict, 'parsed.json')
+
+    model_list = transform_dict_to_model_list(parsed_dict)
+    quick_write(model_list, 'model_list.json')
+
