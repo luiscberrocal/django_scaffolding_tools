@@ -1,8 +1,11 @@
 import re
 from operator import itemgetter
+from re import Pattern
 from typing import Dict, Any, List
 
 import humps
+
+from django_scaffolding_tools.enums import NativeDataType, PatternType
 
 
 def to_snake_case(name: str) -> str:
@@ -31,16 +34,12 @@ def parse_dict(data: Dict[str, Any], model_name: str = 'Model', level: int = 0) 
     parsed_dict[key_name]['attributes'] = list()
     for key, item in data.items():
         item_data = {'name': key, 'value': item, 'supported': False, 'native': True}
-        if isinstance(item, str):
-            item_data['type'] = 'str'
-            item_data['length'] = len(item)
+        data_type = item.__class__.__name__
+        if data_type in NativeDataType.to_list():
+            item_data['type'] = data_type
             item_data['supported'] = True
-        elif isinstance(item, float):
-            item_data['type'] = 'float'
-            item_data['supported'] = True
-        elif isinstance(item, int):
-            item_data['type'] = 'int'
-            item_data['supported'] = True
+            if data_type == NativeDataType.STRING.value:
+                item_data['length'] = len(item)
         elif isinstance(item, dict):
             pascalized_model_name = humps.pascalize(key)
             item_data['type'] = pascalized_model_name
@@ -48,10 +47,30 @@ def parse_dict(data: Dict[str, Any], model_name: str = 'Model', level: int = 0) 
             item_data['supported'] = True
             item_data['native'] = False
         else:
-            item_data['type'] = item.__class__.__name__
+            item_data['type'] = data_type
 
         parsed_dict[key_name]['attributes'].append(item_data)
     return parsed_dict
+
+
+def get_pattern_type(value: str, patterns: List[Pattern], expected_pattern: PatternType) -> Pattern:
+    for pattern in patterns:
+        if pattern.match(value):
+            return expected_pattern
+
+EMAIL_PATTERNS = [
+    
+]
+
+def post_process_attributes(model_list: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    email_regexp_str = re.compile(
+        r'^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$')
+    for model in model_list:
+        for attribute in model['attributes']:
+            if attribute['type'] == NativeDataType.STRING:
+                if email_regexp_str.match(attribute['value']):
+                    attribute['pattern_type'] = 'email'
+    return model_list
 
 
 def build_serializer_data(data: Dict[str, Any]) -> List[Dict[str, Any]]:

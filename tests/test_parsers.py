@@ -3,7 +3,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any
 
-from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list
+from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, post_process_attributes
 
 
 def quick_write(data: Dict[str, Any], file:str):
@@ -51,5 +51,6 @@ def test_simple_parsing():
     quick_write(parsed_dict, 'parsed.json')
 
     model_list = transform_dict_to_model_list(parsed_dict)
+    model_list = post_process_attributes(model_list)
     quick_write(model_list, 'model_list.json')
 
