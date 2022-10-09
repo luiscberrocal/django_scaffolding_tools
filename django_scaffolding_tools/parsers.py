@@ -58,9 +58,11 @@ def get_pattern_type(value: str, patterns: List[Pattern], expected_pattern: Patt
         if pattern.match(value):
             return expected_pattern
 
+
 EMAIL_PATTERNS = [
-    
+   
 ]
+
 
 def post_process_attributes(model_list: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     email_regexp_str = re.compile(
