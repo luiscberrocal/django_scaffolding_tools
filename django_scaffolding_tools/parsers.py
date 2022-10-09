@@ -1,7 +1,6 @@
 import re
 from operator import itemgetter
-from re import Pattern
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Callable
 
 import humps
 
@@ -53,25 +52,16 @@ def parse_dict(data: Dict[str, Any], model_name: str = 'Model', level: int = 0) 
     return parsed_dict
 
 
-def get_pattern_type(value: str, patterns: List[Pattern], expected_pattern: PatternType) -> Pattern:
-    for pattern in patterns:
-        if pattern.match(value):
-            return expected_pattern
-
-
-EMAIL_PATTERNS = [
-   
-]
-
-
-def post_process_attributes(model_list: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    email_regexp_str = re.compile(
-        r'^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$')
+def post_process_attributes(model_list: List[Dict[str, Any]],
+                            pattern_functions: List[Callable[[str], PatternType]]) -> List[Dict[str, Any]]:
     for model in model_list:
         for attribute in model['attributes']:
             if attribute['type'] == NativeDataType.STRING:
-                if email_regexp_str.match(attribute['value']):
-                    attribute['pattern_type'] = 'email'
+                for pattern_function in pattern_functions:
+                    pattern = pattern_function(attribute['value'])
+                    if pattern is not None:
+                        attribute['pattern_type'] = pattern
+                        break
     return model_list
 
 
