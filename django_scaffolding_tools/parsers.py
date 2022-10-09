@@ -4,6 +4,8 @@ from typing import Dict, Any, List
 
 import humps
 
+from django_scaffolding_tools.enums import NativeDataType
+
 
 def to_snake_case(name: str) -> str:
     name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
@@ -31,16 +33,12 @@ def parse_dict(data: Dict[str, Any], model_name: str = 'Model', level: int = 0) 
     parsed_dict[key_name]['attributes'] = list()
     for key, item in data.items():
         item_data = {'name': key, 'value': item, 'supported': False, 'native': True}
-        if isinstance(item, str):
-            item_data['type'] = 'str'
-            item_data['length'] = len(item)
+        data_type = item.__class__.__name__
+        if data_type in NativeDataType.to_list():
+            item_data['type'] = data_type
             item_data['supported'] = True
-        elif isinstance(item, float):
-            item_data['type'] = 'float'
-            item_data['supported'] = True
-        elif isinstance(item, int):
-            item_data['type'] = 'int'
-            item_data['supported'] = True
+            if data_type == NativeDataType.STRING.value:
+                item_data['length'] = len(item)
         elif isinstance(item, dict):
             pascalized_model_name = humps.pascalize(key)
             item_data['type'] = pascalized_model_name
@@ -48,7 +46,7 @@ def parse_dict(data: Dict[str, Any], model_name: str = 'Model', level: int = 0) 
             item_data['supported'] = True
             item_data['native'] = False
         else:
-            item_data['type'] = item.__class__.__name__
+            item_data['type'] = data_type
 
         parsed_dict[key_name]['attributes'].append(item_data)
     return parsed_dict
