@@ -19,6 +19,7 @@ URL_PATTERNS = [
     re.compile(
         r'^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)')
 ]
+
 get_email_pattern = partial(get_pattern_type, patterns=EMAIL_PATTERNS, expected_pattern=PatternType.EMAIL)
 get_url_pattern = partial(get_pattern_type, patterns=URL_PATTERNS, expected_pattern=PatternType.URL)
 

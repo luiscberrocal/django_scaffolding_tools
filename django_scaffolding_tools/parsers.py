@@ -65,5 +65,19 @@ def post_process_attributes(model_list: List[Dict[str, Any]],
     return model_list
 
 
-def build_serializer_data(data: Dict[str, Any]) -> List[Dict[str, Any]]:
-    pass
+SERIALIZER_FIELDS = [
+    {'type': NativeDataType.STRING, 'field': 'CharField'},
+    {'type': NativeDataType.INTEGER, 'field': 'IntegerField'},
+    {'type': NativeDataType.FLOAT, 'field': 'FloatField'},
+    {'type': NativeDataType.DATE, 'field': 'DateField'},
+    {'type': NativeDataType.DATETIME, 'field': 'DatetimeField'},
+    {'pattern_type': PatternType.DATE, 'field': 'DateField'},
+    {'pattern_type': PatternType.DATETIME, 'field': 'DatetimeField'},
+    {'pattern_type': PatternType.URL, 'field': 'UrlField'},
+    {'pattern_type': PatternType.EMAIL, 'field': 'EmailField'},
+]
+
+
+def build_serializer_data(data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    for model in data:
+        print(model)
