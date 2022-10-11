@@ -65,19 +65,36 @@ def post_process_attributes(model_list: List[Dict[str, Any]],
     return model_list
 
 
-SERIALIZER_FIELDS = [
-    {'type': NativeDataType.STRING, 'field': 'CharField'},
-    {'type': NativeDataType.INTEGER, 'field': 'IntegerField'},
-    {'type': NativeDataType.FLOAT, 'field': 'FloatField'},
-    {'type': NativeDataType.DATE, 'field': 'DateField'},
-    {'type': NativeDataType.DATETIME, 'field': 'DatetimeField'},
-    {'pattern_type': PatternType.DATE, 'field': 'DateField'},
-    {'pattern_type': PatternType.DATETIME, 'field': 'DatetimeField'},
-    {'pattern_type': PatternType.URL, 'field': 'UrlField'},
-    {'pattern_type': PatternType.EMAIL, 'field': 'EmailField'},
-]
+SERIALIZER_FIELDS = {
+    NativeDataType.STRING: {'field': 'CharField'},
+    NativeDataType.INTEGER: {'field': 'IntegerField'},
+    NativeDataType.FLOAT: {'field': 'FloatField'},
+    NativeDataType.DATE: {'field': 'DateField'},
+    NativeDataType.DATETIME: {'field': 'DatetimeField'},
+    PatternType.DATE: {'field': 'DateField'},
+    PatternType.DATETIME: {'field': 'DatetimeField'},
+    PatternType.URL: {'field': 'UrlField'},
+    PatternType.EMAIL: {'field': 'EmailField'},
+}
 
 
-def build_serializer_data(data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    for model in data:
-        print(model)
+def build_serializer_data(model_list: List[Dict[str, Any]],
+                          serializer_fields: Dict[str, Any] = SERIALIZER_FIELDS) -> List[Dict[str, Any]]:
+    for model in model_list:
+        for attribute in model['attributes']:
+            data_type = attribute['type']
+            if data_type == NativeDataType.STRING:
+                pattern_type = attribute.get('pattern_type')
+                if pattern_type is None:
+                    serializer_field = serializer_fields.get(data_type)
+                    if serializer_field is not None:
+                        attribute['serializer'] = f'{serializer_field["field"]}(max_length={attribute["length"]})'
+                else:
+                    serializer_field = serializer_fields.get(pattern_type)
+                    if serializer_field is not None:
+                        attribute['serializer'] = f'{serializer_field["field"]}()'
+            else:
+                serializer_field = serializer_fields.get(data_type)
+                if serializer_field is not None:
+                    attribute['serializer'] = f'{serializer_field["field"]}()'
+    return model_list

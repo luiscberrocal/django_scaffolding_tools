@@ -16,8 +16,8 @@ class NativeDataType(str, Enum):
 
 
 class PatternType(str, Enum):
-    EMAIL = 'email'
-    URL = 'url'
-    DATETIME = 'datetime'
-    DATE = 'date'
+    EMAIL = 'email_pattern'
+    URL = 'url_pattern'
+    DATETIME = 'datetime_pattern'
+    DATE = 'date_pattern'
 

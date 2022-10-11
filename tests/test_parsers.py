@@ -3,7 +3,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any
 
-from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, post_process_attributes
+from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, post_process_attributes, \
+    build_serializer_data
 from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
 
 
@@ -53,5 +54,7 @@ def test_simple_parsing():
 
     model_list = transform_dict_to_model_list(parsed_dict)
     model_list = post_process_attributes(model_list, PATTERN_FUNCTIONS)
+    model_list = build_serializer_data(model_list)
+
     quick_write(model_list, 'model_list.json')
 
