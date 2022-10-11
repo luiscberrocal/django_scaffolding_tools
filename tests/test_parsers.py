@@ -6,6 +6,7 @@ from typing import Dict, Any
 from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, post_process_attributes, \
     build_serializer_data
 from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
+from django_scaffolding_tools.writers import ReportWriter
 
 
 def quick_write(data: Dict[str, Any], file:str):
@@ -57,4 +58,8 @@ def test_simple_parsing():
     model_list = build_serializer_data(model_list)
 
     quick_write(model_list, 'model_list.json')
+
+    writer = ReportWriter('../django_scaffolding_tools')
+    output_folder = Path(__file__).parent.parent / 'output' / 'serializers.py'
+    writer.write('serializers.py.j2', output_folder,  model_list=model_list)
 
