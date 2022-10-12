@@ -9,7 +9,7 @@ from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
 from django_scaffolding_tools.writers import ReportWriter
 
 
-def quick_write(data: Dict[str, Any], file:str):
+def quick_write(data: Dict[str, Any], file: str):
     def quick_serialize(value):
         return f'{value}'
 
@@ -19,7 +19,7 @@ def quick_write(data: Dict[str, Any], file:str):
     return filename
 
 
-def test_simple_parsing():
+def test_simple_parsing(output_folder):
     data = {
         "id": "D-4-be8eda8c-5fe7-49dd-8058-4ddaac00611b",
         "amount": 72.00,
@@ -60,6 +60,20 @@ def test_simple_parsing():
     quick_write(model_list, 'model_list.json')
 
     writer = ReportWriter('../django_scaffolding_tools')
-    output_folder = Path(__file__).parent.parent / 'output' / 'serializers.py'
-    writer.write('serializers.py.j2', output_folder,  model_list=model_list)
+    output_file = output_folder / 'serializers.py'
+    writer.write('serializers.py.j2', output_file, model_list=model_list)
 
+
+def test_simple_parsing_camel_case(output_folder, camel_case_dict):
+    parsed_dict = parse_dict(camel_case_dict)
+    quick_write(parsed_dict, 'parsed_camel_case.json')
+
+    model_list = transform_dict_to_model_list(parsed_dict)
+    model_list = post_process_attributes(model_list, PATTERN_FUNCTIONS)
+    model_list = build_serializer_data(model_list)
+
+    quick_write(model_list, 'model_list_camel_case.json')
+
+    writer = ReportWriter('../django_scaffolding_tools')
+    output_file = output_folder / 'serializers_camel_case.py'
+    writer.write('serializers.py.j2', output_file, model_list=model_list)
