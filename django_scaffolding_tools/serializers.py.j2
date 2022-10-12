@@ -1,4 +1,7 @@
+from rest_framework import serializers
+
 {% for model in model_list %}
 class {{ model.name }}Serializer(serializers.Serializer):
-    pass
+    {% for attribute in model.attributes %}{{ attribute.name }} = serializers.{{ attribute.serializer }}
+    {% endfor %}
 {% endfor %}

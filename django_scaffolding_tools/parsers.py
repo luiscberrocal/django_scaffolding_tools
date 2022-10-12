@@ -95,6 +95,9 @@ def build_serializer_data(model_list: List[Dict[str, Any]],
                         attribute['serializer'] = f'{serializer_field["field"]}()'
             else:
                 serializer_field = serializer_fields.get(data_type)
-                if serializer_field is not None:
+                if serializer_field is None:
+                    attribute['serializer'] = f'{attribute["type"]}Serializer()'
+                else:
                     attribute['serializer'] = f'{serializer_field["field"]}()'
+
     return model_list
