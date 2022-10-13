@@ -1,6 +1,6 @@
 import re
 from operator import itemgetter
-from typing import Dict, Any, List, Callable
+from typing import Dict, Any, List, Callable, Tuple
 
 import humps
 
@@ -24,6 +24,18 @@ def transform_dict_to_model_list(data: Dict[str, Any]) -> List[Dict[str, Any]]:
     return sorted(model_list, key=itemgetter('level'), reverse=True)
 
 
+def parse_var_name(var_name: str) -> Tuple[str, bool]:
+    if humps.is_snakecase(var_name):
+        new_var_name = var_name
+    elif humps.is_camelcase(var_name):
+        new_var_name = humps.decamelize(var_name)
+    elif humps.is_pascalcase(var_name):
+        new_var_name = humps.depascalize(var_name)
+    else:
+        raise Exception('Unsupported casing.')
+    return new_var_name, new_var_name != var_name
+
+
 def parse_dict(data: Dict[str, Any], model_name: str = 'Model', level: int = 0) -> Dict[str, Any]:
     parsed_dict: dict[str, dict[Any, Any] | list[Any]] = dict()
     key_name = to_snake_case(model_name)
@@ -32,7 +44,11 @@ def parse_dict(data: Dict[str, Any], model_name: str = 'Model', level: int = 0) 
     parsed_dict[key_name]['level'] = level
     parsed_dict[key_name]['attributes'] = list()
     for key, item in data.items():
-        item_data = {'name': key, 'value': item, 'supported': False, 'native': True}
+        variable_name, add_alias = parse_var_name(key)
+
+        item_data = {'name': variable_name, 'value': item, 'supported': False, 'native': True}
+        if add_alias:
+            item_data['alias'] = key
         data_type = item.__class__.__name__
         if data_type in NativeDataType.to_list():
             item_data['type'] = data_type
