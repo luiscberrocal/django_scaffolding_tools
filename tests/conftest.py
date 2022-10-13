@@ -13,6 +13,7 @@ def output_folder():
 def camel_case_dict():
     data = {
         "firstName": "Luis",
-        "lastName": "Wayne"
+        "lastName": "Wayne",
+        "IMEI": "HJ8777"
     }
     return data

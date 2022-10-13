@@ -99,21 +99,33 @@ def build_serializer_data(model_list: List[Dict[str, Any]],
     for model in model_list:
         for attribute in model['attributes']:
             data_type = attribute['type']
+            source_data =''
             if data_type == NativeDataType.STRING:
                 pattern_type = attribute.get('pattern_type')
                 if pattern_type is None:
                     serializer_field = serializer_fields.get(data_type)
                     if serializer_field is not None:
-                        attribute['serializer'] = f'{serializer_field["field"]}(max_length={attribute["length"]})'
+                        if attribute.get('alias'):
+                            source_data = f'source=\'{attribute["alias"]}\''
+                            attribute['serializer'] = f'{serializer_field["field"]}(max_length=' \
+                                                      f'{attribute["length"]}, {source_data})'
+                        else:
+                            attribute['serializer'] = f'{serializer_field["field"]}(max_length=' \
+                                                      f'{attribute["length"]})'
+
                 else:
                     serializer_field = serializer_fields.get(pattern_type)
+                    if attribute.get('alias'):
+                        source_data = f'source=\'{attribute["alias"]}\''
                     if serializer_field is not None:
-                        attribute['serializer'] = f'{serializer_field["field"]}()'
+                        attribute['serializer'] = f'{serializer_field["field"]}({source_data})'
             else:
                 serializer_field = serializer_fields.get(data_type)
+                if attribute.get('alias'):
+                    source_data = f'source=\'{attribute["alias"]}\''
                 if serializer_field is None:
-                    attribute['serializer'] = f'{attribute["type"]}Serializer()'
+                    attribute['serializer'] = f'{attribute["type"]}Serializer({source_data})'
                 else:
-                    attribute['serializer'] = f'{serializer_field["field"]}()'
+                    attribute['serializer'] = f'{serializer_field["field"]}({source_data})'
 
     return model_list
