@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Dict, Any
 
 from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, post_process_attributes, \
-    build_serializer_data
+    build_serializer_data, file_class_list, list_class
 from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
 from django_scaffolding_tools.writers import ReportWriter
 
@@ -77,3 +77,8 @@ def test_simple_parsing_camel_case(output_folder, camel_case_dict):
     writer = ReportWriter('../django_scaffolding_tools')
     output_file = output_folder / 'serializers_camel_case.py'
     writer.write('serializers.py.j2', output_file, model_list=model_list)
+
+def test_class_list(output_folder):
+    filename = output_folder / 'serializers.py'
+    class_list = list_class(filename)
+    quick_write(class_list, 'serializer_class_list.json')

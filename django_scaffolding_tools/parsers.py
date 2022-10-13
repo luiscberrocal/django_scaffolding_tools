@@ -1,3 +1,4 @@
+import ast
 import re
 from operator import itemgetter
 from typing import Dict, Any, List, Callable, Tuple
@@ -99,7 +100,7 @@ def build_serializer_data(model_list: List[Dict[str, Any]],
     for model in model_list:
         for attribute in model['attributes']:
             data_type = attribute['type']
-            source_data =''
+            source_data = ''
             if data_type == NativeDataType.STRING:
                 pattern_type = attribute.get('pattern_type')
                 if pattern_type is None:
@@ -129,3 +130,39 @@ def build_serializer_data(model_list: List[Dict[str, Any]],
                     attribute['serializer'] = f'{serializer_field["field"]}({source_data})'
 
     return model_list
+
+
+def file_class_list(filename):
+    classList = []
+    className = None
+    mehotdName = None
+    # fileName = "C:\Transcriber\Framework\ctetest\RegressionTest\GeneralTest\\" + file
+    fileObject = open(filename, "r")
+    text = fileObject.read()
+    p = ast.parse(text)
+    node = ast.NodeVisitor()
+    for node in ast.walk(p):
+        if isinstance(node, ast.FunctionDef) or isinstance(node, ast.ClassDef):
+            if isinstance(node, ast.ClassDef):
+                className = node.name
+            else:
+                methodName = node.name
+            if className != None and methodName != None:
+                subList = (methodName, className)
+                classList.append(subList)
+    return classList
+
+def list_class(file):
+    """https://stackoverflow.com/questions/41115160/how-to-get-names-of-all-the-variables-defined-in-methods-of-a-class"""
+
+    with open(file,"r") as f:
+        p = ast.parse(f.read())
+
+    # get all classes from the given python file.
+    classes = [c for c in ast.walk(p) if isinstance(c,ast.ClassDef)]
+
+    out = dict()
+    for x in classes:
+        out[x.name] = [fun.name for fun in ast.walk(x) if isinstance(fun,ast.FunctionDef)]
+
+    return out
