@@ -152,17 +152,21 @@ def file_class_list(filename):
                 classList.append(subList)
     return classList
 
+
 def list_class(file):
     """https://stackoverflow.com/questions/41115160/how-to-get-names-of-all-the-variables-defined-in-methods-of-a-class"""
 
-    with open(file,"r") as f:
+    with open(file, "r") as f:
         p = ast.parse(f.read())
 
     # get all classes from the given python file.
-    classes = [c for c in ast.walk(p) if isinstance(c,ast.ClassDef)]
+    classes = [c for c in ast.walk(p) if isinstance(c, ast.ClassDef)]
 
     out = dict()
     for x in classes:
-        out[x.name] = [fun.name for fun in ast.walk(x) if isinstance(fun,ast.FunctionDef)]
+        print(x._fields)
+        print(x.body[0]._fields)
+        print('-' * 50)
+        out[x.name] = [fun.name for fun in ast.walk(x) if isinstance(fun, ast.FunctionDef)]
 
     return out
