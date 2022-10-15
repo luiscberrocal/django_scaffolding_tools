@@ -64,6 +64,7 @@ def test_simple_parsing(output_folder):
     writer = ReportWriter('../django_scaffolding_tools')
     output_file = output_folder / 'serializers.py'
     writer.write('serializers.py.j2', output_file, model_list=model_list)
+    assert output_file.exists()
 
 
 def test_simple_parsing_camel_case(output_folder, camel_case_dict):

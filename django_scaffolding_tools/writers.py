@@ -11,10 +11,8 @@ from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
 
 class ReportWriter:
 
-    def __init__(self, template_path: Path, ):
-        self.template_env = Environment(loader=PackageLoader('django_scaffolding_tools', '.'))
-        # template_loader = jinja2.FileSystemLoader(searchpath=template_path)
-        # self.template_env = jinja2.Environment(loader=template_loader)
+    def __init__(self):
+        self.template_env = Environment(loader=PackageLoader('django_scaffolding_tools', 'templates'))
 
     def write(self, template_name: str, output_file: Path, **params):
         template = self.template_env.get_template(template_name)

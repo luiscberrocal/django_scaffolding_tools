@@ -46,4 +46,5 @@ setup(
     url='https://github.com/luiscberrocal/django_scaffolding_tools',
     version='0.2.1',
     zip_safe=False,
+    package_data={'': ['templates/*.j2']},
 )
