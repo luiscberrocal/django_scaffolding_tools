@@ -21,3 +21,10 @@ class PatternType(str, Enum):
     DATETIME = 'datetime_pattern'
     DATE = 'date_pattern'
 
+
+class ASTDataType(str, Enum):
+    CLASS = 'ClassDef'
+    ASSIGN = 'Assign'
+    NAME = 'Name'
+    CONSTANT = 'Constant'
+    ATTRIBUTE = 'Attribute'

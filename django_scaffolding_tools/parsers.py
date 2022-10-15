@@ -7,7 +7,7 @@ from typing import Dict, Any, List, Callable, Tuple
 import humps
 from ast2json import ast2json
 
-from django_scaffolding_tools.enums import NativeDataType, PatternType
+from django_scaffolding_tools.enums import NativeDataType, PatternType, ASTDataType
 
 
 def to_snake_case(name: str) -> str:
@@ -148,12 +148,12 @@ def parse_for_django_classes(module: Dict[str, Any]) -> Dict[str, any]:
     module_content['classes'] = django_classes
 
     for content in module['body']:
-        if content.get('_type') == 'ClassDef':
+        if content.get('_type') == ASTDataType.CLASS:
             model = dict()
             model['name'] = content.get('name')
             model['attributes'] = list()
             for class_content in content['body']:
-                if class_content.get('_type') == 'Assign':
+                if class_content.get('_type') == ASTDataType.ASSIGN:
                     variable = dict()
                     variable['name'] = class_content['targets'][0]['id']
                     variable['keywords'] = list()
@@ -169,7 +169,17 @@ def parse_for_django_classes(module: Dict[str, Any]) -> Dict[str, any]:
                         for keyword in class_content['value']['keywords']:
                             keyword_data = dict()
                             keyword_data['name'] = keyword['arg']
-                            keyword_data['value'] = keyword['value']['value']
+                            value_type = keyword['value']['_type']
+                            keyword_data['value_type_TMP'] = value_type
+
+                            if value_type == ASTDataType.CONSTANT:
+                                keyword_value = keyword['value'].get('value')
+                            elif value_type == ASTDataType.NAME:
+                                keyword_value = keyword['value'].get('id')
+                            elif value_type == ASTDataType.ATTRIBUTE:
+                                keyword_value = keyword['value'].get('attr')
+
+                            keyword_data['value'] = keyword_value
                             variable['keywords'].append(keyword_data)
                     except KeyError:
                         print(f'Error with variable {model["name"]}.{variable["name"]}')
