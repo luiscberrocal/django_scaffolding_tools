@@ -9,3 +9,4 @@ def test_write_serializers(output_folder):
 
     target_file = output_folder / 'test_write_serializers.py'
     write_serializer_from_file(source_filename, target_file)
+    assert target_file.exists()
