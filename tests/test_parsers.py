@@ -4,19 +4,21 @@ from pathlib import Path
 from typing import Dict, Any
 
 from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, post_process_attributes, \
-    build_serializer_data, file_class_list, list_class
+    build_serializer_data, parse_file_for_ast_classes, parse_for_django_classes
 from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
 from django_scaffolding_tools.writers import ReportWriter
 
 
-def quick_write(data: Dict[str, Any], file: str):
+def quick_write(data: Dict[str, Any], file: str, over_write: bool = True):
     def quick_serialize(value):
         return f'{value}'
 
     filename = Path(__file__).parent.parent / 'output' / file
-    with open(filename, 'w') as json_file:
-        json.dump(data, json_file, indent=4, default=quick_serialize)
-    return filename
+
+    if (filename.exists() and over_write) or not filename.exists():
+        with open(filename, 'w') as json_file:
+            json.dump(data, json_file, indent=4, default=quick_serialize)
+        return filename
 
 
 def test_simple_parsing(output_folder):
@@ -78,7 +80,14 @@ def test_simple_parsing_camel_case(output_folder, camel_case_dict):
     output_file = output_folder / 'serializers_camel_case.py'
     writer.write('serializers.py.j2', output_file, model_list=model_list)
 
+
 def test_class_list(output_folder):
-    filename = output_folder / 'serializers.py'
-    class_list = list_class(filename)
-    quick_write(class_list, 'serializer_class_list.json')
+    module_file = 'models.py'
+    filename = output_folder / module_file
+
+    ast_module = parse_file_for_ast_classes(filename)
+    quick_write(ast_module, f'ast_{module_file}.json')
+
+    django_classes = parse_for_django_classes(ast_module)
+    quick_write(django_classes, f'ast_classes_{module_file}.json')
+

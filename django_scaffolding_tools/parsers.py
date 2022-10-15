@@ -1,9 +1,11 @@
 import ast
 import re
 from operator import itemgetter
+from pathlib import Path
 from typing import Dict, Any, List, Callable, Tuple
 
 import humps
+from ast2json import ast2json
 
 from django_scaffolding_tools.enums import NativeDataType, PatternType
 
@@ -132,41 +134,22 @@ def build_serializer_data(model_list: List[Dict[str, Any]],
     return model_list
 
 
-def file_class_list(filename):
-    classList = []
-    className = None
-    mehotdName = None
-    # fileName = "C:\Transcriber\Framework\ctetest\RegressionTest\GeneralTest\\" + file
-    fileObject = open(filename, "r")
-    text = fileObject.read()
-    p = ast.parse(text)
-    node = ast.NodeVisitor()
-    for node in ast.walk(p):
-        if isinstance(node, ast.FunctionDef) or isinstance(node, ast.ClassDef):
-            if isinstance(node, ast.ClassDef):
-                className = node.name
-            else:
-                methodName = node.name
-            if className != None and methodName != None:
-                subList = (methodName, className)
-                classList.append(subList)
-    return classList
+def parse_file_for_ast_classes(filename: Path) -> Dict[str, Any]:
+    with open(filename, 'r') as py_file:
+        content = py_file.read()
+        node = ast.parse(content)
+    node_dict = ast2json(node)
+    return node_dict
 
 
-def list_class(file):
-    """https://stackoverflow.com/questions/41115160/how-to-get-names-of-all-the-variables-defined-in-methods-of-a-class"""
+def parse_for_django_classes(module: Dict[str, Any]) -> Dict[str, any]:
+    module_content = dict()
+    django_classes = list()
+    module_content['classes'] = django_classes
 
-    with open(file, "r") as f:
-        p = ast.parse(f.read())
-
-    # get all classes from the given python file.
-    classes = [c for c in ast.walk(p) if isinstance(c, ast.ClassDef)]
-
-    out = dict()
-    for x in classes:
-        print(x._fields)
-        print(x.body[0]._fields)
-        print('-' * 50)
-        out[x.name] = [fun.name for fun in ast.walk(x) if isinstance(fun, ast.FunctionDef)]
-
-    return out
+    for content in module['body']:
+        if content.get('_type') == 'ClassDef':
+            model = dict()
+            model['name'] = content.get('name')
+            django_classes.append(model)
+    return module_content
