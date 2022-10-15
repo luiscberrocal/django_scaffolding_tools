@@ -1,0 +1,390 @@
+[
+    {
+        "name": "Address",
+        "level": 2,
+        "attributes": [
+            {
+                "name": "street",
+                "value": "123th street",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 12,
+                "serializer": "CharField(max_length=12)"
+            },
+            {
+                "name": "state",
+                "value": "FL",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 2,
+                "serializer": "CharField(max_length=2)"
+            },
+            {
+                "name": "zip_code",
+                "value": "99999999",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 8,
+                "serializer": "CharField(max_length=8)"
+            }
+        ]
+    },
+    {
+        "name": "Payer",
+        "level": 1,
+        "attributes": [
+            {
+                "name": "name",
+                "value": "Nino Deicas",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 11,
+                "serializer": "CharField(max_length=11)"
+            },
+            {
+                "name": "user_reference",
+                "value": "US-jmh3gb4kj5h34",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 16,
+                "serializer": "CharField(max_length=16)"
+            },
+            {
+                "name": "email",
+                "value": "buyer@gmail.com",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 15,
+                "pattern_type": "email_pattern",
+                "serializer": "EmailField()"
+            },
+            {
+                "name": "address",
+                "value": {
+                    "address": {
+                        "name": "Address",
+                        "level": 2,
+                        "attributes": [
+                            {
+                                "name": "street",
+                                "value": "123th street",
+                                "supported": true,
+                                "native": true,
+                                "type": "str",
+                                "length": 12,
+                                "serializer": "CharField(max_length=12)"
+                            },
+                            {
+                                "name": "state",
+                                "value": "FL",
+                                "supported": true,
+                                "native": true,
+                                "type": "str",
+                                "length": 2,
+                                "serializer": "CharField(max_length=2)"
+                            },
+                            {
+                                "name": "zip_code",
+                                "value": "99999999",
+                                "supported": true,
+                                "native": true,
+                                "type": "str",
+                                "length": 8,
+                                "serializer": "CharField(max_length=8)"
+                            }
+                        ]
+                    }
+                },
+                "supported": true,
+                "native": false,
+                "type": "Address",
+                "serializer": "AddressSerializer()"
+            }
+        ]
+    },
+    {
+        "name": "User",
+        "level": 1,
+        "attributes": [
+            {
+                "name": "id",
+                "value": 1,
+                "supported": true,
+                "native": true,
+                "type": "int",
+                "serializer": "IntegerField()"
+            },
+            {
+                "name": "username",
+                "value": "bwayne",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 6,
+                "serializer": "CharField(max_length=6)"
+            },
+            {
+                "name": "created",
+                "value": "2022-10-12 07:27:55.346531",
+                "supported": true,
+                "native": true,
+                "type": "datetime",
+                "serializer": "DatetimeField()"
+            }
+        ]
+    },
+    {
+        "name": "Model",
+        "level": 0,
+        "attributes": [
+            {
+                "name": "id",
+                "value": "D-4-be8eda8c-5fe7-49dd-8058-4ddaac00611b",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 40,
+                "serializer": "CharField(max_length=40)"
+            },
+            {
+                "name": "amount",
+                "value": 72.0,
+                "supported": true,
+                "native": true,
+                "type": "float",
+                "serializer": "FloatField()"
+            },
+            {
+                "name": "status",
+                "value": "PAID",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 4,
+                "serializer": "CharField(max_length=4)"
+            },
+            {
+                "name": "status_detail",
+                "value": "The payment was paid.",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 21,
+                "serializer": "CharField(max_length=21)"
+            },
+            {
+                "name": "status_code",
+                "value": "200",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 3,
+                "serializer": "CharField(max_length=3)"
+            },
+            {
+                "name": "currency",
+                "value": "USD",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 3,
+                "serializer": "CharField(max_length=3)"
+            },
+            {
+                "name": "country",
+                "value": "AR",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 2,
+                "serializer": "CharField(max_length=2)"
+            },
+            {
+                "name": "payment_method_id",
+                "value": "RP",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 2,
+                "serializer": "CharField(max_length=2)"
+            },
+            {
+                "name": "payment_method_type",
+                "value": "TICKET",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 6,
+                "serializer": "CharField(max_length=6)"
+            },
+            {
+                "name": "payment_method_flow",
+                "value": "REDIRECT",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 8,
+                "serializer": "CharField(max_length=8)"
+            },
+            {
+                "name": "payer",
+                "value": {
+                    "payer": {
+                        "name": "Payer",
+                        "level": 1,
+                        "attributes": [
+                            {
+                                "name": "name",
+                                "value": "Nino Deicas",
+                                "supported": true,
+                                "native": true,
+                                "type": "str",
+                                "length": 11,
+                                "serializer": "CharField(max_length=11)"
+                            },
+                            {
+                                "name": "user_reference",
+                                "value": "US-jmh3gb4kj5h34",
+                                "supported": true,
+                                "native": true,
+                                "type": "str",
+                                "length": 16,
+                                "serializer": "CharField(max_length=16)"
+                            },
+                            {
+                                "name": "email",
+                                "value": "buyer@gmail.com",
+                                "supported": true,
+                                "native": true,
+                                "type": "str",
+                                "length": 15,
+                                "pattern_type": "email_pattern",
+                                "serializer": "EmailField()"
+                            },
+                            {
+                                "name": "address",
+                                "value": {
+                                    "address": {
+                                        "name": "Address",
+                                        "level": 2,
+                                        "attributes": [
+                                            {
+                                                "name": "street",
+                                                "value": "123th street",
+                                                "supported": true,
+                                                "native": true,
+                                                "type": "str",
+                                                "length": 12,
+                                                "serializer": "CharField(max_length=12)"
+                                            },
+                                            {
+                                                "name": "state",
+                                                "value": "FL",
+                                                "supported": true,
+                                                "native": true,
+                                                "type": "str",
+                                                "length": 2,
+                                                "serializer": "CharField(max_length=2)"
+                                            },
+                                            {
+                                                "name": "zip_code",
+                                                "value": "99999999",
+                                                "supported": true,
+                                                "native": true,
+                                                "type": "str",
+                                                "length": 8,
+                                                "serializer": "CharField(max_length=8)"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "supported": true,
+                                "native": false,
+                                "type": "Address",
+                                "serializer": "AddressSerializer()"
+                            }
+                        ]
+                    }
+                },
+                "supported": true,
+                "native": false,
+                "type": "Payer",
+                "serializer": "PayerSerializer()"
+            },
+            {
+                "name": "order_id",
+                "value": "4m1OdghPUQtg",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 12,
+                "serializer": "CharField(max_length=12)"
+            },
+            {
+                "name": "notification_url",
+                "value": "http://www.merchant.com/notifications",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 37,
+                "pattern_type": "url_pattern",
+                "serializer": "UrlField()"
+            },
+            {
+                "name": "created_date",
+                "value": "2019-06-26T15:17:31.000+0000",
+                "supported": true,
+                "native": true,
+                "type": "str",
+                "length": 28,
+                "serializer": "CharField(max_length=28)"
+            },
+            {
+                "name": "user",
+                "value": {
+                    "user": {
+                        "name": "User",
+                        "level": 1,
+                        "attributes": [
+                            {
+                                "name": "id",
+                                "value": 1,
+                                "supported": true,
+                                "native": true,
+                                "type": "int",
+                                "serializer": "IntegerField()"
+                            },
+                            {
+                                "name": "username",
+                                "value": "bwayne",
+                                "supported": true,
+                                "native": true,
+                                "type": "str",
+                                "length": 6,
+                                "serializer": "CharField(max_length=6)"
+                            },
+                            {
+                                "name": "created",
+                                "value": "2022-10-12 07:27:55.346531",
+                                "supported": true,
+                                "native": true,
+                                "type": "datetime",
+                                "serializer": "DatetimeField()"
+                            }
+                        ]
+                    }
+                },
+                "supported": true,
+                "native": false,
+                "type": "User",
+                "serializer": "UserSerializer()"
+            }
+        ]
+    }
+]

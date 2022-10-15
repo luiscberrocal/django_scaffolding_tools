@@ -26,7 +26,7 @@ def write_serializer_from_file(source_file: Path, output_file: Path):
     with open(source_file, 'r') as json_file:
         data = json.load(json_file)
 
-    writer = ReportWriter('.')
+    writer = ReportWriter('./')
     parsed_dict = parse_dict(data)
 
     model_list = transform_dict_to_model_list(parsed_dict)

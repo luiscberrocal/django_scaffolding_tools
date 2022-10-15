@@ -90,4 +90,3 @@ def test_class_list(output_folder):
 
     django_classes = parse_for_django_classes(ast_module)
     quick_write(django_classes, f'ast_classes_{module_file}.json')
-
