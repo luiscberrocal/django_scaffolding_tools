@@ -151,5 +151,21 @@ def parse_for_django_classes(module: Dict[str, Any]) -> Dict[str, any]:
         if content.get('_type') == 'ClassDef':
             model = dict()
             model['name'] = content.get('name')
+            model['attributes'] = list()
+            for class_content in content['body']:
+                if class_content.get('_type') == 'Assign':
+                    variable = dict()
+                    variable['name'] = class_content['targets'][0]['id']
+                    try:
+
+                        func_ = class_content['value']['func']
+                        data_type = func_.get('attr')
+                        if data_type is None:
+                            data_type = func_.get('id')
+                        variable['type'] = data_type
+
+                    except KeyError:
+                        print(f'With variable {variable["name"]}')
+                    model['attributes'].append(variable)
             django_classes.append(model)
     return module_content
