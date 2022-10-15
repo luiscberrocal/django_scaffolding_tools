@@ -37,7 +37,7 @@ def test_command_line_interface():
 
 def test_cmd_json_to_ser():
     runner = CliRunner()
-    help_result = runner.invoke(cli.main, ['J2SER', '--source-file', './fixtures/json_sample.json'])
+    help_result = runner.invoke(cli.main, ['J2SER', '--source-file', './fixtures/json_data.json'])
 
     # assert help_result.exit_code == 0
     print(help_result.output)

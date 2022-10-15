@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List
 
-import jinja2
+from jinja2 import PackageLoader, Environment
 
 from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, post_process_attributes, \
     build_serializer_data
@@ -12,8 +12,9 @@ from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
 class ReportWriter:
 
     def __init__(self, template_path: Path, ):
-        template_loader = jinja2.FileSystemLoader(searchpath=template_path)
-        self.template_env = jinja2.Environment(loader=template_loader)
+        self.template_env = Environment(loader=PackageLoader('django_scaffolding_tools', '.'))
+        # template_loader = jinja2.FileSystemLoader(searchpath=template_path)
+        # self.template_env = jinja2.Environment(loader=template_loader)
 
     def write(self, template_name: str, output_file: Path, **params):
         template = self.template_env.get_template(template_name)
