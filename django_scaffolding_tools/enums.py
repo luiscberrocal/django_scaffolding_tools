@@ -28,3 +28,8 @@ class ASTDataType(str, Enum):
     NAME = 'Name'
     CONSTANT = 'Constant'
     ATTRIBUTE = 'Attribute'
+
+
+class CommandType(str, Enum):
+    JSON_TO_SERIALIZER = 'J2SER'
+    JSON_TO_DJANGO_MODEL = 'J2DMOD'

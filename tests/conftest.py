@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import pytest
@@ -17,3 +18,10 @@ def camel_case_dict():
         "IMEI": "HJ8777"
     }
     return data
+
+
+@pytest.fixture(scope='session')
+def model_list_for_serializers():
+    with open('./fixtures/model_list.json', 'r') as json_file:
+        model_list = json.load(json_file)
+    return model_list
