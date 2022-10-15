@@ -156,16 +156,23 @@ def parse_for_django_classes(module: Dict[str, Any]) -> Dict[str, any]:
                 if class_content.get('_type') == 'Assign':
                     variable = dict()
                     variable['name'] = class_content['targets'][0]['id']
+                    variable['keywords'] = list()
                     try:
-
                         func_ = class_content['value']['func']
                         data_type = func_.get('attr')
                         if data_type is None:
                             data_type = func_.get('id')
                         variable['type'] = data_type
-
                     except KeyError:
                         print(f'With variable {variable["name"]}')
+                    try:
+                        for keyword in class_content['value']['keywords']:
+                            keyword_data = dict()
+                            keyword_data['name'] = keyword['arg']
+                            keyword_data['value'] = keyword['value']['value']
+                            variable['keywords'].append(keyword_data)
+                    except KeyError:
+                        print(f'Error with variable {model["name"]}.{variable["name"]}')
                     model['attributes'].append(variable)
             django_classes.append(model)
     return module_content
