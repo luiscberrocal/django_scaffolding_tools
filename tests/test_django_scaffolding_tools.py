@@ -3,10 +3,8 @@
 """Tests for `django_scaffolding_tools` package."""
 
 import pytest
-
 from click.testing import CliRunner
 
-from django_scaffolding_tools import django_scaffolding_tools
 from django_scaffolding_tools import cli
 
 
@@ -35,3 +33,11 @@ def test_command_line_interface():
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert '--help  Show this message and exit.' in help_result.output
+
+
+def test_cmd_json_to_ser():
+    runner = CliRunner()
+    help_result = runner.invoke(cli.main, ['J2SER', '--source-file', './fixtures/json_sample.json'])
+
+    # assert help_result.exit_code == 0
+    print(help_result.output)
