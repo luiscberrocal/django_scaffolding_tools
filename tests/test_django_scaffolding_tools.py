@@ -18,11 +18,6 @@ def response():
     # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
 
 
-def test_content(response):
-    """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
-
 
 def test_command_line_interface():
     """Test the CLI."""
@@ -35,9 +30,14 @@ def test_command_line_interface():
     assert '--help  Show this message and exit.' in help_result.output
 
 
-def test_cmd_json_to_ser():
+def test_cmd_json_to_ser(output_folder):
+    out_file = output_folder / '__serializers.py'
+    out_file.unlink(missing_ok=True)
+
     runner = CliRunner()
-    help_result = runner.invoke(cli.main, ['J2SER', '--source-file', './fixtures/json_data.json'])
+    help_result = runner.invoke(cli.main, ['J2SER', '--source-file', './fixtures/json_data.json', '--output-folder',
+                                           output_folder])
 
     assert help_result.exit_code == 0
     print(help_result.output)
+    assert out_file.exists()
