@@ -18,6 +18,7 @@ def main(command, source_file, output_folder):
     click.echo(f"See click documentation {os.getcwd()}")
     if command == CommandType.JSON_TO_SERIALIZER:
         source_file_path = Path(source_file)
+        output_folder = Path(output_folder)
         if output_folder.exists():
             target_file = output_folder / '__serializers.py'
             click.echo(f'JSON to serializer from {source_file_path} to {target_file}')
