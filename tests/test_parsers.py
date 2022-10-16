@@ -1,7 +1,7 @@
 import json
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, Union, List
 
 from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, post_process_attributes, \
     build_serializer_data, parse_file_for_ast_classes, parse_for_django_classes
@@ -9,7 +9,7 @@ from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
 from django_scaffolding_tools.writers import ReportWriter
 
 
-def quick_write(data: Dict[str, Any], file: str, over_write: bool = True):
+def quick_write(data: Union[Dict[str, Any], List[Dict[str, Any]]], file: str, over_write: bool = True):
     def quick_serialize(value):
         return f'{value}'
 
@@ -61,7 +61,7 @@ def test_simple_parsing(output_folder):
 
     quick_write(model_list, 'model_list.json')
 
-    writer = ReportWriter('../django_scaffolding_tools')
+    writer = ReportWriter()
     output_file = output_folder / 'serializers.py'
     writer.write('serializers.py.j2', output_file, model_list=model_list)
     assert output_file.exists()
@@ -77,14 +77,14 @@ def test_simple_parsing_camel_case(output_folder, camel_case_dict):
 
     quick_write(model_list, 'model_list_camel_case.json')
 
-    writer = ReportWriter('../django_scaffolding_tools')
+    writer = ReportWriter()
     output_file = output_folder / 'serializers_camel_case.py'
     writer.write('serializers.py.j2', output_file, model_list=model_list)
 
 
-def test_class_list(output_folder):
+def test_class_list(fixtures_folder, output_folder):
     module_file = 'models.py'
-    filename = output_folder / module_file
+    filename = fixtures_folder / module_file
 
     ast_module = parse_file_for_ast_classes(filename)
     quick_write(ast_module, f'ast_{module_file}.json')
