@@ -40,6 +40,7 @@ def parse_var_name(var_name: str) -> Tuple[str, bool]:
 
 
 def parse_dict(data: Dict[str, Any], model_name: str = 'Model', level: int = 0) -> Dict[str, Any]:
+    """Parses a dictionary containing data to create a basic Model dictionary"""
     parsed_dict: dict[str, dict[Any, Any] | list[Any]] = dict()
     key_name = to_snake_case(model_name)
     parsed_dict[key_name] = dict()
