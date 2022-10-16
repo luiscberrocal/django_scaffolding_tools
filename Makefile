@@ -48,7 +48,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 clean-output:
-	rm output/*.*
+	rm -rf output/*.*
 
 lint/flake8: ## check style with flake8
 	flake8 django_scaffolding_tools tests

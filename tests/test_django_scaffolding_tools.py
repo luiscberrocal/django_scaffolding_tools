@@ -35,9 +35,11 @@ def test_command_line_interface():
     assert '--help  Show this message and exit.' in help_result.output
 
 
-def test_cmd_json_to_ser():
-    runner = CliRunner()
-    help_result = runner.invoke(cli.main, ['J2SER', '--source-file', './fixtures/json_data.json'])
 
-    assert help_result.exit_code == 0
+def test_cmd_json_to_ser(output_folder):
+    runner = CliRunner()
+    help_result = runner.invoke(cli.main, ['J2SER', '--source-file', './fixtures/json_data.json', '--output-folder',
+                                           output_folder])
+
+    # assert help_result.exit_code == 0
     print(help_result.output)

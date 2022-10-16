@@ -55,28 +55,28 @@ def parse_dict(data: Dict[str, Any], model_name: str = 'Model', level: int = 0) 
             item_data['alias'] = key
         data_type = item.__class__.__name__
         if data_type in NativeDataType.to_list():
-            item_data['type'] = data_type
+            item_data['data_type'] = data_type
             item_data['supported'] = True
             if data_type == NativeDataType.STRING.value:
                 item_data['length'] = len(item)
         elif isinstance(item, dict):
             pascalized_model_name = humps.pascalize(key)
-            item_data['type'] = pascalized_model_name
+            item_data['data_type'] = pascalized_model_name
             item_data['value'] = parse_dict(item, model_name=pascalized_model_name, level=level + 1)
             item_data['supported'] = True
             item_data['native'] = False
         else:
-            item_data['type'] = data_type
+            item_data['data_type'] = data_type
 
         parsed_dict[key_name]['attributes'].append(item_data)
     return parsed_dict
 
 
-def post_process_attributes(model_list: List[Dict[str, Any]],
-                            pattern_functions: List[Callable[[str], PatternType]]) -> List[Dict[str, Any]]:
+def parse_for_patterns(model_list: List[Dict[str, Any]],
+                       pattern_functions: List[Callable[[str], PatternType]]) -> List[Dict[str, Any]]:
     for model in model_list:
         for attribute in model['attributes']:
-            if attribute['type'] == NativeDataType.STRING:
+            if attribute['data_type'] == NativeDataType.STRING:
                 for pattern_function in pattern_functions:
                     pattern = pattern_function(attribute['value'])
                     if pattern is not None:
@@ -102,7 +102,7 @@ def build_serializer_data(model_list: List[Dict[str, Any]],
                           serializer_fields: Dict[str, Any] = SERIALIZER_FIELDS) -> List[Dict[str, Any]]:
     for model in model_list:
         for attribute in model['attributes']:
-            data_type = attribute['type']
+            data_type = attribute['data_type']
             source_data = ''
             if data_type == NativeDataType.STRING:
                 pattern_type = attribute.get('pattern_type')
@@ -128,7 +128,7 @@ def build_serializer_data(model_list: List[Dict[str, Any]],
                 if attribute.get('alias'):
                     source_data = f'source=\'{attribute["alias"]}\''
                 if serializer_field is None:
-                    attribute['serializer'] = f'{attribute["type"]}Serializer({source_data})'
+                    attribute['serializer'] = f'{attribute["data_type"]}Serializer({source_data})'
                 else:
                     attribute['serializer'] = f'{serializer_field["field"]}({source_data})'
 
@@ -163,7 +163,7 @@ def parse_for_django_classes(module: Dict[str, Any]) -> Dict[str, any]:
                         data_type = func_.get('attr')
                         if data_type is None:
                             data_type = func_.get('id')
-                        variable['type'] = data_type
+                        variable['data_type'] = data_type
                     except KeyError:
                         print(f'With variable {variable["name"]}')
                     try:
