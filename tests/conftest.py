@@ -11,6 +11,12 @@ def output_folder():
 
 
 @pytest.fixture(scope='session')
+def fixtures_folder():
+    folder = Path(__file__).parent.parent / 'tests' / 'fixtures'
+    return folder
+
+
+@pytest.fixture(scope='session')
 def camel_case_dict():
     data = {
         "firstName": "Luis",
