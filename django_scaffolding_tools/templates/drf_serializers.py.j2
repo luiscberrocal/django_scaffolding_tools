@@ -1,0 +1,7 @@
+{% for import in template_data.imports %}{{ import }}
+{% endfor %}
+
+{% for serializer_class in template_data.classes %}class {{ serializer_class.name }}
+    {% for attribute in serializer_class.attributes %}{{ attribute.name }} = {{ attribute.field }}
+    {% endfor %}
+{% endfor %}
