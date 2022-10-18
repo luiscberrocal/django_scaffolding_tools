@@ -98,39 +98,41 @@ SERIALIZER_FIELDS = {
 }
 
 
+def build_serializer_info(field_type: str, keywords: List[Dict[str, Any]]):
+    field_data = {'field_type': field_type, 'keywords': keywords}
+    return field_data
+
+
 def build_serializer_data(model_list: List[Dict[str, Any]],
                           serializer_fields: Dict[str, Any] = SERIALIZER_FIELDS) -> List[Dict[str, Any]]:
     for model in model_list:
         for attribute in model['attributes']:
             data_type = attribute['data_type']
             source_data = ''
+            keywords = list()
             if data_type == NativeDataType.STRING:
                 pattern_type = attribute.get('pattern_type')
+                keywords.append({'name': 'max_length', 'value': attribute['length']})
                 if pattern_type is None:
                     serializer_field = serializer_fields.get(data_type)
                     if serializer_field is not None:
                         if attribute.get('alias'):
-                            source_data = f'source=\'{attribute["alias"]}\''
-                            attribute['serializer'] = f'{serializer_field["field"]}(max_length=' \
-                                                      f'{attribute["length"]}, {source_data})'
-                        else:
-                            attribute['serializer'] = f'{serializer_field["field"]}(max_length=' \
-                                                      f'{attribute["length"]})'
-
+                            keywords.append({'name': 'source', 'value': attribute['alias']})
+                    attribute['serializer'] = {'field_type': serializer_field['field'], 'keywords': keywords}
                 else:
                     serializer_field = serializer_fields.get(pattern_type)
                     if attribute.get('alias'):
-                        source_data = f'source=\'{attribute["alias"]}\''
-                    if serializer_field is not None:
-                        attribute['serializer'] = f'{serializer_field["field"]}({source_data})'
+                        keywords.append({'name': 'source', 'value': attribute['alias']})
+                    attribute['serializer'] = {'field_type': serializer_field['field'], 'keywords': keywords}
             else:
                 serializer_field = serializer_fields.get(data_type)
                 if attribute.get('alias'):
-                    source_data = f'source=\'{attribute["alias"]}\''
+                    keywords.append({'name': 'source', 'value': attribute['alias']})
                 if serializer_field is None:
-                    attribute['serializer'] = f'{attribute["data_type"]}Serializer({source_data})'
+                    attribute['serializer'] = {'field_type': f'{attribute["data_type"]}Serializer',
+                                               'keywords': keywords}
                 else:
-                    attribute['serializer'] = f'{serializer_field["field"]}({source_data})'
+                    attribute['serializer'] = {'field_type': serializer_field['field'], 'keywords': keywords}
 
     return model_list
 
