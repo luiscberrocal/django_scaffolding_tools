@@ -63,9 +63,10 @@ def test_simple_parsing(output_folder):
     quick_write(model_list, 'model_list.json')
     template_model_list = build_serializer_template_data(model_list)
     quick_write(template_model_list, 'template_model_list.json')
+
     writer = ReportWriter()
     output_file = output_folder / 'serializers.py'
-    writer.write('serializers.py.j2', output_file, model_list=model_list)
+    writer.write('drf_serializers.py.j2', output_file, template_data=template_model_list)
     assert output_file.exists()
 
 
@@ -79,9 +80,12 @@ def test_simple_parsing_camel_case(output_folder, camel_case_dict):
 
     quick_write(model_list, 'model_list_camel_case.json')
 
+    template_model_list = build_serializer_template_data(model_list)
+    quick_write(template_model_list, 'template_camel_case_model_list.json')
+
     writer = ReportWriter()
     output_file = output_folder / 'serializers_camel_case.py'
-    writer.write('serializers.py.j2', output_file, model_list=model_list)
+    writer.write('drf_serializers.py.j2', output_file, template_data=template_model_list)
     assert output_file.exists()
 
 
