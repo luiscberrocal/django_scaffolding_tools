@@ -3,9 +3,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, Union, List
 
-from django_scaffolding_tools.builders import build_serializer_template_data
+from django_scaffolding_tools.builders import build_serializer_template_data, build_serializer_data
 from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, parse_for_patterns, \
-    build_serializer_data, parse_file_for_ast_classes, parse_for_django_classes
+    parse_file_for_ast_classes, parse_for_django_classes
 from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
 from django_scaffolding_tools.writers import ReportWriter
 
@@ -53,9 +53,10 @@ def test_simple_parsing(output_folder):
             "created": datetime.now()
         }
     }
+    # 1. Parse raw dictionary
     parsed_dict = parse_dict(data)
     quick_write(parsed_dict, 'parsed.json')
-
+    # 2. Transform dictionary to a list of models
     model_list = transform_dict_to_model_list(parsed_dict)
     model_list = parse_for_patterns(model_list, PATTERN_FUNCTIONS)
     model_list = build_serializer_data(model_list)
