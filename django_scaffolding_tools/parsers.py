@@ -28,6 +28,7 @@ def transform_dict_to_model_list(data: Dict[str, Any]) -> List[Dict[str, Any]]:
 
 
 def parse_var_name(var_name: str) -> Tuple[str, bool]:
+    """Transforms a variable to snake case from pascal and camel case."""
     if humps.is_snakecase(var_name):
         new_var_name = var_name
     elif humps.is_camelcase(var_name):
