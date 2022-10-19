@@ -3,8 +3,8 @@ from pathlib import Path
 
 from jinja2 import PackageLoader, Environment
 
-from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, parse_for_patterns, \
-    build_serializer_data
+from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, parse_for_patterns
+from django_scaffolding_tools.builders import build_serializer_data
 from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
 
 
