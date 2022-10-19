@@ -3,9 +3,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, Union, List
 
+import pytest
+
 from django_scaffolding_tools.builders import build_serializer_template_data, build_serializer_data
 from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, parse_for_patterns, \
-    parse_file_for_ast_classes, parse_for_django_classes
+    parse_file_for_ast_classes, parse_for_django_classes, parse_var_name
 from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
 from django_scaffolding_tools.writers import ReportWriter
 
@@ -99,3 +101,32 @@ def test_class_list(fixtures_folder, output_folder):
 
     django_classes = parse_for_django_classes(ast_module)
     quick_write(django_classes, f'ast_classes_{module_file}.json')
+
+
+class TestParseVarName:
+
+    def test_parse_camel_case(self):
+        varname = 'mySpecialVariable'
+        snake_case_varname, was_changed = parse_var_name(varname)
+        assert snake_case_varname == 'my_special_variable'
+        assert was_changed
+
+    def test_parse_pascal_case(self):
+        varname = 'PaymentSerializer'
+        snake_case_varname, was_changed = parse_var_name(varname)
+        assert snake_case_varname == 'payment_serializer'
+        assert was_changed
+
+    def test_parse_snake_case(self):
+        varname = 'flow_id'
+        snake_case_varname, was_changed = parse_var_name(varname)
+        assert snake_case_varname == 'flow_id'
+        assert not was_changed
+
+    @pytest.mark.parametrize('varname, expected',
+                             [('IMEIValue', 'imei_value'),
+                              ('DGINumberId', 'dgi_number_id')])
+    def test_parse_with_acronym(self, varname, expected):
+        snake_case_varname, was_changed = parse_var_name(varname)
+        assert snake_case_varname == expected
+        assert was_changed
