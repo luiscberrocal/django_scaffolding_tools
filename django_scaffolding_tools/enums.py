@@ -28,6 +28,7 @@ class ASTDataType(str, Enum):
     NAME = 'Name'
     CONSTANT = 'Constant'
     ATTRIBUTE = 'Attribute'
+    CALL = 'Call'
 
 
 class CommandType(str, Enum):

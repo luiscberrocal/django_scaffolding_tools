@@ -3,6 +3,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, Union, List
 
+import humps
 import pytest
 
 from django_scaffolding_tools.builders import build_serializer_template_data, build_serializer_data
@@ -93,7 +94,7 @@ def test_simple_parsing_camel_case(output_folder, camel_case_dict):
 
 
 def test_class_list(fixtures_folder, output_folder):
-    module_file = 'models.py'
+    module_file = 'models_with_helptext.py'
     filename = fixtures_folder / module_file
 
     ast_module = parse_file_for_ast_classes(filename)
@@ -130,3 +131,25 @@ class TestParseVarName:
         snake_case_varname, was_changed = parse_var_name(varname)
         assert snake_case_varname == expected
         assert was_changed
+
+
+def test_to_camel_case():
+    data = {
+        "amount": 100,
+        "payer": {
+            "name": "Nichole Stevens",
+            "email": "ljones@example.org",
+            "document": "07323861808"
+        },
+        "credit_line_id": "44",
+        "finance_engine_version": "FEv1",
+        "country": "EC",
+        "currency": "USD",
+        "payment_provider": "D_LOCAL",
+        "device_id": "1941459",
+        "user_id": "2866726",
+        "merchant_id": "something",
+        "clerk_id": "something"
+    }
+    dict_camelized = humps.camelize(data)
+    quick_write(dict_camelized, 'camelized_dict.json')

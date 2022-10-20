@@ -143,6 +143,11 @@ def parse_for_django_classes(module: Dict[str, Any]) -> Dict[str, any]:
                                 keyword_value = keyword['value'].get('id')
                             elif value_type == ASTDataType.ATTRIBUTE:
                                 keyword_value = keyword['value'].get('attr')
+                            elif value_type == ASTDataType.CALL and keyword_data['name'] == 'help_text':
+                                if len(keyword['value'].get('args')) > 0:
+                                    call_args_type = keyword['value']['args'][0]['_type']
+                                    if call_args_type == ASTDataType.CONSTANT:
+                                        keyword_value = keyword['value']['args'][0].get('value')
 
                             keyword_data['value'] = keyword_value
                             variable['keywords'].append(keyword_data)
