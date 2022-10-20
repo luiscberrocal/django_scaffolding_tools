@@ -1,5 +1,7 @@
+import csv
 import json
 from pathlib import Path
+from typing import Any, Dict, List, Union
 
 from jinja2 import PackageLoader, Environment
 
@@ -32,3 +34,25 @@ def write_serializer_from_file(source_file: Path, output_file: Path):
     model_list = build_serializer_data(model_list)
 
     writer.write('serializers.py.j2', output_file, model_list=model_list)
+
+
+def get_keyword(att_keywords: List[Dict[str, Any]], keyword_name: str) -> Union[str, int]:
+    for att_keyword in att_keywords:
+        if att_keyword['name'] == keyword_name:
+            return att_keyword['value']
+
+
+def write_django_model_csv(models_list: List[Dict[str, Any]], filename: Path):
+    with open(filename, 'w') as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow(['Class name', 'Attribute', 'Field type', 'Max length', 'Description'])
+        for model in models_list:
+            class_name = model['name']
+            for att in model['attributes']:
+                att_name = att['name']
+                att_field_type = att['data_type']
+                max_length = get_keyword(att['keywords'], 'max_length')
+                description = get_keyword(att['keywords'], 'help_text')
+                if description is not None:
+                    description = description.replace(',', ' ')
+                writer.writerow([class_name, att_name, att_field_type, max_length, description])
