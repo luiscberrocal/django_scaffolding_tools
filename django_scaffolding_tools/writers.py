@@ -5,8 +5,8 @@ from typing import Any, Dict, List, Union
 
 from jinja2 import PackageLoader, Environment
 
-from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, parse_for_patterns
 from django_scaffolding_tools.builders import build_serializer_data
+from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, parse_for_patterns
 from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
 
 
@@ -38,8 +38,12 @@ def write_serializer_from_file(source_file: Path, output_file: Path):
 
 def get_keyword(att_keywords: List[Dict[str, Any]], keyword_name: str) -> Union[str, int]:
     for att_keyword in att_keywords:
-        if att_keyword['name'] == keyword_name:
-            return att_keyword['value']
+        try:
+            if att_keyword['name'] == keyword_name:
+                return att_keyword['value']
+        except TypeError as e:
+            error_message = f'{e}'
+            raise e
 
 
 def write_django_model_csv(models_list: List[Dict[str, Any]], filename: Path):
@@ -56,6 +60,35 @@ def write_django_model_csv(models_list: List[Dict[str, Any]], filename: Path):
                 if description is not None:
                     description = description.replace(',', ' ')
                 writer.writerow([class_name, att_name, att_field_type, max_length, description])
+
+
+def write_django_model_excel(models_list: List[Dict[str, Any]], filename: Path):
+    headers = {
+        'class_name': {'title': 'Class name'},
+        'attribute': {'title': 'Attribute name'},
+        'field_type': {'title': 'Field type'},
+        'max_value': {'title': 'Max value'},
+        'description': {'title': 'Description'}
+    }
+    excel_data = list()
+    for model in models_list:
+        for att in model['attributes']:
+            excel_dict = {'class_name': model['name'], 'attribute': att['name'],
+                          'field_type': att['data_type']}
+            max_value = get_keyword(att['keywords'], 'max_length')
+            if max_value is not None:
+                max_value = f'max length={max_value}'
+            else:
+                max_digits = get_keyword(att['keywords'], 'max_digits')
+                decimal_places = get_keyword(att['keywords'], 'decimal_places')
+                if max_digits is not None:
+                    max_value = f'digits={max_digits}, decimal places={decimal_places}'
+            excel_dict['max_value'] = max_value
+            excel_dict['description'] = get_keyword(att['keywords'], 'help_text')
+            excel_data.append(excel_dict)
+    from tests.test_parsers import quick_write
+    quick_write(excel_data, filename.parent / '__excel.json')
+    simple_write_to_excel(filename, headers, excel_data)
 
 
 def simple_write_to_excel(filename: Path, headers: Dict[str, Any], lines: List[Dict[str, Any]]):
