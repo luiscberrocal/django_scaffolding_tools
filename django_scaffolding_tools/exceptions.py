@@ -1,0 +1,3 @@
+
+class DSTException(Exception):
+    pass

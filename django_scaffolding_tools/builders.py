@@ -40,7 +40,6 @@ def build_serializer_data(model_list: List[Dict[str, Any]],
     for model in model_list:
         for attribute in model['attributes']:
             data_type = attribute['data_type']
-            source_data = ''
             keywords = list()
             if data_type == NativeDataType.STRING:
                 pattern_type = attribute.get('pattern_type')

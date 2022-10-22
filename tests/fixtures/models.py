@@ -124,7 +124,8 @@ class ClinicMember(Human):
 
 class UniversalBillingCode(TimeStampedModel):
     """
-    Universal code for billing and insurance purposes. Billing codes will have a source CPT (https://coder.aapc.com/cpt-codes/)
+    Universal code for billing and insurance purposes. Billing codes will have a source CPT
+    (https://coder.aapc.com/cpt-codes/)
     or Local which in the begining will only include Other.
     """
     CPT_SOURCE = 'CPT'
