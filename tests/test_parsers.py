@@ -104,6 +104,14 @@ def test_class_list(fixtures_folder, output_folder):
     quick_write(django_classes, f'ast_classes_{module_file}.json')
 
 
+def test_parsefile_for_ast_classes(fixtures_folder, output_folder):
+    module_file = 'pydantic_models.py'
+    filename = fixtures_folder / module_file
+
+    ast_module = parse_file_for_ast_classes(filename)
+    quick_write(ast_module, f'{module_file}.json')
+
+
 class TestParseVarName:
 
     def test_parse_camel_case(self):
@@ -137,19 +145,15 @@ def test_to_camel_case():
     data = {
         "amount": 100,
         "payer": {
-            "name": "Nichole Stevens",
+            "fullName": "Nichole Stevens",
             "email": "ljones@example.org",
             "document": "07323861808"
         },
-        "credit_line_id": "44",
-        "finance_engine_version": "FEv1",
-        "country": "EC",
-        "currency": "USD",
-        "payment_provider": "D_LOCAL",
-        "device_id": "1941459",
-        "user_id": "2866726",
         "merchant_id": "something",
-        "clerk_id": "something"
+        "phone_number": "56985845"
     }
     dict_camelized = humps.camelize(data)
-    quick_write(dict_camelized, 'camelized_dict.json')
+    # quick_write(dict_camelized, 'camelized_dict.json')
+    assert dict_camelized['merchantId'] == data['merchant_id']
+    assert dict_camelized['phoneNumber'] == data['phone_number']
+    assert dict_camelized['payer']['fullName'] == data['payer']['fullName']
