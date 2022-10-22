@@ -18,7 +18,6 @@ def response():
     # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
 
 
-
 def test_command_line_interface():
     """Test the CLI."""
     runner = CliRunner()

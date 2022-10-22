@@ -6,6 +6,7 @@ from typing import Any, Dict, List, Union
 from jinja2 import PackageLoader, Environment
 
 from django_scaffolding_tools.builders import build_serializer_data
+from django_scaffolding_tools.exceptions import DSTException
 from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, parse_for_patterns
 from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
 
@@ -42,8 +43,8 @@ def get_keyword(att_keywords: List[Dict[str, Any]], keyword_name: str) -> Union[
             if att_keyword['name'] == keyword_name:
                 return att_keyword['value']
         except TypeError as e:
-            error_message = f'{e}'
-            raise e
+            error_message = f'Error getting keyword {keyword_name}. Error: {e}'
+            raise DSTException(error_message)
 
 
 def write_django_model_csv(models_list: List[Dict[str, Any]], filename: Path):

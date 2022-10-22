@@ -13,7 +13,8 @@ def get_pattern_type(value: str, patterns: List[Pattern], expected_pattern: Patt
 
 EMAIL_PATTERNS = [
     re.compile(
-        r'^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$')
+        r'^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))'
+        r'([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$')
 ]
 URL_PATTERNS = [
     re.compile(

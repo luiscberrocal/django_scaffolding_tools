@@ -1,8 +1,8 @@
 from pathlib import Path
 
 from django_scaffolding_tools.parsers import parse_file_for_ast_classes, parse_for_django_classes
-from django_scaffolding_tools.writers import write_serializer_from_file, write_django_model_csv, simple_write_to_excel, \
-    write_django_model_excel
+from django_scaffolding_tools.writers import write_serializer_from_file, write_django_model_csv, \
+    simple_write_to_excel, write_django_model_excel
 
 
 def test_write_serializers(output_folder):
@@ -45,4 +45,3 @@ def test_write_django_model_excel(output_folder, fixtures_folder):
     ast_module = parse_file_for_ast_classes(filename)
     django_classes = parse_for_django_classes(ast_module)
     write_django_model_excel(django_classes['classes'], xlsx_filename)
-
