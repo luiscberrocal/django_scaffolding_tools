@@ -40,7 +40,8 @@ def parse_var_name(var_name: str) -> Tuple[str, bool]:
     return new_var_name, new_var_name != var_name
 
 
-def parse_dict(data: Dict[str, Any], model_name: str = 'Model', level: int = 0) -> Dict[str, Any]:
+def parse_dict(data: Dict[str, Any], model_name: str = 'Model', level: int = 0,
+               value_item_level: int = 0) -> Dict[str, Any]:
     """Parses a dictionary containing data to create a basic Model dictionary"""
     parsed_dict: dict[str, dict[Any, Any] | list[Any]] = dict()
     key_name = to_snake_case(model_name)
@@ -67,10 +68,12 @@ def parse_dict(data: Dict[str, Any], model_name: str = 'Model', level: int = 0) 
             item_data['supported'] = True
             item_data['native'] = False
         elif isinstance(item, list):
+            value_item_level += 1
             for value_item in item:
-                model_name = f'ValueItem{level}'
+                model_name = f'ValueItem{value_item_level}'
                 item_data['data_type'] = model_name
-                item_data['value'] = parse_dict(value_item, model_name=model_name, level=level + 1)
+                item_data['value'] = parse_dict(value_item, model_name=model_name, level=level + 1,
+                                                value_item_level= value_item_level + 1)
                 item_data['supported'] = True
                 item_data['native'] = False
                 item_data['many'] = True
