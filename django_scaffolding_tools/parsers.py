@@ -51,7 +51,7 @@ def parse_dict(data: Dict[str, Any], model_name: str = 'Model', level: int = 0) 
     for key, item in data.items():
         variable_name, add_alias = parse_var_name(key)
 
-        item_data = {'name': variable_name, 'value': item, 'supported': False, 'native': True}
+        item_data = {'name': variable_name, 'value': item, 'supported': False, 'native': True, 'many': False}
         if add_alias:
             item_data['alias'] = key
         data_type = item.__class__.__name__
@@ -66,6 +66,14 @@ def parse_dict(data: Dict[str, Any], model_name: str = 'Model', level: int = 0) 
             item_data['value'] = parse_dict(item, model_name=pascalized_model_name, level=level + 1)
             item_data['supported'] = True
             item_data['native'] = False
+        elif isinstance(item, list):
+            for value_item in item:
+                model_name = f'ValueItem{level}'
+                item_data['data_type'] = model_name
+                item_data['value'] = parse_dict(value_item, model_name=model_name, level=level + 1)
+                item_data['supported'] = True
+                item_data['native'] = False
+                item_data['many'] = True
         else:
             item_data['data_type'] = data_type
 

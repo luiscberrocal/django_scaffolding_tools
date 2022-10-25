@@ -75,20 +75,45 @@ def test_simple_parsing(output_folder):
 
 
 def test_simple_parsing_camel_case(output_folder, camel_case_dict):
+    prefix = 'camel_case'
     parsed_dict = parse_dict(camel_case_dict)
-    quick_write(parsed_dict, 'parsed_camel_case.json')
+    quick_write(parsed_dict, f'{prefix}_parsed.json')
+
+    model_list = transform_dict_to_model_list(parsed_dict)
+    model_list = parse_for_patterns(model_list, PATTERN_FUNCTIONS)
+    kmodel_list = build_serializer_data(model_list)
+
+    quick_write(model_list, f'{prefix}_model_list.json')
+
+    template_model_list = build_serializer_template_data(model_list)
+    quick_write(template_model_list, f'{prefix}_serializer_template_data.json')
+
+    writer = ReportWriter()
+    output_file = output_folder / f'{prefix}_serializers_camel_case.py'
+    writer.write('drf_serializers.py.j2', output_file, template_data=template_model_list)
+    assert output_file.exists()
+
+
+def test_attributes_with_list(output_folder, fixtures_folder):
+    filename = fixtures_folder / 'api_bulk.json'
+    with open(filename, 'r') as json_file:
+        raw_data_dict = json.load(json_file)
+    prefix = '_with_list'
+
+    parsed_dict = parse_dict(raw_data_dict)
+    quick_write(parsed_dict, f'{prefix}_parsed.json')
 
     model_list = transform_dict_to_model_list(parsed_dict)
     model_list = parse_for_patterns(model_list, PATTERN_FUNCTIONS)
     model_list = build_serializer_data(model_list)
 
-    quick_write(model_list, 'model_list_camel_case.json')
+    quick_write(model_list, f'{prefix}_model_list.json')
 
     template_model_list = build_serializer_template_data(model_list)
-    quick_write(template_model_list, 'template_camel_case_model_list.json')
+    quick_write(template_model_list, f'{prefix}_serializer_template_data.json')
 
     writer = ReportWriter()
-    output_file = output_folder / 'serializers_camel_case.py'
+    output_file = output_folder / f'{prefix}_serializers_camel_case.py'
     writer.write('drf_serializers.py.j2', output_file, template_data=template_model_list)
     assert output_file.exists()
 
