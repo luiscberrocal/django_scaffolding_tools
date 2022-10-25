@@ -24,6 +24,12 @@ def quick_write(data: Union[Dict[str, Any], List[Dict[str, Any]]], file: str, ov
             json.dump(data, json_file, indent=4, default=quick_serialize)
         return filename
 
+class TestParseDataDictionary:
+
+    def test_parse(self, d_local_data_dict):
+        parsed_dict = parse_dict(d_local_data_dict, model_name='Payment')
+        pytest.fail('Incomplete')
+
 
 def test_simple_parsing(output_folder):
     data = {
