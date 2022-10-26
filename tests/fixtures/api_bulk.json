@@ -21,6 +21,18 @@
         "smslargo": 0,
         "user": {
             "user_id": 4451
-        }
+        },
+        "metadata": [
+            {
+                "date": "05/05/2022",
+                "is_holiday": true
+            },
+            {
+                "date": "05/07/2022",
+                "is_holiday": true,
+                "exact_date": false,
+                "description": "independence day"
+            }
+        ]
     }
 }
