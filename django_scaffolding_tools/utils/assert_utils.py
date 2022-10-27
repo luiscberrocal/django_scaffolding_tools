@@ -1,8 +1,11 @@
 import collections
 from datetime import datetime, date
 from decimal import Decimal
+from typing import Dict, Any, List
 
-from openpyxl.compat import deprecated
+from abc import ABC, abstractmethod
+from decimal import Decimal
+from typing import Dict, Any, List
 
 
 def write_assertions(dictionary_list, variable_name, **kwargs):
@@ -21,19 +24,6 @@ def write_assertions(dictionary_list, variable_name, **kwargs):
     """
     writer = AssertionWriter(**kwargs)
     return writer.write_assert_list(dictionary_list, variable_name, filename=kwargs.get('filename'))
-
-
-@deprecated('Use assert_utils.write_assertions instead')
-def write_assert_list(filename, dictionary_list, variable_name):
-    """
-    Function to generate assertions for a dictionary or list content.
-    :param filename:
-    :param dictionary_list:
-    :param variable_name:
-    :return:
-    """
-    writer = AssertionWriter()
-    return writer.write_assert_list(dictionary_list, variable_name, filename=filename)
 
 
 class AssertionWriter(object):
@@ -202,3 +192,89 @@ class AssertionWriter(object):
                 self._build_type_assertion(list_variable, data, assert_list)
                 index += 1
         return assert_list
+
+
+def generate_dict_assertions2(data_dict: Dict[str, Any], data_dict_name: str) -> List[str]:
+    assertion_list = list()
+    for key, value in data_dict.items():
+        if isinstance(value, dict):
+            result = generate_dict_assertions2(value, key)
+            assertion_list.extend(result)
+        elif isinstance(value, list):
+            pass
+        else:
+            assert_line = f'assert {data_dict_name}[\'{key}\'] == {value}'
+            assertion_list.append(assert_line)
+    return assertion_list
+
+
+def process_dict(data: Dict[str, Any], var_name: str) -> List[str]:
+    print(f'{var_name}: {data}')
+    assertion_list = list()
+    for key, value in data.items():
+        if isinstance(value, dict):
+            processed_list = process_dict(value, key)
+            assertion_list.extend(processed_list)
+        else:
+            processor_function = PROCESSOR_FUNCTIONS.get(type(value))
+            if processor_function is not None:
+                processed_list = processor_function(value, key)
+                assertion_list.extend(processed_list)
+    return assertion_list
+
+    return assertion_list
+
+
+def process_datetime(data: datetime, var_name: str) -> List[str]:
+    print(f'{var_name}: {data}')
+    assertion_list = list()
+
+    return assertion_list
+
+
+def process_str(data: str, var_name: str) -> List[str]:
+    print(f'{var_name}: {data}')
+    assertion_list = list()
+    assertion_line = f"{var_name} == {data}"
+    assertion_list.append(assertion_line)
+    return assertion_list
+
+
+PROCESSOR_FUNCTIONS = {
+    str: process_str,
+    datetime: process_datetime,
+    dict: process_dict
+}
+
+
+def generate_dict_assertions(data_dict: Dict[str, Any], data_dict_name: str) -> List[str]:
+    assertion_list = list()
+    for key, value in data_dict.items():
+        processor_function = PROCESSOR_FUNCTIONS.get(type(value))
+        if processor_function is not None:
+            processed_list = processor_function(value, data_dict_name)
+            if len(processed_list) > 0:
+                assertion_list.extend(processed_list)
+    return assertion_list
+
+# class AssertionHandler(ABC):
+#     @abstractmethod
+#     def set_next(self, handler: 'AssertionHandler') -> 'AssertionHandler':
+#         pass
+#
+#     @abstractmethod
+#     def handle(self, assertion_payload: Any) -> List[str] | None:
+#         pass
+#
+#
+# class AbstractAssertionHandler(AssertionHandler):
+#     _next_handler: AssertionHandler = None
+#
+#     def set_next(self, handler: 'AssertionHandler') -> 'AssertionHandler':
+#         self._next_handler = handler
+#         return handler
+#
+#     def handle(self, assertion_payload: Any) -> List[str] | None:
+#         if self._next_handler:
+#             return self._next_handler.handle(assertion_payload)
+#         return None
