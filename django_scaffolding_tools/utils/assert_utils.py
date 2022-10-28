@@ -212,15 +212,15 @@ def process_dict(data: Dict[str, Any], var_name: str) -> List[str]:
     print(f'{var_name}: {data}')
     assertion_list = list()
     for key, value in data.items():
+        var_name_dict = f'{var_name}[\'{key}\']'
         if isinstance(value, dict):
-            processed_list = process_dict(value, key)
+            processed_list = process_dict(value, var_name_dict)
             assertion_list.extend(processed_list)
         else:
             processor_function = PROCESSOR_FUNCTIONS.get(type(value))
             if processor_function is not None:
-                processed_list = processor_function(value, key)
+                processed_list = processor_function(value, var_name_dict)
                 assertion_list.extend(processed_list)
-    return assertion_list
 
     return assertion_list
 
@@ -235,24 +235,26 @@ def process_datetime(data: datetime, var_name: str) -> List[str]:
 def process_str(data: str, var_name: str) -> List[str]:
     print(f'{var_name}: {data}')
     assertion_list = list()
-    assertion_line = f"{var_name} == {data}"
+    assertion_line = f"{var_name} == '{data}'"
     assertion_list.append(assertion_line)
     return assertion_list
 
 
 PROCESSOR_FUNCTIONS = {
-    str: process_str,
     datetime: process_datetime,
-    dict: process_dict
+    dict: process_dict,
+    str: process_str,
 }
 
 
-def generate_dict_assertions(data_dict: Dict[str, Any], data_dict_name: str) -> List[str]:
+def generate_dict_assertions(data_dict: Dict[str, Any], var_name: str) -> List[str]:
     assertion_list = list()
     for key, value in data_dict.items():
+        var_name_dict = f'{var_name}[\'{key}\']'
         processor_function = PROCESSOR_FUNCTIONS.get(type(value))
         if processor_function is not None:
-            processed_list = processor_function(value, data_dict_name)
+            print(f'{type(value)} --> function {processor_function.__name__}')
+            processed_list = processor_function(value, var_name_dict)
             if len(processed_list) > 0:
                 assertion_list.extend(processed_list)
     return assertion_list
