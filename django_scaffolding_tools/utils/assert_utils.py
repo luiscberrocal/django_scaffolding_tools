@@ -1,7 +1,7 @@
 import collections
 from datetime import datetime, date
 from decimal import Decimal
-from typing import Dict, Any, List
+from typing import Dict, Any, List, NamedTuple
 
 from abc import ABC, abstractmethod
 from decimal import Decimal
@@ -194,87 +194,63 @@ class AssertionWriter(object):
         return assert_list
 
 
-def generate_dict_assertions2(data_dict: Dict[str, Any], data_dict_name: str) -> List[str]:
-    assertion_list = list()
-    for key, value in data_dict.items():
-        if isinstance(value, dict):
-            result = generate_dict_assertions2(value, key)
-            assertion_list.extend(result)
-        elif isinstance(value, list):
-            pass
-        else:
-            assert_line = f'assert {data_dict_name}[\'{key}\'] == {value}'
-            assertion_list.append(assert_line)
-    return assertion_list
+class AssertionTuple(NamedTuple):
+    var_name: str
+    value: Any
 
 
-def process_dict(data: Dict[str, Any], var_name: str) -> List[str]:
+def process_dict(data: Dict[str, Any], var_name: str) -> List[AssertionTuple]:
     print(f'{var_name}: {data}')
     assertion_list = list()
     for key, value in data.items():
+        var_name_dict = f'{var_name}[\'{key}\']'
         if isinstance(value, dict):
-            processed_list = process_dict(value, key)
+            processed_list = process_dict(value, var_name_dict)
             assertion_list.extend(processed_list)
         else:
             processor_function = PROCESSOR_FUNCTIONS.get(type(value))
             if processor_function is not None:
-                processed_list = processor_function(value, key)
+                processed_list = processor_function(value, var_name_dict)
                 assertion_list.extend(processed_list)
-    return assertion_list
 
     return assertion_list
 
 
-def process_datetime(data: datetime, var_name: str) -> List[str]:
-    print(f'{var_name}: {data}')
+def process_datetime(data: datetime, var_name: str) -> List[AssertionTuple]:
+    value = f'datetime({data.year}, {data.month}, {data.day}, {data.hour}, {data.minute},' \
+            f' {data.second}, {data.microsecond})'
+
+    return [AssertionTuple(var_name=var_name, value=value)]
+
+
+def process_str(data: str, var_name: str) -> List[AssertionTuple]:
     assertion_list = list()
-
-    return assertion_list
-
-
-def process_str(data: str, var_name: str) -> List[str]:
-    print(f'{var_name}: {data}')
-    assertion_list = list()
-    assertion_line = f"{var_name} == {data}"
+    assertion_line = AssertionTuple(var_name=var_name, value=f"'{data}'")
     assertion_list.append(assertion_line)
     return assertion_list
 
 
+def process_raw(data: Any, var_name: str) -> List[AssertionTuple]:
+    return [AssertionTuple(var_name=var_name, value=data)]
+
+
 PROCESSOR_FUNCTIONS = {
-    str: process_str,
     datetime: process_datetime,
-    dict: process_dict
+    dict: process_dict,
+    str: process_str,
+    int: process_raw,
+    bool: process_raw,
+    float: process_raw,
 }
 
 
-def generate_dict_assertions(data_dict: Dict[str, Any], data_dict_name: str) -> List[str]:
+def generate_dict_assertions(data_dict: Dict[str, Any], var_name: str) -> List[NamedTuple]:
     assertion_list = list()
     for key, value in data_dict.items():
+        var_name_dict = f'{var_name}[\'{key}\']'
         processor_function = PROCESSOR_FUNCTIONS.get(type(value))
         if processor_function is not None:
-            processed_list = processor_function(value, data_dict_name)
+            processed_list = processor_function(value, var_name_dict)
             if len(processed_list) > 0:
                 assertion_list.extend(processed_list)
     return assertion_list
-
-# class AssertionHandler(ABC):
-#     @abstractmethod
-#     def set_next(self, handler: 'AssertionHandler') -> 'AssertionHandler':
-#         pass
-#
-#     @abstractmethod
-#     def handle(self, assertion_payload: Any) -> List[str] | None:
-#         pass
-#
-#
-# class AbstractAssertionHandler(AssertionHandler):
-#     _next_handler: AssertionHandler = None
-#
-#     def set_next(self, handler: 'AssertionHandler') -> 'AssertionHandler':
-#         self._next_handler = handler
-#         return handler
-#
-#     def handle(self, assertion_payload: Any) -> List[str] | None:
-#         if self._next_handler:
-#             return self._next_handler.handle(assertion_payload)
-#         return None

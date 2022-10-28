@@ -29,6 +29,7 @@ class TestParseDataDictionary:
     def test_parse(self, d_local_data_dict):
         parsed_dict = parse_dict(d_local_data_dict, model_name='Payment')
         assert parsed_dict['payment']['name'] == 'Payment'
+        raise Exception('Last work')
 
 
 def test_simple_parsing(output_folder):
