@@ -10,6 +10,7 @@ from django_scaffolding_tools.builders import build_serializer_template_data, bu
 from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, parse_for_patterns, \
     parse_file_for_ast_classes, parse_for_django_classes, parse_var_name
 from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
+from django_scaffolding_tools.utils.assert_utils import generate_assertion_tuples, AssertionTuple
 from django_scaffolding_tools.writers import ReportWriter
 
 
@@ -24,12 +25,254 @@ def quick_write(data: Union[Dict[str, Any], List[Dict[str, Any]]], file: str, ov
             json.dump(data, json_file, indent=4, default=quick_serialize)
         return filename
 
+
 class TestParseDataDictionary:
 
     def test_parse(self, d_local_data_dict):
         parsed_dict = parse_dict(d_local_data_dict, model_name='Payment')
-        assert parsed_dict['payment']['name'] == 'Payment'
-        raise Exception('Last work')
+
+        assert parsed_dict['payment']['level'] == 0
+        assert parsed_dict['payment']['attributes'][0]['name'] == 'id'
+        assert parsed_dict['payment']['attributes'][0]['value'] == 'D-4-be8eda8c-5fe7-49dd-8058-4ddaac00611b'
+        assert parsed_dict['payment']['attributes'][0]['supported']
+        assert parsed_dict['payment']['attributes'][0]['native']
+        assert not parsed_dict['payment']['attributes'][0]['many']
+        assert parsed_dict['payment']['attributes'][0]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][0]['length'] == 40
+        assert parsed_dict['payment']['attributes'][1]['name'] == 'amount'
+        assert parsed_dict['payment']['attributes'][1]['value'] == 72.0
+        assert parsed_dict['payment']['attributes'][1]['supported']
+        assert parsed_dict['payment']['attributes'][1]['native']
+        assert not parsed_dict['payment']['attributes'][1]['many']
+        assert parsed_dict['payment']['attributes'][1]['data_type'] == 'float'
+        assert parsed_dict['payment']['attributes'][2]['name'] == 'status'
+        assert parsed_dict['payment']['attributes'][2]['value'] == 'PAID'
+        assert parsed_dict['payment']['attributes'][2]['supported']
+        assert parsed_dict['payment']['attributes'][2]['native']
+        assert not parsed_dict['payment']['attributes'][2]['many']
+        assert parsed_dict['payment']['attributes'][2]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][2]['length'] == 4
+        assert parsed_dict['payment']['attributes'][3]['name'] == 'status_detail'
+        assert parsed_dict['payment']['attributes'][3]['value'] == 'The payment was paid.'
+        assert parsed_dict['payment']['attributes'][3]['supported']
+        assert parsed_dict['payment']['attributes'][3]['native']
+        assert not parsed_dict['payment']['attributes'][3]['many']
+        assert parsed_dict['payment']['attributes'][3]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][3]['length'] == 21
+        assert parsed_dict['payment']['attributes'][4]['name'] == 'status_code'
+        assert parsed_dict['payment']['attributes'][4]['value'] == '200'
+        assert parsed_dict['payment']['attributes'][4]['supported']
+        assert parsed_dict['payment']['attributes'][4]['native']
+        assert not parsed_dict['payment']['attributes'][4]['many']
+        assert parsed_dict['payment']['attributes'][4]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][4]['length'] == 3
+        assert parsed_dict['payment']['attributes'][5]['name'] == 'currency'
+        assert parsed_dict['payment']['attributes'][5]['value'] == 'USD'
+        assert parsed_dict['payment']['attributes'][5]['supported']
+        assert parsed_dict['payment']['attributes'][5]['native']
+        assert not parsed_dict['payment']['attributes'][5]['many']
+        assert parsed_dict['payment']['attributes'][5]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][5]['length'] == 3
+        assert parsed_dict['payment']['attributes'][6]['name'] == 'country'
+        assert parsed_dict['payment']['attributes'][6]['value'] == 'AR'
+        assert parsed_dict['payment']['attributes'][6]['supported']
+        assert parsed_dict['payment']['attributes'][6]['native']
+        assert not parsed_dict['payment']['attributes'][6]['many']
+        assert parsed_dict['payment']['attributes'][6]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][6]['length'] == 2
+        assert parsed_dict['payment']['attributes'][7]['name'] == 'payment_method_id'
+        assert parsed_dict['payment']['attributes'][7]['value'] == 'RP'
+        assert parsed_dict['payment']['attributes'][7]['supported']
+        assert parsed_dict['payment']['attributes'][7]['native']
+        assert not parsed_dict['payment']['attributes'][7]['many']
+        assert parsed_dict['payment']['attributes'][7]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][7]['length'] == 2
+        assert parsed_dict['payment']['attributes'][8]['name'] == 'payment_method_type'
+        assert parsed_dict['payment']['attributes'][8]['value'] == 'TICKET'
+        assert parsed_dict['payment']['attributes'][8]['supported']
+        assert parsed_dict['payment']['attributes'][8]['native']
+        assert not parsed_dict['payment']['attributes'][8]['many']
+        assert parsed_dict['payment']['attributes'][8]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][8]['length'] == 6
+        assert parsed_dict['payment']['attributes'][9]['name'] == 'payment_method_flow'
+        assert parsed_dict['payment']['attributes'][9]['value'] == 'REDIRECT'
+        assert parsed_dict['payment']['attributes'][9]['supported']
+        assert parsed_dict['payment']['attributes'][9]['native']
+        assert not parsed_dict['payment']['attributes'][9]['many']
+        assert parsed_dict['payment']['attributes'][9]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][9]['length'] == 8
+        assert parsed_dict['payment']['attributes'][10]['name'] == 'payer'
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['name'] == 'Payer'
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['level'] == 1
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][0]['name'] == 'name'
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][0]['value'] == 'Nino Deicas'
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][0]['supported']
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][0]['native']
+        assert not parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][0]['many']
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][0]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][0]['length'] == 11
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][1]['name'] == 'user_reference'
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][1][
+                   'value'] == 'US-jmh3gb4kj5h34'
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][1]['supported']
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][1]['native']
+        assert not parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][1]['many']
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][1]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][1]['length'] == 16
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][2]['name'] == 'email'
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][2]['value'] == 'buyer@gmail.com'
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][2]['supported']
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][2]['native']
+        assert not parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][2]['many']
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][2]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][2]['length'] == 15
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['name'] == 'address'
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                   'name'] == 'Address'
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                   'level'] == 2
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][0][
+                'name'] == 'street'
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][0][
+                'value'] == '123th street'
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][0][
+                'supported']
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][0][
+                'native']
+        assert not \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][0][
+                'many']
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][0][
+                'data_type'] == 'str'
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][0][
+                'length'] == 12
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][1][
+                'name'] == 'state'
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][1][
+                'value'] == 'FL'
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][1][
+                'supported']
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][1][
+                'native']
+        assert not \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][1][
+                'many']
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][1][
+                'data_type'] == 'str'
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][1][
+                'length'] == 2
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][2][
+                'name'] == 'zip_code'
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][2][
+                'value'] == '99999999'
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][2][
+                'supported']
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][2][
+                'native']
+        assert not \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][2][
+                'many']
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][2][
+                'data_type'] == 'str'
+        assert \
+            parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['value']['address'][
+                'attributes'][2][
+                'length'] == 8
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['supported']
+        assert not parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['native']
+        assert not parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['many']
+        assert parsed_dict['payment']['attributes'][10]['value']['payer']['attributes'][3]['data_type'] == 'Address'
+        assert parsed_dict['payment']['attributes'][10]['supported']
+        assert not parsed_dict['payment']['attributes'][10]['native']
+        assert not parsed_dict['payment']['attributes'][10]['many']
+        assert parsed_dict['payment']['attributes'][10]['data_type'] == 'Payer'
+        assert parsed_dict['payment']['attributes'][11]['name'] == 'order_id'
+        assert parsed_dict['payment']['attributes'][11]['value'] == '4m1OdghPUQtg'
+        assert parsed_dict['payment']['attributes'][11]['supported']
+        assert parsed_dict['payment']['attributes'][11]['native']
+        assert not parsed_dict['payment']['attributes'][11]['many']
+        assert parsed_dict['payment']['attributes'][11]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][11]['length'] == 12
+        assert parsed_dict['payment']['attributes'][12]['name'] == 'notification_url'
+        assert parsed_dict['payment']['attributes'][12]['value'] == 'http://www.merchant.com/notifications'
+        assert parsed_dict['payment']['attributes'][12]['supported']
+        assert parsed_dict['payment']['attributes'][12]['native']
+        assert not parsed_dict['payment']['attributes'][12]['many']
+        assert parsed_dict['payment']['attributes'][12]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][12]['length'] == 37
+        assert parsed_dict['payment']['attributes'][13]['name'] == 'created_date'
+        assert parsed_dict['payment']['attributes'][13]['value'] == '2019-06-26T15:17:31.000+0000'
+        assert parsed_dict['payment']['attributes'][13]['supported']
+        assert parsed_dict['payment']['attributes'][13]['native']
+        assert not parsed_dict['payment']['attributes'][13]['many']
+        assert parsed_dict['payment']['attributes'][13]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][13]['length'] == 28
+        assert parsed_dict['payment']['attributes'][14]['name'] == 'user'
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['name'] == 'User'
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['level'] == 1
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][0]['name'] == 'id'
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][0]['value'] == 1
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][0]['supported']
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][0]['native']
+        assert not parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][0]['many']
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][0]['data_type'] == 'int'
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][1]['name'] == 'username'
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][1]['value'] == 'bwayne'
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][1]['supported']
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][1]['native']
+        assert not parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][1]['many']
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][1]['data_type'] == 'str'
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][1]['length'] == 6
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][2]['name'] == 'created'
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][2]['value'] == datetime(2022, 10,
+                                                                                                               21, 11,
+                                                                                                               56, 25,
+                                                                                                               23)
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][2]['supported']
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][2]['native']
+        assert not parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][2]['many']
+        assert parsed_dict['payment']['attributes'][14]['value']['user']['attributes'][2]['data_type'] == 'datetime'
+        assert parsed_dict['payment']['attributes'][14]['supported']
+        assert not parsed_dict['payment']['attributes'][14]['native']
+        assert not parsed_dict['payment']['attributes'][14]['many']
+        assert parsed_dict['payment']['attributes'][14]['data_type'] == 'User'
 
 
 def test_simple_parsing(output_folder):
