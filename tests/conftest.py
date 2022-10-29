@@ -63,7 +63,7 @@ def d_local_data_dict():
         "user": {
             "id": 1,
             "username": "bwayne",
-            "created": datetime.now()
+            "created": datetime(2022, 10, 21, 11, 56, 25, 23)
         }
     }
     return data

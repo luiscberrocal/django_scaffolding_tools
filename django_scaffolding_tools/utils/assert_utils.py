@@ -72,7 +72,7 @@ PROCESSOR_FUNCTIONS = {
 }
 
 
-def generate_assertion_tuples(data_dict: Dict[str, Any], var_name: str) -> List[NamedTuple]:
+def generate_assertion_tuples(data_dict: Dict[str, Any], var_name: str) -> List[AssertionTuple]:
     assertion_list = list()
     for key, value in data_dict.items():
         new_var_name = f'{var_name}[\'{key}\']'
