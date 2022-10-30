@@ -115,5 +115,3 @@ def simple_write_to_excel(filename: Path, headers: Dict[str, Any], lines: List[D
 
     wb.save(filename)
 
-def write_assertions(data: Dict[str, Any]) -> str:
-    pass

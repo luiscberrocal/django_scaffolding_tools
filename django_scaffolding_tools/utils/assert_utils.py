@@ -82,3 +82,19 @@ def generate_assertion_tuples(data_dict: Dict[str, Any], var_name: str) -> List[
             if len(processed_list) > 0:
                 assertion_list.extend(processed_list)
     return assertion_list
+
+
+def generate_pytest_assertions(data_dict: Dict[str, Any], var_name: str) -> List[str]:
+    pytest_assertion_list = list()
+    assertion_list: List[AssertionTuple] = generate_assertion_tuples(data_dict, var_name)
+    for assertion in assertion_list:
+        if isinstance(assertion.value, bool):
+            if assertion.value:
+                assertion_message = f'assert {assertion.var_name}'
+            else:
+                assertion_message = f'assert not {assertion.var_name}'
+        else:
+            assertion_message = f'assert {assertion.var_name} == {assertion.value}'
+        print(assertion_message)
+        pytest_assertion_list.append(assertion_message)
+    return pytest_assertion_list

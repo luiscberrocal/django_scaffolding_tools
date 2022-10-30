@@ -8,17 +8,23 @@ import pytest
 
 from django_scaffolding_tools.builders import build_serializer_template_data, build_serializer_data
 from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, parse_for_patterns, \
-    parse_file_for_ast_classes, parse_for_django_classes, parse_var_name
+    parse_file_for_ast_classes, parse_var_name
 from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
-from django_scaffolding_tools.utils.assert_utils import generate_assertion_tuples, AssertionTuple
 from django_scaffolding_tools.writers import ReportWriter
 
 
-def quick_write(data: Union[Dict[str, Any], List[Dict[str, Any]]], file: str, over_write: bool = True):
+def quick_write(data: Union[Dict[str, Any], List[Dict[str, Any]]], file: str, output_subfolder: str = None,
+                over_write: bool = True):
     def quick_serialize(value):
         return f'{value}'
 
-    filename = Path(__file__).parent.parent / 'output' / file
+    output_folder = Path(__file__).parent.parent / 'output'
+    if output_subfolder is not None:
+        folder = output_folder / output_subfolder
+        folder.mkdir(exist_ok=True)
+    else:
+        folder = output_subfolder
+    filename = folder / file
 
     if (filename.exists() and over_write) or not filename.exists():
         with open(filename, 'w') as json_file:
@@ -366,17 +372,6 @@ def test_attributes_with_list(output_folder, fixtures_folder):
     output_file = output_folder / f'{prefix}_serializers_camel_case.py'
     writer.write('drf_serializers.py.j2', output_file, template_data=template_model_list)
     assert output_file.exists()
-
-
-def test_class_list(fixtures_folder, output_folder):
-    module_file = 'models_with_helptext.py'
-    filename = fixtures_folder / module_file
-
-    ast_module = parse_file_for_ast_classes(filename)
-    quick_write(ast_module, f'ast_{module_file}.json')
-
-    django_classes = parse_for_django_classes(ast_module)
-    quick_write(django_classes, f'ast_classes_{module_file}.json')
 
 
 def test_parsefile_for_ast_classes(fixtures_folder, output_folder):
