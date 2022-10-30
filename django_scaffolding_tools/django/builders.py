@@ -18,6 +18,7 @@ def build_model_serializer_template_data(parsed_django_classes: Dict[str, Any], 
                 source = humps.camelize(attribute['name'])
                 if source != attribute['name']:
                     serializer_attribute['source'] = source
+                    serializer_attribute['serializer'] = f'serializers.{attribute["data_type"]}(source=\'{source}\')'
             serializer_data['fields'].append(serializer_attribute)
         template_data.append(serializer_data)
 
