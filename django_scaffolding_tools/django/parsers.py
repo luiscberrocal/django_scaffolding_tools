@@ -15,17 +15,22 @@ def parse_for_django_classes(module: Dict[str, Any]) -> Dict[str, any]:
             model['attributes'] = list()
             for class_content in content['body']:
                 if class_content.get('_type') == ASTDataType.ASSIGN:
-                    variable = dict()
-                    variable['name'] = class_content['targets'][0]['id']
-                    variable['keywords'] = list()
+                    field = dict()
+                    # Name of the field
+                    field['name'] = class_content['targets'][0]['id']
+                    field['keywords'] = list()
+                    field['arguments'] = list()
                     try:
                         func_ = class_content['value']['func']
                         data_type = func_.get('attr')
                         if data_type is None:
                             data_type = func_.get('id')
-                        variable['data_type'] = data_type
+                        field['data_type'] = data_type
                     except KeyError:
-                        print(f'With variable {variable["name"]}')
+                        print(f'With field {field["name"]}')
+                    if field['data_type'] == 'ForeignKey':
+                        fk_classname = class_content['value']['args'][0]['id']
+                        field['arguments'].append({'name': 'fk_classname', 'value': fk_classname})
                     try:
                         for keyword in class_content['value']['keywords']:
                             keyword_data = dict()
@@ -46,9 +51,9 @@ def parse_for_django_classes(module: Dict[str, Any]) -> Dict[str, any]:
                                         keyword_value = keyword['value']['args'][0].get('value')
 
                             keyword_data['value'] = keyword_value
-                            variable['keywords'].append(keyword_data)
+                            field['keywords'].append(keyword_data)
                     except KeyError:
-                        print(f'Error with variable {model["name"]}.{variable["name"]}')
-                    model['attributes'].append(variable)
+                        print(f'Error with field {model["name"]}.{field["name"]}')
+                    model['attributes'].append(field)
             django_classes.append(model)
     return module_content
