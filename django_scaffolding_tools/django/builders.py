@@ -21,13 +21,15 @@ def build_model_serializer_template_data(parsed_django_classes: Dict[str, Any],
                 if source != attribute['name']:
                     serializer_attribute['source'] = source
                     keywords['source'] = source
-                keyword_content = ''
-                for keyword, value in keywords.items():
-                    keyword_content += f'{keyword}=\'{value}\', '
-                serializer_attribute['serializer'] = f'serializers.{attribute["data_type"]}({keyword_content[:-2]})'
-                if attribute['data_type'] == 'ForeignKey':
-                    classname = attribute["arguments"][0]["value"]
-                    serializer_attribute['serializer'] = f'{classname}Serializer({keyword_content[:-2]})'
+            keyword_content = ''
+            for keyword, value in keywords.items():
+                keyword_content += f'{keyword}=\'{value}\', '
+            if len(keyword_content) > 0:
+                keyword_content = keyword_content[:-2]
+            serializer_attribute['serializer'] = f'serializers.{attribute["data_type"]}({keyword_content})'
+            if attribute['data_type'] == 'ForeignKey':
+                classname = attribute["arguments"][0]["value"]
+                serializer_attribute['serializer'] = f'{classname}Serializer({keyword_content})'
             serializer_data['fields'].append(serializer_attribute)
         template_data.append(serializer_data)
 
