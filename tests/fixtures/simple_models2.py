@@ -10,6 +10,6 @@ class Clinic(models.Model):
 
 
 class Patient(models.Model):
-    first_name = models.CharField(_('First name'), max_length=100)
+    first_name = models.CharField(_('First name'), max_length=100, help_text="Patient's fist name")
     last_name = models.CharField(_('Last name'), max_length=100)
     clinic = models.ForeignKey(Clinic, verbose_name=_('Clinic'), related_name='companies', on_delete=models.PROTECT)

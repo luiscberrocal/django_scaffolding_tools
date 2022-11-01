@@ -18,4 +18,3 @@ def test_build_model_serializer_template_data_camelize(output_folder, fixtures_f
     # 3 Build serializer data form Django model data
     serializer_data = build_model_serializer_template_data(model_data, add_source_camel_case=True)
     quick_write(serializer_data, f'serializer_data_{model_filename}.json', output_subfolder='django')
-    # model_list = parse_for_patterns(model_list, PATTERN_FUNCTIONS)
