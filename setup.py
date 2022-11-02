@@ -46,7 +46,7 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/luiscberrocal/django_scaffolding_tools',
-    version='0.7.3',
+    version='0.7.4',
     zip_safe=False,
     package_data={'': ['templates/*.j2']},
 )

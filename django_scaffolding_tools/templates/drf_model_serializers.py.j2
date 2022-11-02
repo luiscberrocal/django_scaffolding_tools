@@ -1,0 +1,7 @@
+
+
+{% for serializer_class in template_data.classes %}class {{ serializer_class.name }}:
+    class Meta:
+        model = {{ serializer_class.model }}
+        fields = ({% for field in serializer_class.fields %}{{ field.name }},{% endfor %})
+{% endfor %}
