@@ -29,8 +29,13 @@ def parse_for_django_classes(module: Dict[str, Any]) -> Dict[str, any]:
                     except KeyError:
                         print(f'With field {field["name"]}')
                     if field['data_type'] == 'ForeignKey':
-                        fk_classname = class_content['value']['args'][0]['id']
-                        field['arguments'].append({'name': 'fk_classname', 'value': fk_classname})
+                        first_argument = class_content['value']['args'][0]
+                        if first_argument.get('_type') == ASTDataType.ATTRIBUTE:
+                            if first_argument.get('attr') == 'AUTH_USER_MODEL':
+                                field['arguments'].append({'name': 'fk_classname', 'value': 'User'})
+                        else:
+                            fk_classname = first_argument['id']
+                            field['arguments'].append({'name': 'fk_classname', 'value': fk_classname})
                     try:
                         for keyword in class_content['value']['keywords']:
                             keyword_data = dict()
