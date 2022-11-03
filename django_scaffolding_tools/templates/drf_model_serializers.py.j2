@@ -1,11 +1,11 @@
 
 
 {% for serializer_class in template_data.classes %}class {{ serializer_class.name }}:
-    {% for field in serializer_class.fields %}{% if field.add_field %}{{ field.name }} = {{ field.serializer }}{% endif %}
-    {% endfor %}
+    {% for field in serializer_class.fields %}{% if field.add_field %}{{ field.name }} = {{ field.serializer }}
+    {% endif %}{% endfor %}
     class Meta:
         model = {{ serializer_class.model }}
-        fields = ({% for field in serializer_class.fields %}'{{ field.name }}', {% endfor %})
+        fields = ({% for field in serializer_class.fields %}'{{ field.name }}'{% if not loop.last %}, {% endif %}{% endfor %})
 
 
 {% endfor %}
