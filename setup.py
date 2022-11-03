@@ -34,6 +34,7 @@ setup(
     entry_points={
         'console_scripts': [
             'django_scaffolding_tools=django_scaffolding_tools.cli:main',
+            'dst=django_scaffolding_tools.django.cli:main',
         ],
     },
     install_requires=requirements,
