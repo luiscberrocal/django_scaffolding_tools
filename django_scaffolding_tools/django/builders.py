@@ -22,6 +22,7 @@ def build_model_serializer_template_data(parsed_django_classes: Dict[str, Any],
                 if source != attribute['name']:
                     serializer_attribute['source'] = source
                     keywords['source'] = source
+                    serializer_attribute['add_field'] = True
             keyword_content = ''
             keyword_content_str = ''
             for keyword, value in keywords.items():
