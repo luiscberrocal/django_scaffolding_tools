@@ -17,9 +17,9 @@ def test_build_model_serializer_template_data_camelize(output_folder, fixtures_f
     # 3 Build serializer data form Django model data
     serializer_data = build_model_serializer_template_data(model_data, add_source_camel_case=True)
 
-    # quick_write(ast_dict, f'ast_{model_filename}.json', output_subfolder='django')
-    # quick_write(model_data, f'model_data_{model_filename}.json', output_subfolder='django')
-    # quick_write(serializer_data, f'serializer_data_{model_filename}.json', output_subfolder='django')
+    quick_write(ast_dict, f'ast_{model_filename}.json', output_subfolder='django')
+    quick_write(model_data, f'model_data_{model_filename}.json', output_subfolder='django')
+    quick_write(serializer_data, f'serializer_data_{model_filename}.json', output_subfolder='django')
 
     assert len(serializer_data) == 2
 
@@ -38,7 +38,7 @@ def test_build_model_serializer_template_data_camelize(output_folder, fixtures_f
     assert model2['fields'][1]['serializer'] == 'serializers.CharField(source=\'lastName\')'
     assert model2['fields'][2]['name'] == 'owning_clinic'
     assert model2['fields'][2]['source'] == 'owningClinic'
-    assert model2['fields'][2]['serializer'] == 'ClinicSerializer(source=\'owningClinic\')'
+    assert model2['fields'][2]['serializer'] == 'ClinicSerializer(source=\'owningClinic\', read_only=True)'
 
 
 def test_build_model_serializer_template_data(output_folder, fixtures_folder):
