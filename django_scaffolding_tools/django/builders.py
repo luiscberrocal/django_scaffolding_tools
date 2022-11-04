@@ -4,9 +4,8 @@ import humps
 
 
 def build_model_serializer_template_data(parsed_django_classes: Dict[str, Any],
-                                         add_source_camel_case=False) -> List[Dict[str, Any]]:
-    template_data = list()
-
+                                         add_source_camel_case=False) -> Dict[str, Any]:
+    template_data = {'classes': list(), 'imports': ['from rest_framework import serializers']}
     for model in parsed_django_classes['classes']:
         serializer_data = dict()
         serializer_data['name'] = f'{model["name"]}Serializer(serializers.ModelSerializer)'
@@ -38,6 +37,6 @@ def build_model_serializer_template_data(parsed_django_classes: Dict[str, Any],
                 serializer_attribute['add_field'] = True
 
             serializer_data['fields'].append(serializer_attribute)
-        template_data.append(serializer_data)
+        template_data['classes'].append(serializer_data)
 
     return template_data

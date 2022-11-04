@@ -9,7 +9,7 @@ from tests.test_parsers import quick_write
 
 def write_model_serializer_from_models_file(models_file: Path, output_file: Path, write_intermediate: bool = False,
                                             camel_case=False):
-    """Parses a Django model.py file and generates the selializer for all the models."""
+    """Parses a Django model.py file and generates the serializer for all the models."""
     # 1 Convert model.py to an ast json file.
     ast_dict = parse_file_for_ast_classes(models_file)
     if write_intermediate:
@@ -25,6 +25,5 @@ def write_model_serializer_from_models_file(models_file: Path, output_file: Path
     if write_intermediate:
         model_filename = 'models.py'
         quick_write(serializer_data, f'serializer_data_{model_filename}.json', output_subfolder='django')
-    template_data = {'classes': serializer_data}
     writer = ReportWriter()
-    writer.write('drf_model_serializers.py.j2', output_file, template_data=template_data)
+    writer.write('drf_model_serializers.py.j2', output_file, template_data=serializer_data)
