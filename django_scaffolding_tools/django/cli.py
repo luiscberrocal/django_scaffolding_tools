@@ -4,6 +4,8 @@ from pathlib import Path
 
 import click
 
+from django_scaffolding_tools.django.writers import write_model_serializer_from_models_file
+
 
 @click.command()
 @click.argument('command')
@@ -11,7 +13,8 @@ import click
 @click.option('--model-file', default='models.py')
 @click.option('--output-folder', default=None)
 @click.option('--output-file', default=None)
-def main(command, folder, model_file, output_folder, output_file):
+@click.option('--camel-case', is_flag=True, default=False)
+def main(command, folder, model_file, output_folder, output_file, camel_case):
     """Console script for django_scaffolding_tools."""
     click.echo(f"Current directory {os.getcwd()}")
     if command.lower() == 'model_2_serializer':
@@ -23,6 +26,8 @@ def main(command, folder, model_file, output_folder, output_file):
         if output_file is None:
             output_file = output_folder / f'{command}.py'
         click.echo(f'output_file: {output_file}')
+        write_model_serializer_from_models_file(model_full_path, output_file, camel_case=camel_case)
+
 
 
 if __name__ == "__main__":
