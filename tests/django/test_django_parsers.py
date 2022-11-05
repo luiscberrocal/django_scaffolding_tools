@@ -1,7 +1,7 @@
 from django_scaffolding_tools.django.parsers import parse_for_django_classes
 from django_scaffolding_tools.parsers import parse_file_for_ast_classes
 from django_scaffolding_tools.utils.assert_utils import generate_pytest_assertions
-from tests.test_parsers import quick_write
+from django_scaffolding_tools.utils.core import quick_write
 
 
 def test_class_list(fixtures_folder, output_folder):

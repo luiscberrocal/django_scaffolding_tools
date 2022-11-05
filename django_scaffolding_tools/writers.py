@@ -87,7 +87,7 @@ def write_django_model_excel(models_list: List[Dict[str, Any]], filename: Path):
             excel_dict['max_value'] = max_value
             excel_dict['description'] = get_keyword(att['keywords'], 'help_text')
             excel_data.append(excel_dict)
-    from tests.test_parsers import quick_write
+    from django_scaffolding_tools.utils.core import quick_write
     quick_write(excel_data, filename.parent / '__excel.json')
     simple_write_to_excel(filename, headers, excel_data)
 
