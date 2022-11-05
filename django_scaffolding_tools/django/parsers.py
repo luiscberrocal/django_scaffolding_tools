@@ -1,6 +1,7 @@
 from typing import Dict, Any
 
 from django_scaffolding_tools.enums import ASTDataType
+from django_scaffolding_tools.exceptions import DjangoParsingException
 
 
 def parse_for_django_classes(module: Dict[str, Any]) -> Dict[str, any]:
@@ -21,13 +22,11 @@ def parse_for_django_classes(module: Dict[str, Any]) -> Dict[str, any]:
                     field['keywords'] = list()
                     field['arguments'] = list()
                     try:
-                        func_ = class_content['value']['func']
-                        data_type = func_.get('attr')
-                        if data_type is None:
-                            data_type = func_.get('id')
-                        field['data_type'] = data_type
-                    except KeyError:
-                        print(f'With field {field["name"]}')
+                        field['data_type'] = get_data_type(class_content)
+                    except KeyError as e:
+                        error_message = f'Key error {e}. Model {model["name"]} attr {field["name"]}'
+                        raise DjangoParsingException(error_message)
+
                     if field['data_type'] == 'ForeignKey':
                         first_argument = class_content['value']['args'][0]
                         if first_argument.get('_type') == ASTDataType.ATTRIBUTE:
@@ -62,3 +61,20 @@ def parse_for_django_classes(module: Dict[str, Any]) -> Dict[str, any]:
                     model['attributes'].append(field)
             django_classes.append(model)
     return module_content
+
+
+def get_data_type(class_content):
+    data_type = None
+    if class_content['value']['_type'] == ASTDataType.CONSTANT:
+        data_type = ASTDataType.CONSTANT.value
+    elif class_content['value']['_type'] == ASTDataType.CALL:
+        func_ = class_content['value']['func']
+        data_type = func_.get('attr')
+    elif class_content['value']['_type'] == ASTDataType.NAME:
+        func_ = class_content['value']['func']
+        data_type = func_.get('id')
+    else:
+        error_msg = f'Unsupported data type {class_content["value"]["_type"]}.'
+        DjangoParsingException(error_msg)
+
+    return data_type
