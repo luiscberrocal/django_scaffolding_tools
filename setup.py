@@ -34,7 +34,7 @@ setup(
     entry_points={
         'console_scripts': [
             'django_scaffolding_tools=django_scaffolding_tools.cli:main',
-            'dst=django_scaffolding_tools.django.cli:main',
+            'django_gen=django_scaffolding_tools.django.cli:main',
         ],
     },
     install_requires=requirements,
@@ -47,7 +47,7 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/luiscberrocal/django_scaffolding_tools',
-    version='0.8.1',
+    version='0.9.0',
     zip_safe=False,
     package_data={'': ['templates/*.j2']},
 )
