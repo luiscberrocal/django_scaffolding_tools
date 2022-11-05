@@ -1,17 +1,12 @@
-# Welcome to MkDocs
+# Django Scaffolding Tools
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Tools to quickly scaffold Django projects using templates. The idea is for example to create serializers from a
+*models.py* file.
 
 ## Commands
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+### Generate serializers from models.py
 
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+```shell
+django_gen model_2_serializer --folder ./app_folder --output_folder ./output --output-file serializers.py
+```

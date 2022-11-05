@@ -1,1 +1,5 @@
-site_name: My Docs
+site_name: Django Scaffolding Tools
+theme:
+    name: material
+nav:
+    - Home: index.md

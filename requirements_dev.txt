@@ -10,6 +10,7 @@ twine==4.0.1
 pytest==7.2.0
 black==22.10.0
 mkdocs==1.4.2
+mkdocs-material==8.5.8
 
 # Required
 pyhumps==3.8.0
