@@ -4,7 +4,7 @@ from django_scaffolding_tools.django.builders import build_model_serializer_temp
 from django_scaffolding_tools.django.parsers import parse_for_django_classes
 from django_scaffolding_tools.parsers import parse_file_for_ast_classes
 from django_scaffolding_tools.writers import ReportWriter
-from tests.test_parsers import quick_write
+from django_scaffolding_tools.utils.core import quick_write
 
 
 def write_model_serializer_from_models_file(models_file: Path, output_file: Path, write_intermediate: bool = False,

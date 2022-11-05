@@ -1,7 +1,5 @@
 import json
 from datetime import datetime
-from pathlib import Path
-from typing import Dict, Any, Union, List
 
 import humps
 import pytest
@@ -10,26 +8,8 @@ from django_scaffolding_tools.builders import build_serializer_template_data, bu
 from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, parse_for_patterns, \
     parse_file_for_ast_classes, parse_var_name
 from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
+from django_scaffolding_tools.utils.core import quick_write
 from django_scaffolding_tools.writers import ReportWriter
-
-
-def quick_write(data: Union[Dict[str, Any], List[Dict[str, Any]]], file: str, output_subfolder: str = None,
-                over_write: bool = True):
-    def quick_serialize(value):
-        return f'{value}'
-
-    output_folder = Path(__file__).parent.parent / 'output'
-    if output_subfolder is not None:
-        folder = output_folder / output_subfolder
-        folder.mkdir(exist_ok=True)
-    else:
-        folder = output_subfolder
-    filename = folder / file
-
-    if (filename.exists() and over_write) or not filename.exists():
-        with open(filename, 'w') as json_file:
-            json.dump(data, json_file, indent=4, default=quick_serialize)
-        return filename
 
 
 class TestParseDataDictionary:
