@@ -1,9 +1,6 @@
-import pytest
-
 from django_scaffolding_tools.django.builders import build_model_serializer_template_data
 from django_scaffolding_tools.django.parsers import parse_for_django_classes
 from django_scaffolding_tools.parsers import parse_file_for_ast_classes
-from django_scaffolding_tools.utils.assert_utils import generate_pytest_assertions
 from django_scaffolding_tools.utils.core import quick_write
 
 

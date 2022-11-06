@@ -240,3 +240,15 @@ def test_class_list(fixtures_folder, output_folder):
     assert django_classes['classes'][1]['attributes'][19]['keywords'][1][
                'value'] == 'Metadata for the payment. It includes the dates with the changes of state.'
     assert django_classes['classes'][1]['attributes'][19]['data_type'] == 'JSONField'
+
+
+def test_class_list_finance(fixtures_folder, output_folder):
+    module_file = 'finance_models.py'
+    filename = fixtures_folder / module_file
+
+    ast_module = parse_file_for_ast_classes(filename)
+    quick_write(ast_module, f'ast_{module_file}.json', output_subfolder='django')
+
+    django_classes = parse_for_django_classes(ast_module)
+    generate_pytest_assertions(django_classes, 'django_classes')
+    quick_write(django_classes, f'classes_{module_file}.json', output_subfolder='django')
