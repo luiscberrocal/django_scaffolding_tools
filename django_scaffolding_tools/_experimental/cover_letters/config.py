@@ -34,6 +34,11 @@ class ConfigurationManager:
             configuration = toml.load(f)
         return configuration
 
+    @classmethod
+    def get_current(cls):
+        config = ConfigurationManager()
+        return config.get_configuration()
+
 
 def main(install: True):
     config_manager = ConfigurationManager()
