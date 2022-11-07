@@ -13,6 +13,8 @@ def convert_docx_to_pdf(docx_file: Path, output_folder: Path):
                f'{docx_file}']
     result, errors = run_commands(command)
 
+    return result, errors
+
 
 def write_docx_cover_letter(template_file: Path, context: Dict[str, Any], output_file: Path):
     # Open our master template
