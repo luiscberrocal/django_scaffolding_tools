@@ -23,3 +23,6 @@ toml==0.10.2
 
 # Optional
 openpyxl==3.0.10
+
+# Experimental
+docxtpl==0.16.4
