@@ -36,7 +36,7 @@ class ConfigurationManager:
 
     @classmethod
     def get_current(cls):
-        config = ConfigurationManager()
+        config = cls()
         return config.get_configuration()
 
 

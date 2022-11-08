@@ -2,7 +2,6 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any
 
-from docx2pdf import convert
 from docxtpl import DocxTemplate
 
 from django_scaffolding_tools._experimental.cover_letters.utils import run_commands
