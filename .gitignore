@@ -105,3 +105,7 @@ ENV/
 .vscode/
 .idea/
 output/
+*.~lock*.*
+
+
+tests/fixtures/_experimental/.~lock.Cover Letter Template.docx#
