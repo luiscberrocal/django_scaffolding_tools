@@ -24,28 +24,26 @@ def run_command2(cmd):
     return output, ['err']
 
 
-def run_grepped_command(regexp):
-    # regexp = 'puntopago[a-z_]*_postgres'
-    # regexp = 'clave_[a-z_]*_postgres'
+def get_containers(regexp):
     ps = subprocess.run(['docker', 'ps', '-a'], check=True, capture_output=True)
     # print(ps.stderr.decode('utf-8').strip())
     containers = subprocess.run(['grep', '-E', f'{regexp}'],
                                 input=ps.stdout, capture_output=True)
     results = containers.stdout.decode('utf-8').strip().split('\n')
-    return results
+    container_list = list()
+    for r in results:
+        data = r.split(' ')
+        container_list.append({'container_id': data[0], 'image': data[3], 'name': data[-1]})
+    return container_list
 
 
 if __name__ == '__main__':
-    # regexp = 'puntopago[a-z_]*_postgres'
-    # command_str = f'docker ps -a | grep -E \'{regexp}\''
-    # # command_str = f'docker ps -a | grep puntopago'
-    # command = command_str.split(' ')
-    # results, errors = run_command2(command_str)
-    # for res in results:
-    #     print(res)
-    # for error in errors:
-    #     print(error)
-    regexp = 'clave_[a-z_]*_postgres'
-    res = run_grepped_command(regexp)
-    for r in res:
-        print(r)
+    regexp = 'lms_[a-z_]*_postgres'
+
+    res = get_containers(regexp)
+    for i, r in enumerate(res, ):
+        print(f'{i} {r["container_id"]} {r["image"]}')
+    container_to_delete = input(f'Type the number of the container to delete (#):')
+    container_id = int(container_to_delete)
+    print(res[container_id])
+
