@@ -17,13 +17,18 @@ def run_commands(commands: List[str], encoding: str = 'utf-8') -> Tuple[List[str
     return result_lines, error_lines
 
 
-
-def get_containers(regexp):
-    ps = subprocess.run(['docker', 'ps', '-a'], check=True, capture_output=True)
+def run_command_with_grep(commands: List[str], regexp: str) -> List[str]:
+    ps = subprocess.run(commands, check=True, capture_output=True)
     # print(ps.stderr.decode('utf-8').strip())
     containers = subprocess.run(['grep', '-E', f'{regexp}'],
                                 input=ps.stdout, capture_output=True)
     results = containers.stdout.decode('utf-8').strip().split('\n')
+    return results
+
+
+def get_containers(regexp: str):
+    commands = ['docker', 'ps', '-a']
+    results = run_command_with_grep(commands, regexp)
     container_list = list()
     if len(results) > 0:
         for r in results:
@@ -34,20 +39,35 @@ def get_containers(regexp):
 
 
 def get_volumes(regexp):
-    ps = subprocess.run(['docker', 'volume', 'ls'], check=True, capture_output=True)
-    # print(ps.stderr.decode('utf-8').strip())
-    volumes = subprocess.run(['grep', '-E', f'{regexp}'],
-                             input=ps.stdout, capture_output=True)
-    results = volumes.stdout.decode('utf-8').strip().split('\n')
+    commands = ['docker', 'volume', 'ls']
+    results = run_command_with_grep(commands, regexp)
     volume_list = list()
     for r in results:
         data = r.split(' ')
-        volume_list.append({'driver': data[0], 'name': data[-1]})
+        if len(data[0]) != 0:
+            volume_list.append({'driver': data[0], 'name': data[-1]})
     return volume_list
 
 
+def split_and_clean(line: str) -> List[str]:
+    line_parts = line.split(' ')
+    final = [x for x in line_parts if len(x) > 0]
+    return final
+
+
+def get_images(regexp):
+    commands = ['docker', 'image', 'ls']
+    results = run_command_with_grep(commands, regexp)
+    image_list = list()
+    for r in results:
+        data = split_and_clean(r)
+        if len(data) > 0:
+            image_list.append({'name': data[0], 'image_id': data[2]})
+    return image_list
+
+
 if __name__ == '__main__':
-    regexpression = r'lms-graph[a-z_\-]*_postgres'
+    regexpression = r'lms[\-_]graph[a-z_\-]*_postgres'
 
     res = get_containers(regexpression)
     if len(res) != 0:
@@ -79,9 +99,30 @@ if __name__ == '__main__':
         else:
             print('Not deleting any volumes')
         if len(delete_volume_command) > 3:
-            v_res,v_errors = run_commands(delete_volume_command)
+            v_res, v_errors = run_commands(delete_volume_command)
             print(f'Deleted {v_res}')
     else:
         print(f'No volumes found for {regexpression}')
 
+    ####################################################################
+    # IMAGES
+
+    d_images = get_images(regexpression)
+    if len(d_images) > 0:
+        for i, d_image in enumerate(d_images):
+            print(f'({i}) {d_image["name"]}')
+        image_to_delete = input('Image to delete (#, n, a): ')
+        delete_image_command = ['docker', 'image', 'rm']
+        if image_to_delete.lower() == 'a':
+            for d_image in d_images:
+                delete_image_command.append(d_image['name'])
+        elif image_to_delete.isdigit():
+            delete_image_command.append(d_images[int(image_to_delete)]['name'])
+        else:
+            print('Not deleting any images')
+        if len(delete_image_command) > 3:
+            i_res, i_errors = run_commands(delete_image_command)
+            print(f'Deleted {i_res}')
+    else:
+        print(f'No images found for {regexpression}')
 
