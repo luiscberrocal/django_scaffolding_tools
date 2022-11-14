@@ -1,5 +1,6 @@
 import os
 import zipfile
+from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Any
 
@@ -33,12 +34,24 @@ def zip_folder(zip_file: Path, folder_to_zip: Path):
         zipdir(folder_to_zip, zipf)
 
 
-if __name__ == '__main__':
-    m_folder = Path('/home/luiscberrocal/adelantos')
-    fs = get_projects_envs(m_folder)
-    # for k, v in fs.items():
-    #     print(f'{k} {v}')
+def backup_envs(project_folder: Path, backup_folder: Path) -> List[Path]:
+    project_envs_dict = get_projects_envs(project_folder)
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    b_folder = backup_folder / timestamp
+    b_folder.mkdir(exist_ok=True)
+    zip_list = list()
+    for project, v in project_envs_dict.items():
+        zip_file = b_folder / f'{project}.zip'
+        zip_folder(zip_file, v['envs'])
+        zip_list.append(zip_file)
+    return zip_list
 
-    zf = Path('/home/luiscberrocal/PycharmProjects/django_scaffolding_tools/output/gt_payment_collector.zip')
-    f2z = Path('/home/luiscberrocal/adelantos/gt_payment_collector/.envs')
-    zip_folder(zf, f2z)
+
+if __name__ == '__main__':
+    home = Path().home()
+    m_folder = home / 'adelantos'
+    output_folder = home / 'Documents' / 'adelantos_envs'
+
+    zip_files = backup_envs(m_folder, output_folder)
+    for i, zf in enumerate(zip_files, 1):
+        print(f'{i} {zf.name}')
