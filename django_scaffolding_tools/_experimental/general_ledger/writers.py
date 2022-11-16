@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import Dict, Any, List
 
+from openpyxl.reader.excel import load_workbook
 from openpyxl.styles import Alignment, Font
 from openpyxl.utils import get_column_letter
 from openpyxl.workbook import Workbook
@@ -19,7 +20,10 @@ def write_headers(sheet: Worksheet, headers: List[str]):
 
 def write_transactions(target_file: Path, parsed_results: Dict[str, Any], start_row: int = 6,
                        column_mappings: Dict[int, Dict[str, Any]] = get_default_mappings()):
-    wb = Workbook()
+    if target_file.exists():
+        wb = load_workbook(target_file)
+    else:
+        wb = Workbook()
     for account_id in parsed_results['accounts'].keys():
         sheet = wb.create_sheet(account_id)
         # Write sheet headers
@@ -33,6 +37,7 @@ def write_transactions(target_file: Path, parsed_results: Dict[str, Any], start_
             cell = sheet.cell(column=col_num, row=start_row - 1)
             cell.value = col_mapping['title']
             cell.font = Font(bold=True)
+        # Write transactions
         row = start_row
         transaction_list = parsed_results['accounts'][account_id]
         for transaction in transaction_list:
