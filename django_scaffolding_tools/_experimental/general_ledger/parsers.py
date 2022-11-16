@@ -23,15 +23,22 @@ def get_default_mappings():
 
 def parse_general_ledger(general_ledger_file: Path, start_row: int = 6,
                          sheet_name: str = 'General Ledger',
-                         column_mappings: Dict[int, Dict[str, Any]] = get_default_mappings()
-                         ) -> Dict[str, List[Dict[str, Any]]]:
+                         column_mappings: Dict[int, Dict[str, Any]] = None,
+                         ) -> Dict[str, Any]:
+    if column_mappings is None:
+        column_mappings = get_default_mappings()
     accounts = dict()
+    headers = list()
     wb = load_workbook(general_ledger_file)
     sheet = wb[sheet_name]
+    # Read headers
+    for row in range(1, 5):
+        headers.append(sheet.cell(row=row, column=1).value)
+    # Read account transactions
     last_row = sheet.max_row + 1
     current_account = None
     for row in range(start_row, last_row):
-        entry_dict = dict()
+        transaction_dict = dict()
         account_id = sheet.cell(row=row, column=1).value
         if current_account is None:
             current_account = account_id
@@ -45,6 +52,7 @@ def parse_general_ledger(general_ledger_file: Path, start_row: int = 6,
         for col, col_value in column_mappings.items():
             cell_obj = sheet.cell(row=row, column=col)
             value = cell_obj.value
-            entry_dict[col_value['name']] = value
-        accounts[current_account].append(entry_dict)
-    return accounts
+            transaction_dict[col_value['name']] = value
+        accounts[current_account].append(transaction_dict)
+    parsed_results = {'headers': headers, 'accounts': accounts}
+    return parsed_results
