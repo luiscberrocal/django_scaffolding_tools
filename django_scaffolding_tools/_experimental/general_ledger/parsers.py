@@ -3,6 +3,7 @@ from typing import List, Any, Dict
 
 from openpyxl.reader.excel import load_workbook
 from openpyxl.utils import get_column_letter
+from tqdm import tqdm
 
 COLUMN_MAPPINGS = {
     1: {'name': 'account_id', 'title': 'Account ID', 'width': 12},
@@ -37,7 +38,7 @@ def parse_general_ledger(general_ledger_file: Path, start_row: int = 6,
     # Read account transactions
     last_row = sheet.max_row + 1
     current_account = None
-    for row in range(start_row, last_row):
+    for row in tqdm(range(start_row, last_row)):
         transaction_dict = dict()
         account_id = sheet.cell(row=row, column=1).value
         if current_account is None:

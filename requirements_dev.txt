@@ -26,3 +26,5 @@ openpyxl==3.0.10
 
 # Experimental
 docxtpl==0.16.4
+
+tqdm==4.64.1
