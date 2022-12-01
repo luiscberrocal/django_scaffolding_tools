@@ -6,16 +6,21 @@ from django_scaffolding_tools._experimental.general_ledger.parsers import parse_
 from django_scaffolding_tools._experimental.general_ledger.writers import write_transactions
 
 
-def separate_accounts(gl_file: Path, output_folder: Path, timestamp_format:str = '%Y%m%d_%H%M%S'):
-    timestamp = datetime.now().strftime(timestamp_format)
-    base_name = gl_file.name.replace(' ', '_')
-    output_file = output_folder / f'{timestamp}_{base_name}'
+def separate_accounts(gl_file: Path, output_folder: Path, timestamp_format: str = '%Y%m%d_%H%M%S') -> Path:
+    output_file = build_output_file(gl_file, output_folder, timestamp_format)
     shutil.copy(gl_file, output_file)
     transactions = parse_general_ledger(gl_file)
 
     write_transactions(output_file, transactions)
     return output_file
 
+
+def build_output_file(gl_file: Path, output_folder: Path, timestamp_format: str = '%Y%m%d_%H%M%S') -> Path:
+    """Creates a filename based on the gl_file values in the output folder prepending a timestamp."""
+    timestamp = datetime.now().strftime(timestamp_format)
+    base_name = gl_file.name.replace(' ', '_')
+    output_file = output_folder / f'{timestamp}_{base_name}'
+    return output_file
 
 
 if __name__ == '__main__':
