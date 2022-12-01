@@ -28,3 +28,7 @@ openpyxl==3.0.10
 docxtpl==0.16.4
 
 tqdm==4.64.1
+
+# Experimental git python
+
+GitPython==3.1.29
