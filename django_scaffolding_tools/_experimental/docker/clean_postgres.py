@@ -67,7 +67,7 @@ def get_images(regexp):
 
 
 if __name__ == '__main__':
-    regexpression = r'lms[\-_]graph[a-z_\-]*_postgres'
+    regexpression = r'mail_send[a-z_\-]*_postgres'
 
     res = get_containers(regexpression)
     if len(res) != 0:
