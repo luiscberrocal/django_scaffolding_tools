@@ -66,9 +66,7 @@ def get_images(regexp):
     return image_list
 
 
-if __name__ == '__main__':
-    regexpression = r'mail_send[a-z_\-]*_postgres'
-
+def do_cleanup(regexpression: str):
     res = get_containers(regexpression)
     if len(res) != 0:
         for i, r in enumerate(res):
@@ -126,3 +124,7 @@ if __name__ == '__main__':
     else:
         print(f'No images found for {regexpression}')
 
+
+if __name__ == '__main__':
+    reg_expression = r'mail_sender_[a-z_\-]*_postgres'
+    do_cleanup(reg_expression)
