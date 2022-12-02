@@ -2,8 +2,8 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 
-from django_scaffolding_tools._experimental.general_ledger.parsers import parse_general_ledger
-from django_scaffolding_tools._experimental.general_ledger.writers import write_transactions
+from .parsers import parse_general_ledger
+from .writers import write_transactions
 
 
 def separate_accounts(gl_file: Path, output_folder: Path, timestamp_format: str = '%Y%m%d_%H%M%S') -> Path:

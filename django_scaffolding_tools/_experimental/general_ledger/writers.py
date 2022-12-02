@@ -7,7 +7,7 @@ from openpyxl.utils import get_column_letter
 from openpyxl.workbook import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 
-from django_scaffolding_tools._experimental.general_ledger.parsers import get_default_mappings
+from .parsers import get_default_mappings
 
 
 def write_headers(sheet: Worksheet, headers: List[str]):
