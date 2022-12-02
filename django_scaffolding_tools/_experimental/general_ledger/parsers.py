@@ -17,6 +17,17 @@ COLUMN_MAPPINGS = {
     9: {'name': 'balance', 'title': 'Balance', 'number_format': '#,##0.00', 'width': 12},
 }
 
+COLUMN_MAPPINGS_2 = {
+   '1': {'name': 'account_id', 'title': 'Account ID', 'width': 12},
+   '2': {'name': 'account_description', 'title': 'Account Description', 'width': 24},
+   '3': {'name': 'date', 'title': 'Date', 'number_format': 'DD/MM/YYYY', 'width': 12},
+   '4': {'name': 'reference', 'title': 'Reference', 'width': 30},
+   '5': {'name': 'journal', 'title': 'Jrnl', 'width': 12},
+   '6': {'name': 'description', 'title': 'Trans Description', 'width': 36},
+   '7': {'name': 'debit_amount', 'title': 'Debit Amt', 'number_format': '#,##0.00', 'width': 12},
+   '8': {'name': 'credit_amount', 'title': 'Credit Amt', 'number_format': '#,##0.00', 'width': 12},
+   '9': {'name': 'balance', 'title': 'Balance', 'number_format': '#,##0.00', 'width': 12},
+}
 
 def get_default_mappings():
     return COLUMN_MAPPINGS

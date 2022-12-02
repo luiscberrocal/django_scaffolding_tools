@@ -10,30 +10,6 @@ from ..exceptions import ConfigurationError
 from ..utils import backup_file
 
 
-class CoverLetter(BaseModel):
-    template_folder: str
-    default_template: str
-    default_output_folder: str
-    is_sample: Optional[bool] = True
-
-
-class Gmail(BaseModel):
-    email: str
-    token: str
-
-
-class Database(BaseModel):
-    folder: str
-    file: str
-    backup_folder: str
-
-
-class Configuration(BaseModel):
-    cover_letters: CoverLetter
-    gmail: Gmail
-    database: Database
-
-
 class ConfigurationManager:
     DEFAULT_CONFIG_FOLDER_NAME = '.py_gl_parser'
     DEFAULT_CONFIG_FILENAME = 'configuration.toml'
@@ -60,27 +36,30 @@ class ConfigurationManager:
             self.write_configuration(tmp_config)
 
     def get_sample_config(self) -> Dict[str, Any]:
-        data = {'cover_letters': {'template_folder': str(self.config_folder / 'templates'),
-                                  'default_template': 'Cover Letter Template.docx',
-                                  'default_output_folder': str(Path(os.getcwd()) / 'output'),
-                                  'is_sample': True},
-                'gmail': {'email': f'{self.username}@gmail.com',
-                          'token': 'SECRET'},
-                'database': {'folder': str(Path(os.getcwd()) / 'data'),
-                             'file': 'cover_letters.xlsx',
-                             'backup_folder': str(Path(os.getcwd()) / 'data' / 'backups')}
-                }
+        home = Path().home()
+        data = {
+            'application': {'output_folder': str(home / 'parsed_general_ledgers'), },
+            'parsers': {
+                'sheet_name': 'General ledger',
+                'start_row': 6,
+                'column_mappings': {
+                    '1': {'name': 'account_id', 'title': 'Account ID', 'width': 12},
+                    '2': {'name': 'account_description', 'title': 'Account Description', 'width': 24},
+                    '3': {'name': 'date', 'title': 'Date', 'number_format': 'DD/MM/YYYY', 'width': 12},
+                    '4': {'name': 'reference', 'title': 'Reference', 'width': 30},
+                    '5': {'name': 'journal', 'title': 'Jrnl', 'width': 12},
+                    '6': {'name': 'description', 'title': 'Trans Description', 'width': 36},
+                    '7': {'name': 'debit_amount', 'title': 'Debit Amt', 'number_format': '#,##0.00', 'width': 12},
+                    '8': {'name': 'credit_amount', 'title': 'Credit Amt', 'number_format': '#,##0.00', 'width': 12},
+                    '9': {'name': 'balance', 'title': 'Balance', 'number_format': '#,##0.00', 'width': 12},
+                }}
+        }
         return data
 
     def prep_config(self):
-        config = self.get_configuration_obj()
-        folder = Path(config.database.folder)
-        folder.mkdir(exist_ok=True)
-        folder = Path(config.database.backup_folder)
-        folder.mkdir(exist_ok=True)
+        raise Exception('Not implemented')
 
-    def write_configuration(self, config_data: Dict[str, Any], over_write: bool = False,
-                            is_sample: bool=False) -> None:
+    def write_configuration(self, config_data: Dict[str, Any], over_write: bool = False, ) -> None:
         if self.config_file.exists() and not over_write:
             raise Exception('Cannot overwrite config file.')
         with open(self.config_file, 'w') as f:
@@ -95,10 +74,8 @@ class ConfigurationManager:
             configuration = toml.load(f)
         return configuration
 
-    def get_configuration_obj(self) -> Configuration:
-        config = self.get_configuration()
-        config_obj = Configuration(**config)
-        return config_obj
+    def get_configuration_obj(self) -> Any:
+        raise Exception('Not implemented')
 
     def export_to_json(self, export_file: Path) -> None:
         config = self.get_configuration()
