@@ -1,4 +1,5 @@
 import os
+import sys
 import zipfile
 from datetime import datetime
 from pathlib import Path
@@ -34,9 +35,9 @@ def zip_folder(zip_file: Path, folder_to_zip: Path):
         zipdir(folder_to_zip, zipf)
 
 
-def backup_envs(project_folder: Path, backup_folder: Path) -> List[Path]:
+def backup_envs(project_folder: Path, backup_folder: Path, date_format='%Y%m%d_%H') -> List[Path]:
     project_envs_dict = get_projects_envs(project_folder)
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    timestamp = datetime.now().strftime(date_format)
     b_folder = backup_folder / timestamp
     b_folder.mkdir(exist_ok=True)
     zip_list = list()
@@ -49,8 +50,15 @@ def backup_envs(project_folder: Path, backup_folder: Path) -> List[Path]:
 
 if __name__ == '__main__':
     home = Path().home()
-    m_folder = home / 'adelantos'
-    output_folder = home / 'Documents' / 'adelantos_envs'
+    project_folder_name = 'PycharmProjects' # 'adelantos'
+    m_folder = home / project_folder_name
+
+    if not m_folder.exists():
+        print(f'Folder {m_folder} does not exists')
+        sys.exit(100)
+
+    output_folder = home / 'Documents' / f'{project_folder_name}_envs'
+    output_folder.mkdir(exist_ok=True)
 
     zip_files = backup_envs(m_folder, output_folder)
     for i, zf in enumerate(zip_files, 1):
