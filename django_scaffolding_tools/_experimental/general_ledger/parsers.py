@@ -46,7 +46,7 @@ class ParsingConfiguration(Protocol):
     @property
     def column_mappings(self) -> Dict[str, Dict[str, Any]]:
         ...
-    
+
 
 def parse_general_ledger(general_ledger_file: Path, start_row: int = 6,
                          sheet_name: str = 'General Ledger',
