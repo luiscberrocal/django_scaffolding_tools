@@ -38,7 +38,11 @@ class ConfigurationManager:
     def get_sample_config(self) -> Dict[str, Any]:
         home = Path().home()
         data = {
-            'application': {'output_folder': str(home / 'parsed_general_ledgers'), },
+            'application': {
+                'output_folder': str(home / 'parsed_general_ledgers'),
+                "date_format": "%Y%m%d_%H%M%S",
+                "backup_folder": "/dfdf/ladfsd/"
+            },
             'parsers': {
                 'sheet_name': 'General ledger',
                 'start_row': 6,
