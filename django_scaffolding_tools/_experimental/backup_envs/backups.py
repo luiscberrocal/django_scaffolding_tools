@@ -50,7 +50,7 @@ def backup_envs(project_folder: Path, backup_folder: Path, date_format='%Y%m%d_%
 
 if __name__ == '__main__':
     home = Path().home()
-    project_folder_name = 'PycharmProjects' # 'adelantos'
+    project_folder_name = 'adelantos'
     m_folder = home / project_folder_name
 
     if not m_folder.exists():
