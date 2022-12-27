@@ -70,14 +70,17 @@ def do_cleanup(regexpression: str):
     res = get_containers(regexpression)
     if len(res) != 0:
         for i, r in enumerate(res):
-            print(f'{i} {r["container_id"]} {r["image"]}')
-        container_to_delete = input(f'Type the number of the container to delete (#):')
-        container_id = int(container_to_delete)
-        # print(res[container_id])
+            print(f'{i} {r["container_id"]} {r["image"]} {r["name"]}')
+        container_to_delete = input(f'Type the number of the container to delete (#, None [n]):')
+        if container_to_delete.isdigit():
+            container_id = int(container_to_delete)
+            # print(res[container_id])
 
-        delete_container_command = ['docker', 'rm', res[container_id]['container_id']]
-        dc_res, errors = run_commands(delete_container_command)
-        print(f'Deleted container {dc_res}')
+            delete_container_command = ['docker', 'rm', res[container_id]['container_id']]
+            dc_res, errors = run_commands(delete_container_command)
+            print(f'Deleted container {dc_res}')
+        else:
+            print('No containers were deleted')
     else:
         print(f'No container found for {regexpression}')
 
@@ -85,15 +88,16 @@ def do_cleanup(regexpression: str):
     # print(d_vols)
     if len(d_vols) != 0:
         for i, d_vol in enumerate(d_vols):
-            print(f'({i}) {d_vol["name"]}')
+            volume_name = d_vol["name"]
+            print(f'({i}) {volume_name}')
 
-        volume_to_delete = input('Volume to delete (#, n, a):')
+        volume_to_delete = input('Volume to delete (#, None [n], All [a]):')
         delete_volume_command = ['docker', 'volume', 'rm']
         if volume_to_delete.lower() == 'a':
             for d_vol in d_vols:
                 delete_volume_command.append(d_vol['name'])
-        elif isinstance(volume_to_delete, int):
-            delete_volume_command.append(d_vols[volume_to_delete]['name'])
+        elif volume_to_delete.isdigit():
+            delete_volume_command.append(d_vols[int(volume_to_delete)]['name'])
         else:
             print('Not deleting any volumes')
         if len(delete_volume_command) > 3:
@@ -126,5 +130,6 @@ def do_cleanup(regexpression: str):
 
 
 if __name__ == '__main__':
-    reg_expression = r'mail_sender_[a-z_\-]*_postgres'
-    do_cleanup(reg_expression)
+    reg_expr = r'[a-z_\-]*postgres'
+    reg_expr = r"payment[_\-]collector[a-z_\-]*_postgres"
+    do_cleanup(reg_expr)

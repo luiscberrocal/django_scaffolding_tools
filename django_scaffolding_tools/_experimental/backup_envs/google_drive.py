@@ -39,5 +39,5 @@ if __name__ == '__main__':
     # main()
 
     gd_ifd = ''  # get form google_drive_folder_id.json
-    z_folder = Path('/home/luiscberrocal/Documents/adelantos_envs/20221215_11')
+    z_folder = Path('/home/luiscberrocal/Documents/adelantos_envs/20221221_10')
     upload(z_folder, gd_ifd)
