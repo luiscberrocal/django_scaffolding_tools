@@ -1,5 +1,8 @@
 import subprocess
-from typing import List, Tuple
+from typing import List, Tuple, Optional
+
+from django_scaffolding_tools._experimental.docker.containers import get_containers
+from django_scaffolding_tools._experimental.docker.enums import ProjectPostgresRegExp, TerminalColor
 
 
 def run_commands(commands: List[str], encoding: str = 'utf-8') -> Tuple[List[str], List[str]]:
@@ -24,18 +27,6 @@ def run_command_with_grep(commands: List[str], regexp: str) -> List[str]:
                                 input=ps.stdout, capture_output=True)
     results = containers.stdout.decode('utf-8').strip().split('\n')
     return results
-
-
-def get_containers(regexp: str):
-    commands = ['docker', 'ps', '-a']
-    results = run_command_with_grep(commands, regexp)
-    container_list = list()
-    if len(results) > 0:
-        for r in results:
-            data = r.split(' ')
-            if len(data[0]) != 0:
-                container_list.append({'container_id': data[0], 'image': data[3], 'name': data[-1]})
-    return container_list
 
 
 def get_volumes(regexp):
@@ -129,7 +120,14 @@ def do_cleanup(regexpression: str):
         print(f'No images found for {regexpression}')
 
 
+def bold_text(text: str, color: Optional[TerminalColor] = None):
+    if color is None:
+        color_code = ''
+    else:
+        color_code = color
+    return f'{TerminalColor.BOLD}{color_code}{text}{TerminalColor.END_COLOR}'
+
+
 if __name__ == '__main__':
-    reg_expr = r'[a-z_\-]*postgres'
-    reg_expr = r"payment[_\-]collector[a-z_\-]*_postgres"
+    reg_expr = ProjectPostgresRegExp.ECDL
     do_cleanup(reg_expr)
