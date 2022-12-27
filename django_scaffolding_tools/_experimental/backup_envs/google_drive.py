@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+from django_scaffolding_tools._experimental.backup_envs.gdrive import get_g_drive_credentials
+
 
 def main():
     drive = get_google_drive()
@@ -16,12 +18,21 @@ def main():
 def get_google_drive():
     from pydrive2.auth import GoogleAuth
     from pydrive2.drive import GoogleDrive
-    secrets_file = Path(__file__).parent.parent.parent.parent / '.envs' / 'google_drive' / 'client_secrets.json'
+
+    secrets_folder = Path(__file__).parent.parent.parent.parent / '.envs' / 'google_drive'
+    secrets_file = secrets_folder / 'client_secrets.json'
+    token_file = secrets_folder / 'token.pickle'
+
     GoogleAuth.DEFAULT_SETTINGS['client_config_file'] = str(secrets_file)
-    gauth = GoogleAuth()
-    gauth.LocalWebserverAuth()
-    # gauth.CommandLineAuth()
-    drive = GoogleDrive(gauth)
+    # creds = get_g_drive_credentials(secrets_file, token_file)
+    creds = None
+    if creds is not None:
+        drive = GoogleDrive(creds)
+    else:
+        gauth = GoogleAuth()
+        gauth.LocalWebserverAuth()
+        # gauth.CommandLineAuth()
+        drive = GoogleDrive(gauth)
     return drive
 
 
@@ -37,18 +48,25 @@ def upload(folder: Path, google_drive_folder: str):
 
 
 def list_directories(folder: Path, top: int = 3):
+    env_folders = list()
     for root, dirs, files in os.walk(folder):
         dirs.reverse()
         filtered = dirs[:top]
         for directory in filtered:
+            env_folders.append(directory)
             print(directory)
+    return env_folders
 
 
 if __name__ == '__main__':
     # main()
 
     gd_ifd = ''  # get form google_drive_folder_id.json
-    z_folder = Path('/home/luiscberrocal/Documents/adelantos_envs')
-    # upload(z_folder, gd_ifd)
-    list_directories(z_folder)
-    z_folder = Path('/home/luiscberrocal/Documents/adelantos_envs/20221221_10')
+    envs_folder = Path('/home/luiscberrocal/Documents/adelantos_envs')
+    last_folder = list_directories(envs_folder, top=1)[0]
+
+    z_folder = envs_folder / last_folder
+    prompt = input(f'Upload {last_folder} to gdrive? ')
+    if prompt.lower() == 'y':
+        upload(z_folder, gd_ifd)
+
