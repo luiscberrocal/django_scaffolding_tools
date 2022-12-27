@@ -7,6 +7,13 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
+
+class GDrive:
+
+    def __init__(self, secrets_file: Path):
+        token_file = secrets_file.parent / 'token.pickle'
+
+
 # Define the SCOPES. If modifying it,
 # delete the token.pickle file.
 SCOPES = ['https://www.googleapis.com/auth/drive']
