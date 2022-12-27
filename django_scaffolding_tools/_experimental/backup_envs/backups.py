@@ -6,6 +6,18 @@ from pathlib import Path
 from typing import List, Dict, Any
 
 
+def print_success(message):
+    print(f"\033[92m {message}\033[00m")
+
+
+def print_warning(message):
+    print(f"\033[93m {message}\033[00m")
+
+
+def print_error(message):
+    print(f"\033[91m {message}\033[00m")
+
+
 def list_all_projects(project_folder: Path) -> List[str]:
     folders = [x.path for x in os.scandir(project_folder) if x.is_dir()]
     return folders
@@ -62,4 +74,4 @@ if __name__ == '__main__':
 
     zip_files = backup_envs(m_folder, output_folder)
     for i, zf in enumerate(zip_files, 1):
-        print(f'{i} {zf.name}')
+        print_success(f'{i} {zf.name}')

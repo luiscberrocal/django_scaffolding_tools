@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 
@@ -35,9 +36,19 @@ def upload(folder: Path, google_drive_folder: str):
         gfile.Upload()  # Upload the file.
 
 
+def list_directories(folder: Path, top: int = 3):
+    for root, dirs, files in os.walk(folder):
+        dirs.reverse()
+        filtered = dirs[:top]
+        for directory in filtered:
+            print(directory)
+
+
 if __name__ == '__main__':
     # main()
 
     gd_ifd = ''  # get form google_drive_folder_id.json
+    z_folder = Path('/home/luiscberrocal/Documents/adelantos_envs')
+    # upload(z_folder, gd_ifd)
+    list_directories(z_folder)
     z_folder = Path('/home/luiscberrocal/Documents/adelantos_envs/20221221_10')
-    upload(z_folder, gd_ifd)
