@@ -3,7 +3,7 @@ import sys
 import zipfile
 from datetime import datetime
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Tuple
 
 
 def print_success(message):
@@ -47,7 +47,7 @@ def zip_folder(zip_file: Path, folder_to_zip: Path):
         zipdir(folder_to_zip, zipf)
 
 
-def backup_envs(project_folder: Path, backup_folder: Path, date_format='%Y%m%d_%H') -> List[Path]:
+def backup_envs(project_folder: Path, backup_folder: Path, date_format='%Y%m%d_%H') -> Tuple[List[Path], Path]:
     project_envs_dict = get_projects_envs(project_folder)
     timestamp = datetime.now().strftime(date_format)
     b_folder = backup_folder / timestamp
@@ -57,7 +57,7 @@ def backup_envs(project_folder: Path, backup_folder: Path, date_format='%Y%m%d_%
         zip_file = b_folder / f'{project}.zip'
         zip_folder(zip_file, v['envs'])
         zip_list.append(zip_file)
-    return zip_list
+    return zip_list, b_folder
 
 
 if __name__ == '__main__':
@@ -72,6 +72,8 @@ if __name__ == '__main__':
     output_folder = home / 'Documents' / f'{project_folder_name}_envs'
     output_folder.mkdir(exist_ok=True)
 
-    zip_files = backup_envs(m_folder, output_folder)
+    zip_files, ts_backup_folder = backup_envs(m_folder, output_folder)
     for i, zf in enumerate(zip_files, 1):
         print_success(f'{i} {zf.name}')
+    print_success(f'Wrote {len(zip_files)} zip files')
+    print_success(f'Output folder: {ts_backup_folder}')

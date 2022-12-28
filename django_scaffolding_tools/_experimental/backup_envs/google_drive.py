@@ -1,4 +1,6 @@
+import json
 import os
+import pickle
 from pathlib import Path
 
 from django_scaffolding_tools._experimental.backup_envs.gdrive import get_g_drive_credentials
@@ -21,18 +23,17 @@ def get_google_drive():
 
     secrets_folder = Path(__file__).parent.parent.parent.parent / '.envs' / 'google_drive'
     secrets_file = secrets_folder / 'client_secrets.json'
-    token_file = secrets_folder / 'token.pickle'
+    token_file = secrets_folder / 'token2.json'
 
     GoogleAuth.DEFAULT_SETTINGS['client_config_file'] = str(secrets_file)
-    # creds = get_g_drive_credentials(secrets_file, token_file)
-    creds = None
-    if creds is not None:
-        drive = GoogleDrive(creds)
+    gauth = GoogleAuth()
+    if token_file.exists():
+        gauth.LoadCredentialsFile(token_file)
     else:
-        gauth = GoogleAuth()
         gauth.LocalWebserverAuth()
-        # gauth.CommandLineAuth()
-        drive = GoogleDrive(gauth)
+        gauth.SaveCredentialsFile(token_file)
+
+    drive = GoogleDrive(gauth)
     return drive
 
 
@@ -61,12 +62,17 @@ def list_directories(folder: Path, top: int = 3):
 if __name__ == '__main__':
     # main()
 
-    gd_ifd = ''  # get form google_drive_folder_id.json
+    g_drive_folder = Path(__file__).parent.parent.parent.parent / '.envs' / 'google_drive'
+    folder_ids_file = g_drive_folder / 'google_drive_folders_id.json'
+    with open(folder_ids_file, 'r') as json_file:
+        folder_ids = json.load(json_file)
+    folder_id = folder_ids['Envs']
+
     envs_folder = Path('/home/luiscberrocal/Documents/adelantos_envs')
+
     last_folder = list_directories(envs_folder, top=1)[0]
 
     z_folder = envs_folder / last_folder
     prompt = input(f'Upload {last_folder} to gdrive? ')
     if prompt.lower() == 'y':
-        upload(z_folder, gd_ifd)
-
+        upload(z_folder, folder_id)
