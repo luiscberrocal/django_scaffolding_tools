@@ -21,7 +21,7 @@ def delete_containers(containers: List[Dict[str, Any]], reg_expression: str):
     if len(containers) != 0:
         for i, container in enumerate(containers):
             print(f'{i} {container["container_id"]} {container["image"]} {container["name"]}')
-        container_to_delete = input(f'Type the number of the container to delete (#, None [n], All [all):')
+        container_to_delete = input(f'Type the number of the container to delete (#, None [n], All [all]):')
         if container_to_delete.isdigit():
             container_id = int(container_to_delete)
 
@@ -45,5 +45,5 @@ def main(reg_expression: str):
 
 
 if __name__ == '__main__':
-    r = r"d[_\-]local[a-z_\-]*_django"
+    r = r"seleniumlms"
     main(r)

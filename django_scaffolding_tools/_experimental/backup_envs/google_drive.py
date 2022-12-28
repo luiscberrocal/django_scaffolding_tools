@@ -41,8 +41,8 @@ def upload(folder: Path, google_drive_folder: str):
     drive = get_google_drive()
     zip_files = folder.glob('**/*.zip')
     for i, zip_file in enumerate(zip_files, 1):
-        print(f'{i} {zip_file}')
-        gfile = drive.CreateFile({'parents': [{'id': google_drive_folder}]})
+        print(f'{i} {zip_file.name}')
+        gfile = drive.CreateFile({'parents': [{'id': google_drive_folder}], 'title': zip_file.name})
         # Read file and set it as the content of this instance.
         gfile.SetContentFile(str(zip_file))
         gfile.Upload()  # Upload the file.
@@ -55,8 +55,12 @@ def list_directories(folder: Path, top: int = 3):
         filtered = dirs[:top]
         for directory in filtered:
             env_folders.append(directory)
-            print(directory)
+            # print(directory)
     return env_folders
+
+
+def list_dated_directories(folder: Path, top: int = 3):
+    directories = list_directories(folder, top)
 
 
 if __name__ == '__main__':
@@ -69,10 +73,10 @@ if __name__ == '__main__':
     folder_id = folder_ids['Envs']
 
     envs_folder = Path('/home/luiscberrocal/Documents/adelantos_envs')
-
-    last_folder = list_directories(envs_folder, top=1)[0]
+    backup_folders = list_directories(envs_folder, top=5)
+    last_folder = list_directories(envs_folder, top=3)[0]
 
     z_folder = envs_folder / last_folder
-    prompt = input(f'Upload {last_folder} to gdrive? ')
+    prompt = input(f'Upload {last_folder} to gdrive [y/N]? ')
     if prompt.lower() == 'y':
         upload(z_folder, folder_id)

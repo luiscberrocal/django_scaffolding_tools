@@ -4,6 +4,7 @@ from enum import Enum
 class ProjectPostgresRegExp(str, Enum):
     PCA = r"payment[_\-]collector[a-z_\-]*_postgres"
     ECDL = r"d[_\-]local[a-z_\-]*_postgres"
+    LMS = r"[_\-]lite[a-z_\-]*_postgres"
 
 
 class TerminalColor(str, Enum):
