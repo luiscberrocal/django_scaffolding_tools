@@ -16,7 +16,7 @@ class Updater:
             if req['parsed'] is None:
                 lines.append(req['raw'])
             else:
-                recommended = self.database.get(req['parse']['lib_name'])
+                recommended = self.database.get(req['parsed']['lib_name'])
                 if recommended is None:
                     lines.append(req['raw'])
                 else:
@@ -30,9 +30,11 @@ class Updater:
 
 if __name__ == '__main__':
     output_folder = Path(__file__).parent.parent.parent.parent / 'output'
-    f = Path('/home/luiscberrocal/adelantos/adelantos-cupos/requirements/local.txt')
+    f = Path('/home/luiscberrocal/adelantos/mobile-inquiries/requirements/production'
+             '.txt')
+    db_file = Path('/home/luiscberrocal/PycharmProjects/django_scaffolding_tools/'
+                   'tests/fixtures/_experimental/req_db.json')
+    db = RequirementDatabase(db_file)
 
-    permitted_versions = output_folder / 'permitted.json'
-
-    updater = Updater(permitted_json_file=permitted_versions)
+    updater = Updater(db)
     updater.update_requirements(f)

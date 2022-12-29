@@ -41,7 +41,7 @@ class RequirementDatabase:
     def get(self, name: str):
         return self.database.get(name)
 
-    def add(self, name: str, environment: Optional[str], version: Optional[str],
+    def add(self, name: str, environment: Optional[str], version: Optional[str] = None,
             commit: bool = True) -> RecommendedRequirement:
         if self.get(name) is not None:
             raise Exception(f'Library {name} already exists use update.')

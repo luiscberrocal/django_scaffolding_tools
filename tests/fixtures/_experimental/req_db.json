@@ -468,5 +468,25 @@
         "last_updated": "2022-12-29 10:05:37.246546",
         "home_page": "http://github.com/kmmbvnr/django-fsm",
         "license": "MIT License"
+    },
+    "XlsxWriter": {
+        "name": "XlsxWriter",
+        "latest_version": "3.0.4",
+        "approved_version": "3.0.4",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 11:38:15.668077",
+        "home_page": "https://github.com/jmcnamara/XlsxWriter",
+        "license": "BSD-2-Clause"
+    },
+    "django-test-plus": {
+        "name": "django-test-plus",
+        "latest_version": "2.2.1",
+        "approved_version": "2.2.1",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 14:49:14.313054",
+        "home_page": "https://github.com/revsys/django-test-plus/",
+        "license": ""
     }
 }
