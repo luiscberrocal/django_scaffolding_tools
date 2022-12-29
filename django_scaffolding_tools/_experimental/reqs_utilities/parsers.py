@@ -27,6 +27,17 @@ class RequirementDatabase:
     def __init__(self, source_file: Path):
         self.source_file = source_file
         self.regexp = re.compile(r'(?P<lib_name>[\w_\-]+)==(?P<version>[\w\.\-]+)\s*#?(?P<comment>.*)')
+        self.database = dict()
+        self.load_db(self.source_file)
+
+    def load_db(self, source_file: Path):
+        with open(source_file, 'r') as j_file:
+            data = json.load(j_file)
+        for name, req_dict in data.items():
+            self.database[name] = RecommendedRequirement(**req_dict)
+
+    def get(self, name: str):
+        return self.database.get(name)
 
     def get_from_requirements_folder(self, folder: Path):
         req_files = folder.glob('**/*.txt')

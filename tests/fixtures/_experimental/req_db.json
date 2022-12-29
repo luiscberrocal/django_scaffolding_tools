@@ -1,0 +1,378 @@
+{
+    "gunicorn": {
+        "name": "gunicorn",
+        "latest_version": "20.1.0",
+        "approved_version": "20.1.0",
+        "group": null,
+        "environment": "production",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "psycopg2": {
+        "name": "psycopg2",
+        "latest_version": "2.9.5",
+        "approved_version": "2.9.5",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "sentry-sdk": {
+        "name": "sentry-sdk",
+        "latest_version": "1.12.1",
+        "approved_version": "1.12.1",
+        "group": null,
+        "environment": "production",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "watchtower": {
+        "name": "watchtower",
+        "latest_version": "3.0.0",
+        "approved_version": "1.0.6",
+        "group": null,
+        "environment": "production",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "ipdb": {
+        "name": "ipdb",
+        "latest_version": "0.13.11",
+        "approved_version": "0.13.11",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "watchfiles": {
+        "name": "watchfiles",
+        "latest_version": "0.18.1",
+        "approved_version": "0.18.1",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "mypy": {
+        "name": "mypy",
+        "latest_version": "0.991",
+        "approved_version": "0.991",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "django-stubs": {
+        "name": "django-stubs",
+        "latest_version": "1.13.1",
+        "approved_version": "1.13.1",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "pytest": {
+        "name": "pytest",
+        "latest_version": "7.2.0",
+        "approved_version": "7.2.0",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "pytest-sugar": {
+        "name": "pytest-sugar",
+        "latest_version": "0.9.6",
+        "approved_version": "0.9.6",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "djangorestframework-stubs": {
+        "name": "djangorestframework-stubs",
+        "latest_version": "1.8.0",
+        "approved_version": "1.8.0",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "sphinx": {
+        "name": "sphinx",
+        "latest_version": "6.0.0b2",
+        "approved_version": "5.3.0",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "sphinx-autobuild": {
+        "name": "sphinx-autobuild",
+        "latest_version": "2021.3.14",
+        "approved_version": "2021.3.14",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "flake8": {
+        "name": "flake8",
+        "latest_version": "6.0.0",
+        "approved_version": "6.0.0",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "flake8-isort": {
+        "name": "flake8-isort",
+        "latest_version": "6.0.0",
+        "approved_version": "6.0.0",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "coverage": {
+        "name": "coverage",
+        "latest_version": "7.0.1",
+        "approved_version": "7.0.1",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "black": {
+        "name": "black",
+        "latest_version": "23.1a1",
+        "approved_version": "22.12.0",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "pylint-django": {
+        "name": "pylint-django",
+        "latest_version": "2.5.3",
+        "approved_version": "2.5.3",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "pylint-celery": {
+        "name": "pylint-celery",
+        "latest_version": "0.3",
+        "approved_version": "0.3",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "pre-commit": {
+        "name": "pre-commit",
+        "latest_version": "2.21.0",
+        "approved_version": "2.21.0",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "factory-boy": {
+        "name": "factory-boy",
+        "latest_version": "3.2.1",
+        "approved_version": "3.2.1",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "django-debug-toolbar": {
+        "name": "django-debug-toolbar",
+        "latest_version": "3.8.1",
+        "approved_version": "3.8.1",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "django-extensions": {
+        "name": "django-extensions",
+        "latest_version": "3.2.1",
+        "approved_version": "3.2.1",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "django-coverage-plugin": {
+        "name": "django-coverage-plugin",
+        "latest_version": "3.0.0",
+        "approved_version": "3.0.0",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "pytest-django": {
+        "name": "pytest-django",
+        "latest_version": "4.5.2",
+        "approved_version": "4.5.2",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "django-test-tools": {
+        "name": "django-test-tools",
+        "latest_version": "2.1.0",
+        "approved_version": "2.1.0",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "pytz": {
+        "name": "pytz",
+        "latest_version": "2022.7",
+        "approved_version": "2022.7",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "python-slugify": {
+        "name": "python-slugify",
+        "latest_version": "7.0.0",
+        "approved_version": "7.0.0",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "Pillow": {
+        "name": "Pillow",
+        "latest_version": "9.3.0",
+        "approved_version": "9.3.0",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "argon2-cffi": {
+        "name": "argon2-cffi",
+        "latest_version": "21.3.0",
+        "approved_version": "21.3.0",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "whitenoise": {
+        "name": "whitenoise",
+        "latest_version": "6.2.0",
+        "approved_version": "6.2.0",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "redis": {
+        "name": "redis",
+        "latest_version": "4.4.0",
+        "approved_version": "4.4.0",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "hiredis": {
+        "name": "hiredis",
+        "latest_version": "2.1.0",
+        "approved_version": "2.1.0",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "celery": {
+        "name": "celery",
+        "latest_version": "5.3.0b1",
+        "approved_version": "5.2.7",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "django-celery-beat": {
+        "name": "django-celery-beat",
+        "latest_version": "2.4.0",
+        "approved_version": "2.4.0",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "django": {
+        "name": "django",
+        "latest_version": "4.1.4",
+        "approved_version": "3.2.16",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "django-environ": {
+        "name": "django-environ",
+        "latest_version": "0.9.0",
+        "approved_version": "0.9.0",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "django-model-utils": {
+        "name": "django-model-utils",
+        "latest_version": "4.3.1",
+        "approved_version": "4.3.1",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "django-allauth": {
+        "name": "django-allauth",
+        "latest_version": "0.52.0",
+        "approved_version": "0.51.0",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "django-crispy-forms": {
+        "name": "django-crispy-forms",
+        "latest_version": "1.14.0",
+        "approved_version": "1.14.0",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "crispy-bootstrap5": {
+        "name": "crispy-bootstrap5",
+        "latest_version": "0.7",
+        "approved_version": "0.7",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "django-redis": {
+        "name": "django-redis",
+        "latest_version": "5.2.0",
+        "approved_version": "5.2.0",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "djangorestframework": {
+        "name": "djangorestframework",
+        "latest_version": "3.14.0",
+        "approved_version": "3.14.0",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "django-cors-headers": {
+        "name": "django-cors-headers",
+        "latest_version": "3.13.0",
+        "approved_version": "3.13.0",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "drf-spectacular": {
+        "name": "drf-spectacular",
+        "latest_version": "0.25.1",
+        "approved_version": "0.25.1",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "requests": {
+        "name": "requests",
+        "latest_version": "2.28.1",
+        "approved_version": "2.28.1",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    },
+    "django-fsm": {
+        "name": "django-fsm",
+        "latest_version": "2.8.1",
+        "approved_version": "2.8.1",
+        "group": null,
+        "environment": "base",
+        "last_updated": "2022-12-29 08:38:02.116777"
+    }
+}

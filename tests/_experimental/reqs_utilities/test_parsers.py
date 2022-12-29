@@ -17,3 +17,10 @@ class TestRequirementsDatabase:
             reqs_dict[name] = req.dict()
         with open(parsed, 'w') as f:
             json.dump(reqs_dict, f, indent=4, default=str)
+
+    def test_get(self, fixtures_folder):
+        json_db_file = fixtures_folder / '_experimental' / 'req_db.json'
+        db = RequirementDatabase(json_db_file)
+        req = db.get('django')
+        assert req is not None
+        assert req.approved_version == '3.2.16'
