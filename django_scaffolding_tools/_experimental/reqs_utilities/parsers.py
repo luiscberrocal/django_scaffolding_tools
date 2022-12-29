@@ -28,6 +28,14 @@ class RequirementDatabase:
         self.source_file = source_file
         self.regexp = re.compile(r'(?P<lib_name>[\w_\-]+)==(?P<version>[\w\.\-]+)\s*#?(?P<comment>.*)')
 
+    def get_from_requirements_folder(self, folder: Path):
+        req_files = folder.glob('**/*.txt')
+        global_req = dict()
+        for req_file in req_files:
+            reqs = self.get_from_requirement_file(req_file)
+            global_req.update(reqs)
+        return global_req
+
     def get_from_requirement_file(self, req_file: Path) -> Dict[str, RecommendedRequirement]:
         with open(req_file, 'r') as r_file:
             lines = r_file.readlines()
@@ -42,7 +50,7 @@ class RequirementDatabase:
                 latest_version = versions[-1]
                 recommended = RecommendedRequirement(name=lib_name, latest_version=latest_version,
                                                      approved_version=match.group('version'),
-                                                     group=req_file.stem)
+                                                     environment=req_file.stem)
                 parsed_requirements[lib_name] = recommended
         return parsed_requirements
 
