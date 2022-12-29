@@ -3,7 +3,7 @@ import os
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import Dict
+from typing import Dict, Optional
 
 import requests
 from johnnydep.pipper import get_versions
@@ -40,6 +40,27 @@ class RequirementDatabase:
 
     def get(self, name: str):
         return self.database.get(name)
+
+    def add(self, name: str, environment: Optional[str], version: Optional[str],
+            commit: bool = True) -> RecommendedRequirement:
+        if self.get(name) is not None:
+            raise Exception(f'Library {name} already exists use update.')
+        versions = get_versions(name)
+        if len(versions) == 0:
+            raise Exception(f'Library {name} not found')
+        latest_version = versions[-1]
+        approved_version = version if version is not None else latest_version
+        recommended = RecommendedRequirement(name=name, latest_version=latest_version,
+                                             approved_version=approved_version,
+                                             environment=environment)
+        info = self._download_info(name, recommended.approved_version)
+        recommended.home_page = info['home_page']
+        recommended.license = info['license']
+        recommended.last_updated = datetime.now()
+        self.database[name] = recommended
+        if commit:
+            self.save()
+        return recommended
 
     def update_db(self, commit: bool = True):
         for name, req in self.database.items():

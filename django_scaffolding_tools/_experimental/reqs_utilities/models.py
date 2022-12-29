@@ -18,6 +18,13 @@ class RecommendedRequirement(BaseModel):
     home_page: Optional[HttpUrl]
     license: Optional[str]
 
+    def to_req_line(self) -> str:
+        if self.home_page is None:
+            line = f'{self.name}=={self.approved_version}'
+        else:
+            line = f'{self.name}=={self.approved_version} # {self.home_page}'
+        return line
+
     class Config:
         json_encoders = {
             datetime: convert_datetime_to_iso_8601_with_z_suffix
