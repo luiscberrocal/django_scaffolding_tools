@@ -1,9 +1,11 @@
 import json
 import os
 import re
+from datetime import datetime
 from pathlib import Path
 from typing import Dict
 
+import requests
 from johnnydep.pipper import get_versions
 
 from django_scaffolding_tools._experimental.reqs_utilities.models import RecommendedRequirement
@@ -38,6 +40,34 @@ class RequirementDatabase:
 
     def get(self, name: str):
         return self.database.get(name)
+
+    def update_db(self, commit: bool = True):
+        for name, req in self.database.items():
+            info = self._download_info(name, req.approved_version)
+            req.home_page = info['home_page']
+            req.license = info['license']
+            req.last_updated = datetime.now()
+        if commit:
+            self.save()
+
+    def _download_info(self, name: str, version: str):
+        url = f'https://pypi.org/pypi/{name}/{version}/json'
+        response = requests.get(url)
+        info = dict()
+        if response.status_code == 200:
+            data = response.json()
+            home_page = data['info']['home_page']
+            lic = data['info']['license']
+            info = {'home_page': home_page, 'license': lic}
+        return info
+
+    def save(self):
+        tmp = dict()
+        for name, req in self.database.items():
+            tmp[name] = req.dict()
+
+        with open(self.source_file, 'w') as f:
+            json.dump(tmp, f, indent=4, default=str)
 
     def get_from_requirements_folder(self, folder: Path):
         req_files = folder.glob('**/*.txt')

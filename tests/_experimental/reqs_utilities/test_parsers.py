@@ -24,3 +24,8 @@ class TestRequirementsDatabase:
         req = db.get('django')
         assert req is not None
         assert req.approved_version == '3.2.16'
+
+    def test_update_db(self, fixtures_folder):
+        json_db_file = fixtures_folder / '_experimental' / 'req_db.json'
+        db = RequirementDatabase(json_db_file)
+        db.update_db()

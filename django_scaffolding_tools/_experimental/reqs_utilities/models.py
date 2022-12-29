@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, HttpUrl
 
 
 def convert_datetime_to_iso_8601_with_z_suffix(dt: datetime) -> str:
@@ -15,6 +15,8 @@ class RecommendedRequirement(BaseModel):
     group: Optional[str]
     environment: str
     last_updated: datetime = Field(default=datetime.now())
+    home_page: Optional[HttpUrl]
+    license: Optional[str]
 
     class Config:
         json_encoders = {
