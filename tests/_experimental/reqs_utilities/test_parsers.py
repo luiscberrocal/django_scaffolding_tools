@@ -33,4 +33,4 @@ class TestRequirementsDatabase:
     def test_add(self, fixtures_folder):
         json_db_file = fixtures_folder / '_experimental' / 'req_db.json'
         db = RequirementDatabase(json_db_file)
-        db.add('django-test-plus', environment='local')
+        db.add('Werkzeug', environment='local')

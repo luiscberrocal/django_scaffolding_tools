@@ -1,8 +1,9 @@
-import json
+import logging
 from pathlib import Path
 
 from django_scaffolding_tools._experimental.reqs_utilities.parsers import parse_requirement_file, RequirementDatabase
 
+logger = logging.getLogger(__name__)
 
 class Updater:
 
@@ -12,6 +13,7 @@ class Updater:
     def update_requirements(self, requirement_file: Path):
         reqs = parse_requirement_file(requirement_file)
         lines = list()
+        logger.debug(f'Ready to parse {len(reqs)} requirement.')
         for req in reqs:
             if req['parsed'] is None:
                 lines.append(req['raw'])
@@ -30,8 +32,9 @@ class Updater:
 
 if __name__ == '__main__':
     output_folder = Path(__file__).parent.parent.parent.parent / 'output'
-    f = Path('/home/luiscberrocal/adelantos/mobile-inquiries/requirements/production'
-             '.txt')
+    project = 'adelantos-mail-sender'
+    f = Path(f'/home/luiscberrocal/adelantos/{project}/requirements/base.txt')
+
     db_file = Path('/home/luiscberrocal/PycharmProjects/django_scaffolding_tools/'
                    'tests/fixtures/_experimental/req_db.json')
     db = RequirementDatabase(db_file)

@@ -382,7 +382,7 @@
     "django-allauth": {
         "name": "django-allauth",
         "latest_version": "0.52.0",
-        "approved_version": "0.51.0",
+        "approved_version": "0.52.0",
         "group": null,
         "environment": "base",
         "last_updated": "2022-12-29 10:05:34.468686",
@@ -488,5 +488,15 @@
         "last_updated": "2022-12-29 14:49:14.313054",
         "home_page": "https://github.com/revsys/django-test-plus/",
         "license": ""
+    },
+    "Werkzeug": {
+        "name": "Werkzeug",
+        "latest_version": "2.2.2",
+        "approved_version": "2.2.2",
+        "group": null,
+        "environment": "local",
+        "last_updated": "2022-12-30 11:37:52.294862",
+        "home_page": "https://palletsprojects.com/p/werkzeug/",
+        "license": "BSD-3-Clause"
     }
 }
