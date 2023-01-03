@@ -6,6 +6,7 @@ class ProjectPostgresRegExp(str, Enum):
     ECDL = r"d[_\-]local[a-z_\-]*_postgres"
     LMS = r"[_\-]lite[a-z_\-]*_postgres"
     CUP = r"[_\-]cupos[a-z_\-]*_postgres"
+    MIN = r"[_\-]?mobile[a-z_\-]*_postgres"
 
 
 class TerminalColor(str, Enum):
