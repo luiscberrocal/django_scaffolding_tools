@@ -111,3 +111,5 @@ output/
 tests/fixtures/_experimental/.~lock.Cover Letter Template.docx#
 /django_scaffolding_tools/_experimental/backup_envs/client_secrets.json
 /.envs/
+
+django_scaffolding_tools/_experimental/reqs_utilities/dummy.py
