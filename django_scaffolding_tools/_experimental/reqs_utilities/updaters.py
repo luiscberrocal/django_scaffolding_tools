@@ -5,6 +5,7 @@ from django_scaffolding_tools._experimental.reqs_utilities.parsers import parse_
 
 logger = logging.getLogger(__name__)
 
+
 class Updater:
 
     def __init__(self, database: RequirementDatabase):
@@ -31,13 +32,17 @@ class Updater:
 
 
 if __name__ == '__main__':
+    home = Path().home()
     output_folder = Path(__file__).parent.parent.parent.parent / 'output'
-    project = 'adelantos-mail-sender'
-    f = Path(f'/home/luiscberrocal/adelantos/{project}/requirements/base.txt')
+    project = 'adelantos-cupos'
+    f = home / f'adelantos/{project}/requirements/local.txt'
 
-    db_file = Path('/home/luiscberrocal/PycharmProjects/django_scaffolding_tools/'
-                   'tests/fixtures/_experimental/req_db.json')
+    db_file = home / 'PycharmProjects/django_scaffolding_tools/tests/fixtures/_experimental/req_db.json'
     db = RequirementDatabase(db_file)
 
+    # old_req = db.get('whitenoise')
+    # req = db.update('whitenoise')
+    # print(f'Old: {old_req}')
+    # print(f'New: {req}')
     updater = Updater(db)
     updater.update_requirements(f)

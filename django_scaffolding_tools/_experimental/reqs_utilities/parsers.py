@@ -38,7 +38,7 @@ class RequirementDatabase:
         for name, req_dict in data.items():
             self.database[name] = RecommendedRequirement(**req_dict)
 
-    def get(self, name: str):
+    def get(self, name: str) -> RecommendedRequirement:
         return self.database.get(name)
 
     def add(self, name: str, environment: Optional[str], version: Optional[str] = None,
@@ -61,6 +61,21 @@ class RequirementDatabase:
         if commit:
             self.save()
         return recommended
+
+    def update(self, name: str) -> RecommendedRequirement:
+        req = self.get(name)
+        if req is None:
+            raise Exception(f'Requirement {name} does not exist.')
+        versions = get_versions(name)
+        if len(versions) == 0:
+            raise Exception(f'Library {name} not found')
+        latest_version = versions[-1]
+        req.approved_version = latest_version
+        req.latest_version = latest_version
+        req.last_updated = datetime.now()
+        self.database[name] = req
+        self.save()
+        return req
 
     def update_db(self, commit: bool = True):
         for name, req in self.database.items():

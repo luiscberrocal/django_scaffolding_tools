@@ -281,11 +281,11 @@
     },
     "Pillow": {
         "name": "Pillow",
-        "latest_version": "9.3.0",
-        "approved_version": "9.3.0",
+        "latest_version": "9.4.0",
+        "approved_version": "9.4.0",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:31.301957",
+        "last_updated": "2023-01-03 16:51:01.277487",
         "home_page": "https://python-pillow.org",
         "license": "HPND"
     },
@@ -301,11 +301,11 @@
     },
     "whitenoise": {
         "name": "whitenoise",
-        "latest_version": "6.2.0",
-        "approved_version": "6.2.0",
+        "latest_version": "6.3.0",
+        "approved_version": "6.3.0",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:31.946859",
+        "last_updated": "2023-01-03 16:56:26.219760",
         "home_page": "https://github.com/evansd/whitenoise",
         "license": "MIT"
     },
