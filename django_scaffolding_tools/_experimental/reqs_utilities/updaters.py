@@ -35,14 +35,20 @@ if __name__ == '__main__':
     home = Path().home()
     output_folder = Path(__file__).parent.parent.parent.parent / 'output'
     project = 'adelantos-cupos'
-    f = home / f'adelantos/{project}/requirements/local.txt'
+    project = 'ec-d-local-payment-collector'
+    project = 'pj_slack_integration'
+    files = ['local.txt', 'base.txt', 'production.txt']
+    for file in files:
+        f = home / f'adelantos/{project}/requirements/{file}'
 
-    db_file = home / 'PycharmProjects/django_scaffolding_tools/tests/fixtures/_experimental/req_db.json'
-    db = RequirementDatabase(db_file)
+        db_file = home / 'PycharmProjects/django_scaffolding_tools/tests/fixtures/_experimental/req_db.json'
+        db = RequirementDatabase(db_file)
 
-    # old_req = db.get('whitenoise')
-    # req = db.update('whitenoise')
-    # print(f'Old: {old_req}')
-    # print(f'New: {req}')
-    updater = Updater(db)
-    updater.update_requirements(f)
+        # req_name = 'Pillow'
+        # old_req = db.get(req_name)
+        # req = db.update(req_name)
+        # print(f'Old: {old_req}')
+        # print(f'New: {req}')
+
+        updater = Updater(db)
+        updater.update_requirements(f)
