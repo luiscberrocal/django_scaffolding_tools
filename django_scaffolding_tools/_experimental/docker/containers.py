@@ -45,5 +45,5 @@ def main(reg_expression: str):
 
 
 if __name__ == '__main__':
-    r = r"seleniumlms"
+    r = r"cupos"
     main(r)
