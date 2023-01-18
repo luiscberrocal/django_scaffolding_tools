@@ -1,2 +1,0 @@
-
-secret_value = 'kkkkk'
