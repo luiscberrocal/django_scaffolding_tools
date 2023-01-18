@@ -33,22 +33,23 @@ class Updater:
 
 if __name__ == '__main__':
     home = Path().home()
+    db_file = home / 'PycharmProjects/django_scaffolding_tools/tests/fixtures/_experimental/req_db.json'
+    db = RequirementDatabase(db_file)
     output_folder = Path(__file__).parent.parent.parent.parent / 'output'
     project = 'adelantos-cupos'
     project = 'ec-d-local-payment-collector'
-    project = 'pj_slack_integration'
-    files = ['local.txt', 'base.txt', 'production.txt']
-    for file in files:
-        f = home / f'adelantos/{project}/requirements/{file}'
-
-        db_file = home / 'PycharmProjects/django_scaffolding_tools/tests/fixtures/_experimental/req_db.json'
-        db = RequirementDatabase(db_file)
-
-        # req_name = 'Pillow'
-        # old_req = db.get(req_name)
-        # req = db.update(req_name)
-        # print(f'Old: {old_req}')
-        # print(f'New: {req}')
-
-        updater = Updater(db)
-        updater.update_requirements(f)
+    project = 'payment_router'
+    update_requirements = False
+    if update_requirements:
+        files = ['local.txt', 'base.txt', 'production.txt']
+        for file in files:
+            f = home / f'adelantos/{project}/requirements/{file}'
+            updater = Updater(db)
+            updater.update_requirements(f)
+    else:
+        libraries = ['pytz', 'redis', 'hiredis']
+        for lib in libraries:
+            old_req = db.get(lib)
+            req = db.update(lib)
+            print(f'Old: {old_req}')
+            print(f'New: {req}')
