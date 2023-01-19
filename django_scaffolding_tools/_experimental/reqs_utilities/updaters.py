@@ -38,8 +38,8 @@ if __name__ == '__main__':
     output_folder = Path(__file__).parent.parent.parent.parent / 'output'
     project = 'adelantos-cupos'
     project = 'ec-d-local-payment-collector'
-    project = 'payment_router'
-    update_requirements = False
+    project = 'movil-reseller-payments'
+    update_requirements = True
     if update_requirements:
         files = ['local.txt', 'base.txt', 'production.txt']
         for file in files:
