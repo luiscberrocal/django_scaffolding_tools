@@ -8,6 +8,7 @@ class ProjectPostgresRegExp(str, Enum):
     CUP = r"[_\-]cupos[a-z_\-]*_postgres"
     MIN = r"[_\-]?mobile[a-z_\-]*_postgres"
     SLACK = r"[_\-]?slack_[a-z_\-]*_postgres"
+    PQP = r"[_\-]?queue_[a-z_\-]*_postgres"
 
 
 class TerminalColor(str, Enum):

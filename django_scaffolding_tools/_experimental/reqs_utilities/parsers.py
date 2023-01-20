@@ -7,6 +7,7 @@ from typing import Dict, Optional
 
 import requests
 from johnnydep.pipper import get_versions
+from pydantic import ValidationError
 
 from django_scaffolding_tools._experimental.reqs_utilities.models import RecommendedRequirement
 
@@ -36,8 +37,11 @@ class RequirementDatabase:
         with open(source_file, 'r') as j_file:
             data = json.load(j_file)
         for name, req_dict in data.items():
-            self.database[name] = RecommendedRequirement(**req_dict)
-
+            try:
+                self.database[name] = RecommendedRequirement(**req_dict)
+            except ValidationError as e:
+               error_message = f'Invalid {name} library content. {e}'
+               raise Exception(error_message)
     def get(self, name: str) -> RecommendedRequirement:
         return self.database.get(name)
 
