@@ -3,13 +3,14 @@ import os
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, Optional, Any, List
 
 import requests
 from johnnydep.pipper import get_versions
 from pydantic import ValidationError
 
-from django_scaffolding_tools._experimental.reqs_utilities.models import RecommendedRequirement
+from django_scaffolding_tools._experimental.reqs_utilities.models import RecommendedRequirement, \
+    convert_version_to_tuples
 
 
 def parse_for_permitted_libs(req_file: Path):
@@ -136,7 +137,7 @@ class RequirementDatabase:
         return parsed_requirements
 
 
-def parse_requirement_file(req_file: Path):
+def parse_requirement_file(req_file: Path) -> List[Dict[str, Any]]:
     regexp = re.compile(r'(?P<lib_name>[\w_\-]+)==(?P<version>[\w\.\-]+)\s*#?(?P<comment>.*)')
     with open(req_file, 'r') as r_file:
         lines = r_file.readlines()
@@ -152,6 +153,21 @@ def parse_requirement_file(req_file: Path):
         parsed_requirements.append(req)
     return parsed_requirements
 
+def interactive_parse_requirements(req_file:Path, db: RequirementDatabase):
+    requirements = parse_requirement_file(req_file)
+    for requirement in requirements:
+        if requirement.get('parsed'):
+            name = requirement['parsed']['lib_name']
+            version = requirement['parsed']['version']
+            db_requirement = db.get(name)
+            if db_requirement is not None:
+                version_info = convert_version_to_tuples(version)
+                if version_info <= db_requirement.approved_version_info:
+                    print(f"{name} - {version}  {db_requirement.latest_version} {db_requirement.approved_version}")
+            else:
+                add_to_db = input(f'Add {name} version {version} to db?')
+                if add_to_db.upper() == 'Y':
+                    db.add(name, None)
 
 def save_requirements_to_json(filename: Path, folder: Path):
     out_file = folder / 'reqs.json'
@@ -173,10 +189,20 @@ def main2(requirements_folder: Path, folder: Path):
 
 
 if __name__ == '__main__':
-    output_folder = Path(__file__).parent.parent.parent.parent / 'output'
-    f = Path('/home/luiscberrocal/adelantos/adelantos-cupos/requirements/base.txt')
-    save_requirements_to_json(f, output_folder)
+    home = Path().home()
+    db_file = home / 'PycharmProjects/django_scaffolding_tools/tests/fixtures/_experimental/req_db.json'
+    db = RequirementDatabase(db_file)
 
-    permitted_versions = output_folder / 'permitted_versions.json'
-    f = Path('/home/luiscberrocal/adelantos/ec-d-local-payment-collector/requirements')
-    main2(f, output_folder)
+
+    project = 'adelantos-cupos'
+    project = 'ec-d-local-payment-collector'
+    # project = 'payment-queue-processor'
+    # project = 'credibanco_integration'
+    # project = 'movil-reseller-payments'
+    # project = 'sms-integration'
+    project = 'payment_router'
+    command = 'UPDATE'
+    files = ['local.txt', 'base.txt', 'production.txt']
+    for file in files:
+        f = home / f'adelantos/{project}/requirements/{file}'
+        interactive_parse_requirements(f, db)

@@ -43,14 +43,14 @@ if __name__ == '__main__':
     # project = 'movil-reseller-payments'
     # project = 'sms-integration'
     project = 'payment_router'
-    update_requirements = True
-    if update_requirements:
+    command = 'UPDATE'
+    if command == 'CHANGE':
         files = ['local.txt', 'base.txt', 'production.txt']
         for file in files:
             f = home / f'adelantos/{project}/requirements/{file}'
             updater = Updater(db)
             updater.update_requirements(f)
-    else:
+    elif command == 'UPDATE':
         libraries = ['requests', 'pytest', 'coverage']
         for lib in libraries:
             old_req = db.get(lib)
