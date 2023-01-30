@@ -38,9 +38,11 @@ if __name__ == '__main__':
     output_folder = Path(__file__).parent.parent.parent.parent / 'output'
     project = 'adelantos-cupos'
     project = 'ec-d-local-payment-collector'
-    project = 'payment-queue-processor'
-    project = 'credibanco_integration'
+    # project = 'payment-queue-processor'
+    # project = 'credibanco_integration'
     # project = 'movil-reseller-payments'
+    # project = 'sms-integration'
+    project = 'payment_router'
     update_requirements = True
     if update_requirements:
         files = ['local.txt', 'base.txt', 'production.txt']
@@ -49,7 +51,7 @@ if __name__ == '__main__':
             updater = Updater(db)
             updater.update_requirements(f)
     else:
-        libraries = ['pytz', 'redis', 'hiredis']
+        libraries = ['requests', 'pytest', 'coverage']
         for lib in libraries:
             old_req = db.get(lib)
             req = db.update(lib)

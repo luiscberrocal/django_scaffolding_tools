@@ -81,11 +81,11 @@
     },
     "pytest": {
         "name": "pytest",
-        "latest_version": "7.2.0",
-        "approved_version": "7.2.0",
+        "latest_version": "7.2.1",
+        "approved_version": "7.2.1",
         "group": null,
         "environment": "local",
-        "last_updated": "2023-01-18 08:49:34.221714",
+        "last_updated": "2023-01-30 12:12:06.979461",
         "home_page": "https://docs.pytest.org/en/latest/",
         "license": "MIT"
     },
@@ -151,11 +151,11 @@
     },
     "coverage": {
         "name": "coverage",
-        "latest_version": "7.0.1",
-        "approved_version": "7.0.1",
+        "latest_version": "7.1.0",
+        "approved_version": "7.1.0",
         "group": null,
         "environment": "local",
-        "last_updated": "2023-01-18 08:49:36.599933",
+        "last_updated": "2023-01-30 12:12:08.678160",
         "home_page": "https://github.com/nedbat/coveragepy",
         "license": "Apache-2.0"
     },
@@ -451,11 +451,11 @@
     },
     "requests": {
         "name": "requests",
-        "latest_version": "2.28.1",
-        "approved_version": "2.28.1",
+        "latest_version": "2.28.2",
+        "approved_version": "2.28.2",
         "group": null,
         "environment": "base",
-        "last_updated": "2023-01-18 08:49:46.546486",
+        "last_updated": "2023-01-30 12:12:06.162148",
         "home_page": "https://requests.readthedocs.io",
         "license": "Apache 2.0"
     },
