@@ -34,3 +34,21 @@ class TestRequirementsDatabase:
         json_db_file = fixtures_folder / '_experimental' / 'req_db.json'
         db = RequirementDatabase(json_db_file)
         db.add('Werkzeug', environment='local')
+
+    def test_greatest(self):
+        version1 = "4.1.1"
+        version_info1 = tuple(
+            [
+                int(num) if num.isdigit() else num
+                for num in version1.replace("-", ".", 1).split(".")
+            ]
+        )
+        version2 = "3.2.16"
+        version_info2 = tuple(
+            [
+                int(num) if num.isdigit() else num
+                for num in version2.replace("-", ".", 1).split(".")
+            ]
+        )
+        assert version_info1 > version_info2
+

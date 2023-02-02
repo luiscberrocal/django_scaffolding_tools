@@ -5,7 +5,7 @@
         "approved_version": "20.1.0",
         "group": null,
         "environment": "production",
-        "last_updated": "2022-12-29 10:05:21.952448",
+        "last_updated": "2023-01-18 08:49:31.567896",
         "home_page": "https://gunicorn.org",
         "license": "MIT"
     },
@@ -15,7 +15,7 @@
         "approved_version": "2.9.5",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:22.239939",
+        "last_updated": "2023-01-18 08:49:31.902358",
         "home_page": "https://psycopg.org/",
         "license": "LGPL with exceptions"
     },
@@ -25,7 +25,7 @@
         "approved_version": "1.12.1",
         "group": null,
         "environment": "production",
-        "last_updated": "2022-12-29 10:05:22.574921",
+        "last_updated": "2023-01-18 08:49:32.268066",
         "home_page": "https://github.com/getsentry/sentry-python",
         "license": "BSD"
     },
@@ -35,7 +35,7 @@
         "approved_version": "1.0.6",
         "group": null,
         "environment": "production",
-        "last_updated": "2022-12-29 10:05:22.907268",
+        "last_updated": "2023-01-18 08:49:32.571493",
         "home_page": "https://github.com/kislyuk/watchtower",
         "license": "Apache Software License"
     },
@@ -45,7 +45,7 @@
         "approved_version": "0.13.11",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:23.220743",
+        "last_updated": "2023-01-18 08:49:32.857130",
         "home_page": "https://github.com/gotcha/ipdb",
         "license": "BSD"
     },
@@ -55,7 +55,7 @@
         "approved_version": "0.18.1",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:23.548769",
+        "last_updated": "2023-01-18 08:49:33.195089",
         "home_page": "https://github.com/samuelcolvin/watchfiles/watchfiles",
         "license": "MIT"
     },
@@ -65,7 +65,7 @@
         "approved_version": "0.991",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:23.893413",
+        "last_updated": "2023-01-18 08:49:33.512093",
         "home_page": "http://www.mypy-lang.org/",
         "license": "MIT License"
     },
@@ -75,17 +75,17 @@
         "approved_version": "1.13.1",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:24.188635",
+        "last_updated": "2023-01-18 08:49:33.818123",
         "home_page": "https://github.com/typeddjango/django-stubs",
         "license": "MIT"
     },
     "pytest": {
         "name": "pytest",
-        "latest_version": "7.2.0",
-        "approved_version": "7.2.0",
+        "latest_version": "7.2.1",
+        "approved_version": "7.2.1",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:24.514941",
+        "last_updated": "2023-01-30 12:12:06.979461",
         "home_page": "https://docs.pytest.org/en/latest/",
         "license": "MIT"
     },
@@ -95,7 +95,7 @@
         "approved_version": "0.9.6",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:24.886177",
+        "last_updated": "2023-01-18 08:49:34.576249",
         "home_page": "https://pivotfinland.com/pytest-sugar/",
         "license": "BSD"
     },
@@ -105,7 +105,7 @@
         "approved_version": "1.8.0",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:25.211015",
+        "last_updated": "2023-01-18 08:49:34.921411",
         "home_page": "https://github.com/typeddjango/djangorestframework-stubs",
         "license": "MIT"
     },
@@ -115,7 +115,7 @@
         "approved_version": "5.3.0",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:25.574938",
+        "last_updated": "2023-01-18 08:49:35.270134",
         "home_page": null,
         "license": null
     },
@@ -125,7 +125,7 @@
         "approved_version": "2021.3.14",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:25.933177",
+        "last_updated": "2023-01-18 08:49:35.603520",
         "home_page": "https://github.com/executablebooks/sphinx-autobuild",
         "license": "MIT"
     },
@@ -135,7 +135,7 @@
         "approved_version": "6.0.0",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:26.246434",
+        "last_updated": "2023-01-18 08:49:35.911081",
         "home_page": "https://github.com/pycqa/flake8",
         "license": "MIT"
     },
@@ -145,17 +145,17 @@
         "approved_version": "6.0.0",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:26.581445",
+        "last_updated": "2023-01-18 08:49:36.261734",
         "home_page": "https://github.com/gforcada/flake8-isort",
         "license": "GPL version 2"
     },
     "coverage": {
         "name": "coverage",
-        "latest_version": "7.0.1",
-        "approved_version": "7.0.1",
+        "latest_version": "7.1.0",
+        "approved_version": "7.1.0",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:26.897548",
+        "last_updated": "2023-01-30 12:12:08.678160",
         "home_page": "https://github.com/nedbat/coveragepy",
         "license": "Apache-2.0"
     },
@@ -165,7 +165,7 @@
         "approved_version": "22.12.0",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:27.246792",
+        "last_updated": "2023-01-18 08:49:36.934132",
         "home_page": null,
         "license": "MIT"
     },
@@ -175,7 +175,7 @@
         "approved_version": "2.5.3",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:27.605247",
+        "last_updated": "2023-01-18 08:49:37.279710",
         "home_page": "https://github.com/PyCQA/pylint-django",
         "license": "GPLv2"
     },
@@ -185,7 +185,7 @@
         "approved_version": "0.3",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:27.966008",
+        "last_updated": "2023-01-18 08:49:37.612411",
         "home_page": "https://github.com/landscapeio/pylint-celery",
         "license": "GPLv2"
     },
@@ -195,7 +195,7 @@
         "approved_version": "2.21.0",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:28.294678",
+        "last_updated": "2023-01-18 08:49:37.935534",
         "home_page": "https://github.com/pre-commit/pre-commit",
         "license": "MIT"
     },
@@ -205,7 +205,7 @@
         "approved_version": "3.2.1",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:28.633584",
+        "last_updated": "2023-01-18 08:49:38.273331",
         "home_page": "https://github.com/FactoryBoy/factory_boy",
         "license": "MIT"
     },
@@ -215,7 +215,7 @@
         "approved_version": "3.8.1",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:28.973369",
+        "last_updated": "2023-01-18 08:49:38.556197",
         "home_page": null,
         "license": "BSD-3-Clause"
     },
@@ -225,7 +225,7 @@
         "approved_version": "3.2.1",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:29.273282",
+        "last_updated": "2023-01-18 08:49:38.885977",
         "home_page": "http://github.com/django-extensions/django-extensions",
         "license": "MIT License"
     },
@@ -235,7 +235,7 @@
         "approved_version": "3.0.0",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:29.614935",
+        "last_updated": "2023-01-18 08:49:39.232888",
         "home_page": "https://github.com/nedbat/django_coverage_plugin",
         "license": "Apache-2.0"
     },
@@ -245,7 +245,7 @@
         "approved_version": "4.5.2",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:29.939442",
+        "last_updated": "2023-01-18 08:49:39.579439",
         "home_page": "https://pytest-django.readthedocs.io/",
         "license": "BSD-3-Clause"
     },
@@ -255,7 +255,7 @@
         "approved_version": "2.1.0",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:30.289592",
+        "last_updated": "2023-01-18 08:49:40.072543",
         "home_page": "https://github.com/luiscberrocal/django-test-tools",
         "license": "MIT"
     },
@@ -265,7 +265,7 @@
         "approved_version": "2022.7.1",
         "group": null,
         "environment": "base",
-        "last_updated": "2023-01-17 09:00:12.785224",
+        "last_updated": "2023-01-18 08:49:40.399799",
         "home_page": "http://pythonhosted.org/pytz",
         "license": "MIT"
     },
@@ -275,7 +275,7 @@
         "approved_version": "7.0.0",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:30.967389",
+        "last_updated": "2023-01-18 08:49:40.707365",
         "home_page": "https://github.com/un33k/python-slugify",
         "license": "MIT"
     },
@@ -285,7 +285,7 @@
         "approved_version": "9.4.0",
         "group": null,
         "environment": "base",
-        "last_updated": "2023-01-10 12:00:22.940701",
+        "last_updated": "2023-01-18 08:49:40.997126",
         "home_page": "https://python-pillow.org",
         "license": "HPND"
     },
@@ -295,7 +295,7 @@
         "approved_version": "21.3.0",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:31.628782",
+        "last_updated": "2023-01-18 08:49:41.330616",
         "home_page": null,
         "license": null
     },
@@ -305,7 +305,7 @@
         "approved_version": "6.3.0",
         "group": null,
         "environment": "base",
-        "last_updated": "2023-01-03 16:56:26.219760",
+        "last_updated": "2023-01-18 08:49:41.678446",
         "home_page": "https://github.com/evansd/whitenoise",
         "license": "MIT"
     },
@@ -315,7 +315,7 @@
         "approved_version": "4.4.2",
         "group": null,
         "environment": "base",
-        "last_updated": "2023-01-17 09:00:13.543631",
+        "last_updated": "2023-01-18 08:49:41.975464",
         "home_page": "https://github.com/redis/redis-py",
         "license": "MIT"
     },
@@ -325,7 +325,7 @@
         "approved_version": "2.1.1",
         "group": null,
         "environment": "base",
-        "last_updated": "2023-01-17 09:00:14.442772",
+        "last_updated": "2023-01-18 08:49:42.261196",
         "home_page": "https://github.com/redis/hiredis-py",
         "license": "BSD"
     },
@@ -335,7 +335,7 @@
         "approved_version": "5.2.7",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:32.917688",
+        "last_updated": "2023-01-18 08:49:42.596846",
         "home_page": "http://celeryproject.org",
         "license": "BSD"
     },
@@ -345,7 +345,7 @@
         "approved_version": "2.4.0",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:33.219931",
+        "last_updated": "2023-01-18 08:49:42.936283",
         "home_page": "https://github.com/celery/django-celery-beat",
         "license": "BSD"
     },
@@ -355,7 +355,7 @@
         "approved_version": "3.2.16",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:33.553329",
+        "last_updated": "2023-01-18 08:49:43.213670",
         "home_page": "https://www.djangoproject.com/",
         "license": "BSD-3-Clause"
     },
@@ -365,7 +365,7 @@
         "approved_version": "0.9.0",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:33.826491",
+        "last_updated": "2023-01-18 08:49:43.559562",
         "home_page": "https://django-environ.readthedocs.org",
         "license": "MIT"
     },
@@ -375,7 +375,7 @@
         "approved_version": "4.3.1",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:34.141366",
+        "last_updated": "2023-01-18 08:49:43.898727",
         "home_page": "https://github.com/jazzband/django-model-utils",
         "license": "BSD"
     },
@@ -385,7 +385,7 @@
         "approved_version": "0.52.0",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:34.468686",
+        "last_updated": "2023-01-18 08:49:44.250859",
         "home_page": "http://www.intenct.nl/projects/django-allauth/",
         "license": null
     },
@@ -395,7 +395,7 @@
         "approved_version": "1.14.0",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:34.808702",
+        "last_updated": "2023-01-18 08:49:44.560476",
         "home_page": "https://github.com/django-crispy-forms/django-crispy-forms",
         "license": "MIT"
     },
@@ -405,7 +405,7 @@
         "approved_version": "0.7",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:35.147454",
+        "last_updated": "2023-01-18 08:49:44.887589",
         "home_page": "https://github.com/django-crispy-forms/crispy-bootstrap5",
         "license": "MIT"
     },
@@ -415,7 +415,7 @@
         "approved_version": "5.2.0",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:35.626197",
+        "last_updated": "2023-01-18 08:49:45.245645",
         "home_page": "https://github.com/jazzband/django-redis",
         "license": "BSD-3-Clause"
     },
@@ -425,7 +425,7 @@
         "approved_version": "3.14.0",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:35.946385",
+        "last_updated": "2023-01-18 08:49:45.564386",
         "home_page": "https://www.django-rest-framework.org/",
         "license": "BSD"
     },
@@ -435,7 +435,7 @@
         "approved_version": "3.13.0",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:36.266631",
+        "last_updated": "2023-01-18 08:49:45.874579",
         "home_page": "https://github.com/adamchainz/django-cors-headers",
         "license": "MIT License"
     },
@@ -445,17 +445,17 @@
         "approved_version": "0.25.1",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:36.609868",
+        "last_updated": "2023-01-18 08:49:46.230130",
         "home_page": "https://github.com/tfranzel/drf-spectacular",
         "license": "BSD"
     },
     "requests": {
         "name": "requests",
-        "latest_version": "2.28.1",
-        "approved_version": "2.28.1",
+        "latest_version": "2.28.2",
+        "approved_version": "2.28.2",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:36.938477",
+        "last_updated": "2023-01-30 12:12:06.162148",
         "home_page": "https://requests.readthedocs.io",
         "license": "Apache 2.0"
     },
@@ -465,7 +465,7 @@
         "approved_version": "2.8.1",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:37.246546",
+        "last_updated": "2023-01-18 08:49:46.821081",
         "home_page": "http://github.com/kmmbvnr/django-fsm",
         "license": "MIT License"
     },
@@ -475,7 +475,7 @@
         "approved_version": "3.0.4",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 11:38:15.668077",
+        "last_updated": "2023-01-18 08:49:47.191932",
         "home_page": "https://github.com/jmcnamara/XlsxWriter",
         "license": "BSD-2-Clause"
     },
@@ -485,9 +485,9 @@
         "approved_version": "2.2.1",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 14:49:14.313054",
+        "last_updated": "2023-01-18 08:49:47.543008",
         "home_page": "https://github.com/revsys/django-test-plus/",
-        "license": ""
+        "license": null
     },
     "Werkzeug": {
         "name": "Werkzeug",
@@ -495,7 +495,7 @@
         "approved_version": "2.2.2",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-30 11:37:52.294862",
+        "last_updated": "2023-01-18 08:49:47.869916",
         "home_page": "https://palletsprojects.com/p/werkzeug/",
         "license": "BSD-3-Clause"
     }
