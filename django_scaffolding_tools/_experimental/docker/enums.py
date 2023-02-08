@@ -9,6 +9,8 @@ class ProjectPostgresRegExp(str, Enum):
     MIN = r"[_\-]?mobile[a-z_\-]*_postgres"
     SLACK = r"[_\-]?slack_[a-z_\-]*_postgres"
     PQP = r"[_\-]?queue_[a-z_\-]*_postgres"
+    PJ_PAYMENT = r"[_\-]?pj_django_payments[a-z_\-]*_postgres"
+    MPI = r"multipagos[a-z_\-]*_postgres"
 
 
 class TerminalColor(str, Enum):

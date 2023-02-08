@@ -43,15 +43,18 @@ if __name__ == '__main__':
     # project = 'movil-reseller-payments'
     # project = 'sms-integration'
     project = 'payment_router'
-    command = 'UPDATE'
+    project = 'multipagos-integrator'
+    project ='pj_django_payments/tests/example'
+    command = 'CHANGE'
     if command == 'CHANGE':
-        files = ['local.txt', 'base.txt', 'production.txt']
+        files = ['local.txt', 'base.txt', 'production.txt', 'staging.txt']
         for file in files:
             f = home / f'adelantos/{project}/requirements/{file}'
-            updater = Updater(db)
-            updater.update_requirements(f)
+            if f.exists():
+                updater = Updater(db)
+                updater.update_requirements(f)
     elif command == 'UPDATE':
-        libraries = ['requests', 'pytest', 'coverage']
+        libraries = []
         for lib in libraries:
             old_req = db.get(lib)
             req = db.update(lib)

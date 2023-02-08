@@ -13,17 +13,17 @@ from django_scaffolding_tools._experimental.reqs_utilities.models import Recomme
     convert_version_to_tuples
 
 
-def parse_for_permitted_libs(req_file: Path):
-    regexp = re.compile(r'(?P<lib_name>[\w_\-]+)==(?P<version>[\w\.\-]+)\s*#?(?P<comment>.*)')
-    with open(req_file, 'r') as r_file:
-        lines = r_file.readlines()
-    parsed_requirements = dict()
-    for i, line in enumerate(lines, 1):
-        match = regexp.match(line)
-        if match:
-            lib_name = match.group('lib_name')
-            parsed_requirements[lib_name] = match.group('version')
-    return parsed_requirements
+# def parse_for_permitted_libs(req_file: Path):
+#     regexp = re.compile(r'(?P<lib_name>[\w_\-]+)==(?P<version>[\w\.\-]+)\s*#?(?P<comment>.*)')
+#     with open(req_file, 'r') as r_file:
+#         lines = r_file.readlines()
+#     parsed_requirements = dict()
+#     for i, line in enumerate(lines, 1):
+#         match = regexp.match(line)
+#         if match:
+#             lib_name = match.group('lib_name')
+#             parsed_requirements[lib_name] = match.group('version')
+#     return parsed_requirements
 
 
 class RequirementDatabase:
