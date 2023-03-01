@@ -136,7 +136,6 @@ def check_for_new_requirements(db: RequirementDatabase):
             req.latest_version = latest
             req.last_updated = datetime.now()
             db.save()
-        break
 
 if __name__ == '__main__':
     db_file = Path(__file__).parent / 'req_db.json'
