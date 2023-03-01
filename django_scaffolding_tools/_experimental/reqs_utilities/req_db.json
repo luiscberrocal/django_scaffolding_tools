@@ -166,7 +166,7 @@
         "group": null,
         "environment": "local",
         "last_updated": "2022-12-29 10:05:27.246792",
-        "home_page": "",
+        "home_page": null,
         "license": "MIT"
     },
     "pylint-django": {
@@ -216,7 +216,7 @@
         "group": null,
         "environment": "local",
         "last_updated": "2022-12-29 10:05:28.973369",
-        "home_page": "",
+        "home_page": null,
         "license": "BSD-3-Clause"
     },
     "django-extensions": {
@@ -296,7 +296,7 @@
         "group": null,
         "environment": "base",
         "last_updated": "2022-12-29 10:05:31.628782",
-        "home_page": "",
+        "home_page": null,
         "license": ""
     },
     "whitenoise": {
