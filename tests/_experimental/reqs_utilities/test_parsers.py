@@ -1,6 +1,6 @@
 import json
 
-from django_scaffolding_tools._experimental.reqs_utilities.parsers import RequirementDatabase
+from django_scaffolding_tools._experimental.reqs_utilities.db import RequirementDatabase
 from django_scaffolding_tools.utils.core import quick_write
 
 

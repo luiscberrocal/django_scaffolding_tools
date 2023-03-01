@@ -1,7 +1,8 @@
 import logging
 from pathlib import Path
 
-from django_scaffolding_tools._experimental.reqs_utilities.parsers import parse_requirement_file, RequirementDatabase
+from django_scaffolding_tools._experimental.reqs_utilities.parsers import parse_requirement_file
+from django_scaffolding_tools._experimental.reqs_utilities.db import RequirementDatabase
 
 logger = logging.getLogger(__name__)
 
