@@ -33,25 +33,25 @@ class Updater:
 
 if __name__ == '__main__':
     home = Path().home()
-    db_file = home / 'PycharmProjects/django_scaffolding_tools/tests/fixtures/_experimental/req_db.json'
+    db_file = Path(__file__).parent / 'req_db.json'
     db = RequirementDatabase(db_file)
     output_folder = Path(__file__).parent.parent.parent.parent / 'output'
-    project = 'adelantos-cupos'
+    # project = 'adelantos-cupos'
     project = 'ec-d-local-payment-collector'
     # project = 'payment-queue-processor'
     # project = 'credibanco_integration'
     # project = 'movil-reseller-payments'
     # project = 'sms-integration'
-    project = 'payment_router'
-    project = 'multipagos-integrator'
-    project ='pj_django_payments/tests/example'
+    # project = 'payment_router'
+    # project = 'multipagos-integrator'
+    # project ='pj_django_payments/tests/example'
     command = 'CHANGE'
     if command == 'CHANGE':
+        updater = Updater(db)
         files = ['local.txt', 'base.txt', 'production.txt', 'staging.txt']
         for file in files:
             f = home / f'adelantos/{project}/requirements/{file}'
             if f.exists():
-                updater = Updater(db)
                 updater.update_requirements(f)
     elif command == 'UPDATE':
         libraries = []

@@ -352,7 +352,7 @@
     "django": {
         "name": "django",
         "latest_version": "4.1.4",
-        "approved_version": "3.2.16",
+        "approved_version": "3.2.17",
         "group": null,
         "environment": "base",
         "last_updated": "2022-12-29 10:05:33.553329",
@@ -468,5 +468,25 @@
         "last_updated": "2022-12-29 10:05:37.246546",
         "home_page": "http://github.com/kmmbvnr/django-fsm",
         "license": "MIT License"
+    },
+    "django-test-plus": {
+        "name": "django-test-plus",
+        "latest_version": "2.2.1",
+        "approved_version": "2.2.1",
+        "group": null,
+        "environment": null,
+        "last_updated": "2023-03-01 10:28:31.246347",
+        "home_page": "https://github.com/revsys/django-test-plus/",
+        "license": ""
+    },
+    "django-filter": {
+        "name": "django-filter",
+        "latest_version": "22.1",
+        "approved_version": "22.1",
+        "group": null,
+        "environment": null,
+        "last_updated": "2023-03-01 10:28:40.925319",
+        "home_page": "https://github.com/carltongibson/django-filter/tree/main",
+        "license": "BSD"
     }
 }
