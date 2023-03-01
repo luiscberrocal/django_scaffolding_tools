@@ -116,7 +116,7 @@
         "group": null,
         "environment": "local",
         "last_updated": "2022-12-29 10:05:25.574938",
-        "home_page": "",
+        "home_page": null,
         "license": ""
     },
     "sphinx-autobuild": {

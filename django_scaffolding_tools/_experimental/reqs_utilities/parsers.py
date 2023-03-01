@@ -190,7 +190,10 @@ def main2(requirements_folder: Path, folder: Path):
 
 if __name__ == '__main__':
     home = Path().home()
-    db_file = home / 'PycharmProjects/django_scaffolding_tools/tests/fixtures/_experimental/req_db.json'
+    # db_file = home / 'PycharmProjects/django_scaffolding_tools/tests/fixtures/_experimental/req_db.json'
+    db_file = Path(__file__).parent / 'req_db.json'
+    if not db_file.exists():
+        raise Exception('File not found')
     db = RequirementDatabase(db_file)
 
 
@@ -200,7 +203,7 @@ if __name__ == '__main__':
     # project = 'credibanco_integration'
     # project = 'movil-reseller-payments'
     # project = 'sms-integration'
-    project = 'payment_router'
+    # project = 'payment_router'
     command = 'UPDATE'
     files = ['local.txt', 'base.txt', 'production.txt']
     for file in files:
