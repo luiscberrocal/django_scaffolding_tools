@@ -51,7 +51,8 @@ if __name__ == '__main__':
         updater = Updater(db)
         files = ['local.txt', 'base.txt', 'production.txt', 'staging.txt']
         for file in files:
-            f = home / f'adelantos/{project}/requirements/{file}'
+            # f = home / f'adelantos/{project}/requirements/{file}'
+            f = Path('/home/luiscberrocal/adelantos/pj_django_payments/tests/example/requirements') / file
             if f.exists():
                 updater.update_requirements(f)
     elif command == 'UPDATE':
