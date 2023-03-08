@@ -352,7 +352,7 @@
     "django": {
         "name": "django",
         "latest_version": "4.1.4",
-        "approved_version": "3.2.17",
+        "approved_version": "3.2.18",
         "group": null,
         "environment": "base",
         "last_updated": "2022-12-29 10:05:33.553329",
