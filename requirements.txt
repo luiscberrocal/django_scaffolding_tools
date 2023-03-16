@@ -9,7 +9,7 @@ toml>=0.10.2
 # Optional
 openpyxl>=3.0.10
 pydrive2>=1.15.0
-i
+
 
 # for django_scaffolding_tools/_experimental/backup_envs/gdrive.py
 google-api-python-client==2.70.0
