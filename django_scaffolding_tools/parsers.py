@@ -119,13 +119,14 @@ def parse_file_for_ast_classes(filename: Path) -> Dict[str, Any]:
     return node_dict
 
 
-def parse_file_for_enum(csv_file: Path) -> List[Dict[str, Any]]:
+def parse_file_for_enum(csv_file: Path, delimiter:str=',') -> List[Dict[str, Any]]:
+    """Parses as csv file with value, name and description"""
     enumerations = list()
     with open(csv_file, 'r') as file:
-        reader = csv.DictReader(file, delimiter=',')
+        reader = csv.DictReader(file, delimiter=delimiter)
         for row in reader:
             row['value'] = row['value'].strip()
-            row['name'] = row['name'].upper()
+            row['name'] = row['name'].strip().upper().replace(' ','_')
             row['description'] = row['description']
             print(row)
             enumerations.append(row)

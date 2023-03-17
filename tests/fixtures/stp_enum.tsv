@@ -1,0 +1,24 @@
+value	description	name
+1	Cuenta inexistente Si se ingresaron datos de una cuenta que no existe al sistema SPEI, el banco detectará este movimiento y de forma automática rechazará la operación y hará la devolución correspondiente	Cuent inexistente
+2	Cuenta bloqueada Si se ingresaron datos de una cuenta bloqueada, el banco rechazará la operación y hará la devolución correspondiente	Cuent bloqueada
+3	Cuenta cancelada Si se ingresaron datos de una cuenta cancelada, el banco rechazará la operación y hará la devolución correspondiente	Cuent cance
+5	Cuenta en otra divisa Cuenta con pago de Divisa distinta de una cuenta a otra	Cuent en otra divis
+6	Cuenta no pertenece al Participante Receptor La cuenta a la que se requiere hacer el pago no pertenece al Participante Receptor	Cuent no perte al ba
+13	Beneficiario no reconoce el pago *NOTA, causaDevolucion eliminada  El Beneficiario devuelve el pago cuando este fue incorrecto	Benef no recon el pa
+14	Falta información mandatorio para completar el pago Al ingresar los datos del pago, hace falta un campo importante para proceder con este y se hace la devolución	Falta infor manda pa
+15	Tipo de pago erróneo Cuando el tipo de pago se clasifica distinto y este se devuelve al no coincidir con la información	Tipo de pago erron
+16	Tipo de operación errónea El registro de la operación es errónea	Tipo de opera erron
+17	Tipo de cuenta no corresponde La cuenta a la que se requiere hacer el pago no corresponde al Participante	Tipo de cuent no cor
+18	A solicitud del emisor  *NOTA, causaDevolucion eliminada	A solic del emiso
+19	Carácter inválido Al colocar un carácter especial o no permitido en la información que se registra del pago	Carac Invál
+20	Excede el límite de saldo autorizado de la cuenta Al procesar un pago, este excede el monto limite y se devuelve la operación	Exced el límit de sa
+21	Excede el límite de abonos permitidos en el mes en la cuenta Al tener una cuenta con restricciones en los abonos y estar en el límite, el banco realiza la devolución del pago	Exced el límit de ab
+22	Número de línea de telefonía móvil no registrado Campo sin información al registrarse el pago	Númer de línea de te
+23	Cuenta adicional no recibe pagos que no proceden de Banxico Restricción en la cuenta ya que no recibe pagos	Cuent adici no recib
+24	Estructura de la información adicional incorrecta La forma en la que se estructura el pago es incorrecta y por ella se realiza la devolución	Estru de la infor ad
+25	Falta instrucción para dispersar recursos de clientes por alcanzar límite al saldo Falta de información para realizar el pago	Falta de instr para
+26	Resolución resultante del Convenio de Colaboración para la Protección del Cliente Emisor El Banco devuelve el pago por el Convenio que se tiene con el Colaborador	Resol resul del Conv
+27	Pago opcional no aceptado por el Participante Receptor El Pago no es Aceptado por el Participante Receptor	Pago opcio no acept
+28	Tipo de pago Codi sin notificación de abono en tiempo reducido	Tipo de pago CoDi si
+30	Clave de rastreo repetida por Participante Emisor y día de operación	Clave de rastr repet
+31	Certificado del Participante Emisor Vencido	Cert emisor vencido
