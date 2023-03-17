@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from django_scaffolding_tools.parsers import parse_file_for_ast_classes
+from django_scaffolding_tools.parsers import parse_file_for_ast_classes, parse_file_for_enum
 from django_scaffolding_tools.django.parsers import parse_for_django_classes
 from django_scaffolding_tools.writers import write_serializer_from_file, write_django_model_csv, \
-    simple_write_to_excel, write_django_model_excel
+    simple_write_to_excel, write_django_model_excel, write_enums
 
 
 def test_write_serializers(output_folder):
@@ -46,3 +46,10 @@ def test_write_django_model_excel(output_folder, fixtures_folder):
     ast_module = parse_file_for_ast_classes(filename)
     django_classes = parse_for_django_classes(ast_module)
     write_django_model_excel(django_classes['classes'], xlsx_filename)
+
+
+def test_write_enums(fixtures_folder, output_folder):
+    module_file = output_folder / '_enum.py'
+    csv_file = fixtures_folder / 'stp_enum.tsv'
+    results = parse_file_for_enum(csv_file, delimiter='\t')
+    write_enums('ReturnCauses', results, module_file)

@@ -22,7 +22,7 @@ class RecommendedRequirement(BaseModel):
     latest_version: str
     approved_version: str
     group: Optional[str]
-    environment: str
+    environment: Optional[str]
     last_updated: datetime = Field(default=datetime.now())
     home_page: Optional[HttpUrl]
     license: Optional[str]
