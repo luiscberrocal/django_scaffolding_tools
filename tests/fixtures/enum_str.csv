@@ -1,0 +1,4 @@
+name,value,description
+http host, https://hn.com , host to connect
+PAID, PAID, Is the payment paid
+pending, pending, pending value

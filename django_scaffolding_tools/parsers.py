@@ -1,4 +1,5 @@
 import ast
+import csv
 import re
 from operator import itemgetter
 from pathlib import Path
@@ -73,7 +74,7 @@ def parse_dict(data: Dict[str, Any], model_name: str = 'Model', level: int = 0,
                 model_name = f'ValueItem{value_item_level}'
                 item_data['data_type'] = model_name
                 item_data['value'] = parse_dict(value_item, model_name=model_name, level=level + 1,
-                                                value_item_level= value_item_level + 1)
+                                                value_item_level=value_item_level + 1)
                 item_data['supported'] = True
                 item_data['native'] = False
                 item_data['many'] = True
@@ -116,5 +117,18 @@ def parse_file_for_ast_classes(filename: Path) -> Dict[str, Any]:
         node = ast.parse(content)
     node_dict = ast2json(node)
     return node_dict
+
+
+def parse_file_for_enum(csv_file: Path) -> List[Dict[str, Any]]:
+    enumerations = list()
+    with open(csv_file, 'r') as file:
+        reader = csv.DictReader(file, delimiter=',')
+        for row in reader:
+            row['value'] = row['value'].strip()
+            row['name'] = row['name'].upper()
+            row['description'] = row['description']
+            print(row)
+            enumerations.append(row)
+    return enumerations
 
 

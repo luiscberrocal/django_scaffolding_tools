@@ -6,7 +6,7 @@ import pytest
 
 from django_scaffolding_tools.builders import build_serializer_template_data, build_serializer_data
 from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, parse_for_patterns, \
-    parse_file_for_ast_classes, parse_var_name
+    parse_file_for_ast_classes, parse_var_name, parse_file_for_enum
 from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
 from django_scaffolding_tools.utils.core import quick_write
 from django_scaffolding_tools.writers import ReportWriter
@@ -407,3 +407,6 @@ def test_to_camel_case():
     assert dict_camelized['merchantId'] == data['merchant_id']
     assert dict_camelized['phoneNumber'] == data['phone_number']
     assert dict_camelized['payer']['fullName'] == data['payer']['fullName']
+def test_parse_file_for_enum(fixtures_folder):
+    csv_file = fixtures_folder / 'enum_str.csv'
+    results = parse_file_for_enum(csv_file)
