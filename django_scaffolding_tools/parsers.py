@@ -126,9 +126,9 @@ def parse_file_for_enum(csv_file: Path, delimiter:str=',') -> List[Dict[str, Any
         reader = csv.DictReader(file, delimiter=delimiter)
         for row in reader:
             row['value'] = row['value'].strip()
-            row['name'] = row['name'].strip().upper().replace(' ','_')
-            row['description'] = row['description']
-            print(row)
+            row['name'] = row['name'].strip().upper().replace(' ','_').replace('-', '_')
+            row['description'] = row['description'].strip()
+            # print(row)
             enumerations.append(row)
     return enumerations
 

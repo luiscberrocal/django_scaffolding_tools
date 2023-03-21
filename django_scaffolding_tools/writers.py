@@ -116,6 +116,11 @@ def simple_write_to_excel(filename: Path, headers: Dict[str, Any], lines: List[D
     wb.save(filename)
 
 def write_enums(enum_name:str, enumerations: List[Dict[str, Any]], module_file: Path) -> None:
-    print(f'class {enum_name}(str, Enum):')
+    lines = list()
+    line = f'class {enum_name}(str, Enum):\n'
+    lines.append(line)
     for enumeration in enumerations:
-        print(f'\t{enumeration["name"]} = \'{enumeration["value"]}\'')
+        line = f'\t{enumeration["name"]} = \'{enumeration["value"]}\'\n'
+        lines.append(line)
+    with open(module_file, 'w') as m_file:
+        m_file.writelines(lines)
