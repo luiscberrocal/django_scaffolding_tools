@@ -2,7 +2,7 @@ from pathlib import Path
 
 from django_scaffolding_tools.django.builders import build_model_serializer_template_data
 from django_scaffolding_tools.django.handlers import IntegerFieldHandler, CharFieldHandler, ForeignKeyFieldHandler, \
-    DateFieldHandler, DateTimeFieldHandler, DecimalFieldHandler, BooleanFieldHandler
+    DateFieldHandler, DateTimeFieldHandler, DecimalFieldHandler, BooleanFieldHandler, DateTimeCharFieldHandler
 from django_scaffolding_tools.django.parsers import parse_for_django_classes
 from django_scaffolding_tools.parsers import parse_file_for_ast_classes
 from django_scaffolding_tools.writers import ReportWriter
@@ -47,6 +47,7 @@ def write_model_factories_from_models_file(models_file: Path, output_file: Path,
     handlers = [
         IntegerFieldHandler(),
         CharFieldHandler(),
+        DateTimeCharFieldHandler(),
         ForeignKeyFieldHandler(),
         DateFieldHandler(),
         DateTimeFieldHandler(),
@@ -60,7 +61,20 @@ def write_model_factories_from_models_file(models_file: Path, output_file: Path,
 
     main_handler = handlers[0]
     lines = list()
+    imports = """# Generated with django_scaffoling_tool
+import string
+from datetime import datetime
 
+from django.utils import timezone
+from factory import Iterator, SelfAttribute, Trait
+from factory import LazyAttribute
+from factory import SubFactory
+from factory.django import DjangoModelFactory
+from factory.fuzzy import FuzzyText
+from faker import Factory as FakerFactory
+
+faker = FakerFactory.create()"""
+    lines.append(imports)
     for fp_data in model_data['classes']:
         lines.append(f'class {fp_data["name"]}Factory(DjangoModelFactory):\n')
         lines.append(f'\tclass Meta:\n')
@@ -72,6 +86,7 @@ def write_model_factories_from_models_file(models_file: Path, output_file: Path,
                 lines.append(f'\t# {att["name"]} {att["data_type"]} NOT supported\n')
             else:
                 lines.append(f'\t{result["name"]} = {result["factory_field"]}\n')
-        lines.append("#" * 80)
+        lines.append('\n')
+        # lines.append("#" * 80)
     with open(output_file, 'w') as py_file:
         py_file.writelines(lines)

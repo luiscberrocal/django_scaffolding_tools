@@ -47,8 +47,8 @@ class DateFieldHandler(AbstractModelFieldHandler):
 
     def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
         if field_data['data_type'] == self.field:
-             field_data['factory_field'] = f'{self.field} Not supported'
-             return field_data
+            field_data['factory_field'] = f'{self.field} Not supported'
+            return field_data
         else:
             return super().handle(field_data)
 
@@ -125,13 +125,36 @@ class DecimalFieldHandler(AbstractModelFieldHandler):
             return field_data
         else:
             return super().handle(field_data)
+
+
 class BooleanFieldHandler(AbstractModelFieldHandler):
     field = 'BooleanField'
-
 
     def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
         if field_data['data_type'] == self.field:
             value = 'Iterator([True, False])'
+            field_data['factory_field'] = value
+            return field_data
+        else:
+            return super().handle(field_data)
+
+
+class DateTimeCharFieldHandler(AbstractModelFieldHandler):
+    field = 'CharField'
+
+    def __init__(self):
+        regexp_str = r'.*(datetime|date|time).*'
+        self.regexp = re.compile(regexp_str)
+        self.date_format = '%Y-%m-%dT%H:%M:%S%z'
+
+    def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
+        if field_data['data_type'] == self.field:
+            match = self.regexp.match(field_data['name'])
+            if match is not None:
+                value = f'LazyAttribute(lambda x: faker.date_time_between(start_date="-1y", ' \
+                        f'end_date="now", tzinfo=timezone(settings.TIME_ZONE)).strftime({self.date_format}))'
+            else:
+                return None
             field_data['factory_field'] = value
             return field_data
         else:
