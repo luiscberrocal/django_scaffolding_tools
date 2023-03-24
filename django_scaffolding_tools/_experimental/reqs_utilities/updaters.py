@@ -38,7 +38,7 @@ if __name__ == '__main__':
     db = RequirementDatabase(db_file)
     output_folder = Path(__file__).parent.parent.parent.parent / 'output'
     # project = 'adelantos-cupos'
-    project = 'ec-d-local-payment-collector'
+    # project = 'ec-d-local-payment-collector'
     # project = 'payment-queue-processor'
     # project = 'credibanco_integration'
     # project = 'movil-reseller-payments'
@@ -46,12 +46,12 @@ if __name__ == '__main__':
     #project = 'payment_router'
     # project = 'multipagos-integrator'
     # project ='pj_django_payments/tests/example'
+    project = 'payment-collector'
     command = 'CHANGE'
     if command == 'CHANGE':
         updater = Updater(db)
         files = ['local.txt', 'base.txt', 'production.txt', 'staging.txt']
         for file in files:
             f = home / f'adelantos/{project}/requirements/{file}'
-            # f = Path('/home/luiscberrocal/adelantos/pj_django_payments/tests/example/requirements') / file
             if f.exists():
                 updater.update_requirements(f)
