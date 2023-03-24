@@ -31,8 +31,9 @@ class AbstractModelFieldHandler(ModelFieldHandler):
 
 
 class DateTimeFieldHandler(AbstractModelFieldHandler):
-    # field = 'DateTimeField'
-    field = 'CharField'
+    field = 'DateTimeField'
+
+    # field = 'CharField'
 
     def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
         if field_data['data_type'] == self.field:
@@ -53,6 +54,20 @@ class DateFieldHandler(AbstractModelFieldHandler):
             return super().handle(field_data)
 
 
+class ForeignKeyFieldHandler(AbstractModelFieldHandler):
+    field = 'ForeignKey'
+
+    def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
+        if field_data['data_type'] == self.field:
+            class_name = field_data['arguments'][0]['value'] # FIXME very flaky
+            value = f'SubFactory({class_name}Factory)'
+            field_data['factory_field'] = value
+            return field_data
+        else:
+            print(f'{field_data["data_type"]} != {self.field}')
+            return super().handle(field_data)
+
+
 class IntegerFieldHandler(AbstractModelFieldHandler):
     field = 'IntegerField'
 
@@ -68,19 +83,18 @@ class IntegerFieldHandler(AbstractModelFieldHandler):
             else:
                 value = 'LazyAttribute(lambda x: faker.date_time_between(start_date="-1y", ' \
                         'end_date="now", tzinfo=timezone(settings.TIME_ZONE)).timestamp())'
-            clone = field_data.copy()
-            clone['factory_field'] = value
-            return clone
+            field_data['factory_field'] = value
+            return field_data
         else:
             print(f'{field_data["data_type"]} != {self.field}')
             return super().handle(field_data)
 
 
-class CharField(AbstractModelFieldHandler):
+class CharFieldHandler(AbstractModelFieldHandler):
     field = 'CharField'
 
     def __init__(self):
-        regexp_str = r'(id|key)'
+        regexp_str = r'.*(id|key).*'
         self.regexp = re.compile(regexp_str)
 
     def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
@@ -91,9 +105,8 @@ class CharField(AbstractModelFieldHandler):
                 value = f'LazyAttribute(lambda x: FuzzyText(length={max_length}, chars=string.ascii_uppercase).fuzz())'
             else:
                 value = f'LazyAttribute(lambda x: FuzzyText(length={max_length}, chars=string.digits).fuzz())'
-            clone = field_data.copy()
-            clone['factory_field'] = value
-            return clone
+            field_data['factory_field'] = value
+            return field_data
         else:
             return super().handle(field_data)
 

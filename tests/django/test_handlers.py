@@ -1,8 +1,5 @@
-from django_scaffolding_tools.django.handlers import IntegerFieldHandler, DateFieldHandler, DateTimeFieldHandler
-
-
-class CharFieldHandler:
-    pass
+from django_scaffolding_tools.django.handlers import IntegerFieldHandler, DateFieldHandler, DateTimeFieldHandler, \
+    CharFieldHandler
 
 
 def test_handlers():
@@ -21,12 +18,13 @@ def test_handlers():
     int_handler = DateFieldHandler()
     char_handler = DateTimeFieldHandler()
 
-    # int_handler = IntegerFieldHandler()
-    # char_handler = CharFieldHandler()
+    int_handler = IntegerFieldHandler()
+    char_handler = CharFieldHandler()
+
     int_handler.set_next(char_handler)
-    print(f'Next {char_handler._next_handler}')
-    print(f'Next {int_handler._next_handler}')
+
 
     result = int_handler.handle(field_data)
-    print('>>>', result)
+    expected = 'LazyAttribute(lambda x: FuzzyText(length=64, chars=string.digits).fuzz())'
+    assert result['factory_field'] == expected
 
