@@ -1,5 +1,7 @@
+import json
+
 from django_scaffolding_tools.django.handlers import IntegerFieldHandler, DateFieldHandler, DateTimeFieldHandler, \
-    CharFieldHandler
+    CharFieldHandler, ForeignKeyFieldHandler
 
 
 def test_handlers():
@@ -28,3 +30,27 @@ def test_handlers():
     expected = 'LazyAttribute(lambda x: FuzzyText(length=64, chars=string.digits).fuzz())'
     assert result['factory_field'] == expected
 
+def test_all(fixtures_folder):
+    file = fixtures_folder / 'model_data_models_payements.py.json'
+    with open(file, 'r') as json_file:
+        class_data = json.load(json_file)
+    fp_data = class_data['classes'][2]
+    handlers = [
+        IntegerFieldHandler(),
+        CharFieldHandler(),
+        ForeignKeyFieldHandler(),
+        DateFieldHandler(),
+        DateTimeFieldHandler()
+    ]
+
+    for i in range(len(handlers)):
+        if i < len(handlers) - 1:
+            print(f'{handlers[i].field} --> {handlers[i+1].field}')
+            handlers[i].set_next(handlers[i+1])
+    main_handler = handlers[0]
+    for att in fp_data['attributes']:
+        result = main_handler.handle(att)
+        if result is None:
+            print(f'{att["name"]} {att["data_type"]} NOT supported')
+        else:
+            print(f'{result["name"]} = {result["factory_field"]}')
