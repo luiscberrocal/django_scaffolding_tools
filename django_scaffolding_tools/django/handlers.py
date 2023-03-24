@@ -2,7 +2,7 @@ import re
 from abc import ABC, abstractmethod
 from typing import Dict, Any, List, Optional
 
-from django_scaffolding_tools.django.utils import get_max_length
+from django_scaffolding_tools.django.utils import get_max_length, get_decimal_info
 
 
 class ModelFieldHandler(ABC):
@@ -36,7 +36,8 @@ class DateTimeFieldHandler(AbstractModelFieldHandler):
 
     def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
         if field_data['data_type'] == self.field:
-            return {'test': 'CharField'}
+            field_data['factory_field'] = f'{self.field} Not supported'
+            return field_data
         else:
             return super().handle(field_data)
 
@@ -46,7 +47,8 @@ class DateFieldHandler(AbstractModelFieldHandler):
 
     def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
         if field_data['data_type'] == self.field:
-            return {'test': 'DateField'}
+             field_data['factory_field'] = f'{self.field} Not supported'
+             return field_data
         else:
             return super().handle(field_data)
 
@@ -56,7 +58,7 @@ class ForeignKeyFieldHandler(AbstractModelFieldHandler):
 
     def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
         if field_data['data_type'] == self.field:
-            class_name = field_data['arguments'][0]['value'] # FIXME very flaky
+            class_name = field_data['arguments'][0]['value']  # FIXME very flaky
             value = f'SubFactory({class_name}Factory)'
             field_data['factory_field'] = value
             return field_data
@@ -105,3 +107,21 @@ class CharFieldHandler(AbstractModelFieldHandler):
         else:
             return super().handle(field_data)
 
+
+class DecimalFieldHandler(AbstractModelFieldHandler):
+    field = 'DecimalField'
+
+    def __init__(self, min_value: str = '25.00', max_value: str = '500.00'):
+        self.min_value = min_value
+        self.max_value = max_value
+
+    def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
+        if field_data['data_type'] == self.field:
+            max_digits, decimal_places = get_decimal_info(field_data)
+            value = f'LazyAttribute(lambda x: faker.pydecimal(left_digits={max_digits - decimal_places}, ' \
+                    f'right_digits={decimal_places}, ' \
+                    f'positive=True, min_value={self.min_value}, max_value={self.max_value}))'
+            field_data['factory_field'] = value
+            return field_data
+        else:
+            return super().handle(field_data)
