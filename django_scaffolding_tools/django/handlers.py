@@ -125,3 +125,14 @@ class DecimalFieldHandler(AbstractModelFieldHandler):
             return field_data
         else:
             return super().handle(field_data)
+class BooleanFieldHandler(AbstractModelFieldHandler):
+    field = 'BooleanField'
+
+
+    def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
+        if field_data['data_type'] == self.field:
+            value = 'Iterator([True, False])'
+            field_data['factory_field'] = value
+            return field_data
+        else:
+            return super().handle(field_data)
