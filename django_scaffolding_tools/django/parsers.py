@@ -83,8 +83,8 @@ def get_data_type(class_content, raise_errors=False):
     elif class_content['value']['_type'] == ASTDataType.CALL:
         func_ = class_content['value']['func']
         data_type = func_.get('attr')
-        if data_type is None:
-            data_type = func_.get('id')
+        # if data_type is None:
+        #     data_type = func_.get('id')
     elif class_content['value']['_type'] == ASTDataType.NAME:
         func_ = class_content['value']['func']
         data_type = func_.get('id')

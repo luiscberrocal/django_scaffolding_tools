@@ -26,7 +26,7 @@ class AbstractModelFieldHandler(ModelFieldHandler):
         return handler
 
     def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
-        if self._next_handler:
+        if self._next_handler is not None:
             return self._next_handler.handle(field_data)
         return None
 
