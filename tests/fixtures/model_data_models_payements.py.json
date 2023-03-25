@@ -1,0 +1,1132 @@
+{
+    "classes": [
+        {
+            "name": "AuditableModel",
+            "attributes": [
+                {
+                    "name": "created_by",
+                    "keywords": [
+                        {
+                            "name": "related_name",
+                            "value_type_TMP": "Constant",
+                            "value": "created_%(class)s"
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "on_delete",
+                            "value_type_TMP": "Attribute",
+                            "value": "SET_NULL"
+                        }
+                    ],
+                    "arguments": [
+                        {
+                            "name": "fk_classname",
+                            "value": "User"
+                        }
+                    ],
+                    "data_type": "ForeignKey"
+                },
+                {
+                    "name": "modified_by",
+                    "keywords": [
+                        {
+                            "name": "related_name",
+                            "value_type_TMP": "Constant",
+                            "value": "modified_%(class)s"
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "on_delete",
+                            "value_type_TMP": "Attribute",
+                            "value": "SET_NULL"
+                        }
+                    ],
+                    "arguments": [
+                        {
+                            "name": "fk_classname",
+                            "value": "User"
+                        }
+                    ],
+                    "data_type": "ForeignKey"
+                }
+            ]
+        },
+        {
+            "name": "CustomerInformation",
+            "attributes": [
+                {
+                    "name": "first_name",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 50
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "last_name",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 50
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "customer_id_number",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 64
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "The customer's ID number used to purchase their CreditLine or FinanceOrder"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "customer_id_type",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 16
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "The type of ID the customer used to purchase their CreditLine or FinanceOrder"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "customer_id_country",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 2
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "ISO 3166-1 alpha-3 country code"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "email",
+                    "keywords": [
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "EmailField"
+                },
+                {
+                    "name": "device_phone_number",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 32
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "We will attempt to pull all phone numbers for the device, but return null if none is found TODO deal with null values"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                }
+            ]
+        },
+        {
+            "name": "FinancialProduct",
+            "attributes": [
+                {
+                    "name": "financial_product_id",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 64
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "products",
+                    "keywords": [
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "The types of products associated with this CreditLine"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "TextField"
+                },
+                {
+                    "name": "create_time",
+                    "keywords": [
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "The Unix timestamp of when the CreditLine or FinanceOrder was created"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "IntegerField"
+                },
+                {
+                    "name": "term",
+                    "keywords": [
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "Multiplying term number of payments of type TermUnit should produce the original loan amount"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "IntegerField"
+                },
+                {
+                    "name": "term_unit",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 20
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "The original expected regularity of payments when creating schedules"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "customer",
+                    "keywords": [
+                        {
+                            "name": "verbose_name",
+                            "value_type_TMP": "Call",
+                            "value": "The original expected regularity of payments when creating schedules"
+                        },
+                        {
+                            "name": "related_name",
+                            "value_type_TMP": "Constant",
+                            "value": "credit_lines"
+                        },
+                        {
+                            "name": "on_delete",
+                            "value_type_TMP": "Attribute",
+                            "value": "PROTECT"
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "This optional field will be not null only for events of reason NEW_CREDIT_LINE with financeEngineVersion = FEv2"
+                        }
+                    ],
+                    "arguments": [
+                        {
+                            "name": "fk_classname",
+                            "value": "CustomerInformation"
+                        }
+                    ],
+                    "data_type": "ForeignKey"
+                },
+                {
+                    "name": "user_id",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 50
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "This will contain the foreign key to the Users table in M2 or the Persons table in M3"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "device_id",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 50
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "This will contain the foreign key to the Devices table"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "merchant_id",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 64
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "Reference to the Merchants table - ONLY FEv2 needs to publish this information"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "clerk_id",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 50
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "This will contain the foreign key to the clerk who sold the device"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "finance_provider_id",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 50
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "This will contain the foreign key to the financeProvider for the device"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "status",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 20
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "currency",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 3
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "The three letter currency code abbreviation."
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "country",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 2
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "This will contain the two letter country code of the country the device was sold in."
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "limit_amount",
+                    "keywords": [
+                        {
+                            "name": "max_digits",
+                            "value_type_TMP": "Constant",
+                            "value": 12
+                        },
+                        {
+                            "name": "decimal_places",
+                            "value_type_TMP": "Constant",
+                            "value": 2
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "For FOs, this value corresponds to financeAmount; for CLs it is the CreditLine's loan limit amount"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "DecimalField"
+                },
+                {
+                    "name": "down_payment",
+                    "keywords": [
+                        {
+                            "name": "max_digits",
+                            "value_type_TMP": "Constant",
+                            "value": 12
+                        },
+                        {
+                            "name": "decimal_places",
+                            "value_type_TMP": "Constant",
+                            "value": 2
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "This is the amount the customer first paid. For CLs, downPayment + limitAmount = purchaseAmount For FOs"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "DecimalField"
+                },
+                {
+                    "name": "payoff_amount",
+                    "keywords": [
+                        {
+                            "name": "max_digits",
+                            "value_type_TMP": "Constant",
+                            "value": 12
+                        },
+                        {
+                            "name": "decimal_places",
+                            "value_type_TMP": "Constant",
+                            "value": 2
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "DecimalField"
+                },
+                {
+                    "name": "minimum_payment_amount",
+                    "keywords": [
+                        {
+                            "name": "max_digits",
+                            "value_type_TMP": "Constant",
+                            "value": 12
+                        },
+                        {
+                            "name": "decimal_places",
+                            "value_type_TMP": "Constant",
+                            "value": 2
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "DecimalField"
+                },
+                {
+                    "name": "reason",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 40
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "What action was made on this CreditLine and the reason that this event was published."
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "finance_engine_version",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 5
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "timestamp",
+                    "keywords": [],
+                    "arguments": [],
+                    "data_type": "IntegerField"
+                },
+                {
+                    "name": "objects",
+                    "keywords": [],
+                    "arguments": [],
+                    "data_type": "UNSUPPORTED"
+                }
+            ]
+        },
+        {
+            "name": "FinalPaymentInfo",
+            "attributes": [
+                {
+                    "name": "payoff_amount",
+                    "keywords": [
+                        {
+                            "name": "max_digits",
+                            "value_type_TMP": "Constant",
+                            "value": 12
+                        },
+                        {
+                            "name": "decimal_places",
+                            "value_type_TMP": "Constant",
+                            "value": 2
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "This is the amount the customer first paid. For CLs, downPayment + limitAmount = purchaseAmount For FOs."
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "DecimalField"
+                },
+                {
+                    "name": "total_payments_to_date",
+                    "keywords": [
+                        {
+                            "name": "max_digits",
+                            "value_type_TMP": "Constant",
+                            "value": 12
+                        },
+                        {
+                            "name": "decimal_places",
+                            "value_type_TMP": "Constant",
+                            "value": 2
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "This field contains the sum of all payments made on the financeOrder or creditLine to date."
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "DecimalField"
+                },
+                {
+                    "name": "principle",
+                    "keywords": [
+                        {
+                            "name": "max_digits",
+                            "value_type_TMP": "Constant",
+                            "value": 12
+                        },
+                        {
+                            "name": "decimal_places",
+                            "value_type_TMP": "Constant",
+                            "value": 2
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "In case of a CreditLine payment, this field represents the fraction of the payment received that will be allocated towards the Credit Line's principle"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "DecimalField"
+                },
+                {
+                    "name": "interest",
+                    "keywords": [
+                        {
+                            "name": "max_digits",
+                            "value_type_TMP": "Constant",
+                            "value": 12
+                        },
+                        {
+                            "name": "decimal_places",
+                            "value_type_TMP": "Constant",
+                            "value": 2
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "In case of a CreditLine payment, this field represents the fraction of the payment received that will be allocated towards the Credit Line's interest"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "DecimalField"
+                },
+                {
+                    "name": "tax",
+                    "keywords": [
+                        {
+                            "name": "max_digits",
+                            "value_type_TMP": "Constant",
+                            "value": 12
+                        },
+                        {
+                            "name": "decimal_places",
+                            "value_type_TMP": "Constant",
+                            "value": 2
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "In case of a CreditLine payment, this field represents the fraction of the payment received that will be allocated towards the taxes - NOTE principle + interest + tax should always = amount"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "DecimalField"
+                }
+            ]
+        },
+        {
+            "name": "Payment",
+            "attributes": [
+                {
+                    "name": "financial_product_id",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 50
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "country",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 2
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "This will contain the two letter country code of the country the device was sold in"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "amount",
+                    "keywords": [
+                        {
+                            "name": "max_digits",
+                            "value_type_TMP": "Constant",
+                            "value": 12
+                        },
+                        {
+                            "name": "decimal_places",
+                            "value_type_TMP": "Constant",
+                            "value": 2
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "The amount collected by the payment"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "DecimalField"
+                },
+                {
+                    "name": "currency",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 3
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "The three letter currency code abbreviation"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "timestamp_paid",
+                    "keywords": [
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "The UNIX timestamp at which the payment was marked as paid by the external provider or processed in case of in-store"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "IntegerField"
+                },
+                {
+                    "name": "payment_provider",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 15
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "device_id",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 128
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "user_id",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 64
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Constant",
+                            "value": "Reference to the Users table in M2 or the Persons table in M3"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "payment_id",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 64
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "This is a unique identifier of payment internal to PJ"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "merchant_id",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 64
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "message_id",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 64
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "clerk_id",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 64
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "final_payment_info",
+                    "keywords": [
+                        {
+                            "name": "verbose_name",
+                            "value_type_TMP": "Call",
+                            "value": true
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "on_delete",
+                            "value_type_TMP": "Attribute",
+                            "value": "PROTECT"
+                        },
+                        {
+                            "name": "related_name",
+                            "value_type_TMP": "Constant",
+                            "value": "payment"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "OneToOneField"
+                }
+            ]
+        },
+        {
+            "name": "Transaction",
+            "attributes": [
+                {
+                    "name": "financial_product",
+                    "keywords": [
+                        {
+                            "name": "verbose_name",
+                            "value_type_TMP": "Call",
+                            "value": "payment"
+                        },
+                        {
+                            "name": "related_name",
+                            "value_type_TMP": "Constant",
+                            "value": "transactions"
+                        },
+                        {
+                            "name": "on_delete",
+                            "value_type_TMP": "Attribute",
+                            "value": "PROTECT"
+                        }
+                    ],
+                    "arguments": [
+                        {
+                            "name": "fk_classname",
+                            "value": "FinancialProduct"
+                        }
+                    ],
+                    "data_type": "ForeignKey"
+                },
+                {
+                    "name": "timestamp_paid",
+                    "keywords": [
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "The UNIX timestamp at which the payment was marked as paid by the external provider or processed in case of in-store"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "IntegerField"
+                },
+                {
+                    "name": "payment_provider",
+                    "keywords": [
+                        {
+                            "name": "max_length",
+                            "value_type_TMP": "Constant",
+                            "value": 15
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "CharField"
+                },
+                {
+                    "name": "amount",
+                    "keywords": [
+                        {
+                            "name": "max_digits",
+                            "value_type_TMP": "Constant",
+                            "value": 12
+                        },
+                        {
+                            "name": "decimal_places",
+                            "value_type_TMP": "Constant",
+                            "value": 2
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "The amount collected by the payment"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "DecimalField"
+                },
+                {
+                    "name": "payment",
+                    "keywords": [
+                        {
+                            "name": "related_name",
+                            "value_type_TMP": "Constant",
+                            "value": "transactions"
+                        },
+                        {
+                            "name": "on_delete",
+                            "value_type_TMP": "Attribute",
+                            "value": "PROTECT"
+                        },
+                        {
+                            "name": "verbose_name",
+                            "value_type_TMP": "Call",
+                            "value": "PROTECT"
+                        },
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        }
+                    ],
+                    "arguments": [
+                        {
+                            "name": "fk_classname",
+                            "value": "Payment"
+                        }
+                    ],
+                    "data_type": "ForeignKey"
+                },
+                {
+                    "name": "drift",
+                    "keywords": [
+                        {
+                            "name": "null",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "blank",
+                            "value_type_TMP": "Constant",
+                            "value": true
+                        },
+                        {
+                            "name": "help_text",
+                            "value_type_TMP": "Call",
+                            "value": "Difference between timestamp_paid and created"
+                        }
+                    ],
+                    "arguments": [],
+                    "data_type": "DurationField"
+                }
+            ]
+        }
+    ]
+}

@@ -66,3 +66,15 @@ def build_serializer_data(model_list: List[Dict[str, Any]],
                     attribute['serializer'] = {'field_type': serializer_field['field'], 'keywords': keywords}
 
     return model_list
+
+
+def build_django_factory(model_name: str, model_data: Dict[str, Any]):
+    data_type = ''
+    name = ''
+    if 'timestamp' in name and data_type == 'IntegerField':
+        # LazyAttribute(lambda x: faker.date_time_between(start_date="-1y", end_date="now",
+        #                                                                     tzinfo=timezone(settings.TIME_ZONE)).timestamp())
+        pass
+    elif 'date'in name and data_type == 'IntegerField':
+        pass
+

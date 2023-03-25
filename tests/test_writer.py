@@ -50,6 +50,6 @@ def test_write_django_model_excel(output_folder, fixtures_folder):
 
 def test_write_enums(fixtures_folder, output_folder):
     module_file = output_folder / '_enum.py'
-    csv_file = fixtures_folder / 'stp_enum.tsv'
-    results = parse_file_for_enum(csv_file, delimiter='\t')
-    write_enums('ReturnCauses', results, module_file)
+    csv_file = fixtures_folder / 'g_mine_types.csv'
+    results = parse_file_for_enum(csv_file, delimiter=',')
+    write_enums('GoogleMimeTypes', results, module_file)
