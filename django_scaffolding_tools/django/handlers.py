@@ -34,7 +34,8 @@ class DateTimeFieldHandler(AbstractModelFieldHandler):
 
     def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
         if field_data['data_type'] == self.field:
-            field_data['factory_field'] = f'{self.field} Not supported'
+            field_data['factory_field'] = 'LazyAttribute(lambda x: faker.date_time_between(start_date="-1y", ' \
+                                          'end_date="now", tzinfo=timezone(settings.TIME_ZONE)))'
             return field_data
         else:
             return super().handle(field_data)
@@ -45,7 +46,8 @@ class DateFieldHandler(AbstractModelFieldHandler):
 
     def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
         if field_data['data_type'] == self.field:
-            field_data['factory_field'] = f'{self.field} Not supported'
+            field_data['factory_field'] = 'LazyAttribute(lambda x: faker.date_time_between(start_date="-1y", ' \
+                                          'end_date="now", tzinfo=timezone(settings.TIME_ZONE)).date())'
             return field_data
         else:
             return super().handle(field_data)
@@ -89,7 +91,7 @@ class CharFieldHandler(AbstractModelFieldHandler):
     field = 'CharField'
 
     def __init__(self):
-        regexp_str = r'.*(id|key).*'
+        regexp_str = r'.*(id|key|number).*'
         self.regexp = re.compile(regexp_str)
 
     def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
@@ -154,6 +156,28 @@ class DateTimeCharFieldHandler(AbstractModelFieldHandler):
             else:
                 return super().handle(field_data)
             field_data['factory_field'] = value
+            return field_data
+        else:
+            return super().handle(field_data)
+
+
+class EmailFieldHandler(AbstractModelFieldHandler):
+    field = 'EmailField'
+
+    def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
+        if field_data['data_type'] == self.field:
+            field_data['factory_field'] = f'LazyAttribute(lambda x: faker.ascii_free_email())'
+            return field_data
+        else:
+            return super().handle(field_data)
+
+
+class JSONFieldHandler(AbstractModelFieldHandler):
+    field = 'JSONField'
+
+    def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
+        if field_data['data_type'] == self.field:
+            field_data['factory_field'] = f'LazyAttribute(lambda x: faker.pydict(5, value_types=[str, int, float]))'
             return field_data
         else:
             return super().handle(field_data)
