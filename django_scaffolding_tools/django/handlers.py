@@ -18,6 +18,8 @@ class ModelFieldHandler(ABC):
 class AbstractModelFieldHandler(ModelFieldHandler):
     _next_handler: ModelFieldHandler = None
     field = None
+    _next_handlers = list()
+    _current_index = 0
 
     def set_next(self, handler: 'ModelFieldHandler') -> 'ModelFieldHandler':
         self._next_handler = handler
@@ -27,6 +29,20 @@ class AbstractModelFieldHandler(ModelFieldHandler):
         if self._next_handler:
             return self._next_handler.handle(field_data)
         return None
+
+    def __iter__(self):
+        self._next_handlers = list()
+        self._current_index = 0
+        my_next = self._next_handler
+        self._next_handlers.append(my_next)
+        while True:
+            my_next = my_next._next_handler
+            if my_next is None:
+                break
+            self._next_handlers.append(my_next)
+        for handler in self._next_handlers:
+            yield handler
+
 
 
 class DateTimeFieldHandler(AbstractModelFieldHandler):

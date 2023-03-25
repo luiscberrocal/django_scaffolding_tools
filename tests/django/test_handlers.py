@@ -110,3 +110,27 @@ def test_all(fixtures_folder, output_folder):
             else:
                 print(f'\t{result["name"]} = {result["factory_field"]}')
         print("#" * 80)
+
+
+def test_iteration():
+    handlers = [
+        IntegerFieldHandler(),
+        DateTimeCharFieldHandler(),
+        CharFieldHandler(),
+        ForeignKeyFieldHandler(),
+        DateFieldHandler(),
+        DateTimeFieldHandler(),
+        DecimalFieldHandler(),
+        BooleanFieldHandler()
+    ]
+
+    for i in range(len(handlers)):
+        if i < len(handlers) - 1:
+            handlers[i].set_next(handlers[i + 1])
+
+    main_handler = handlers[0]
+    for handler in main_handler:
+        print(f'{handler.__class__.__name__} {handler.field}')
+
+    handler_list = list(main_handler)
+    print(handler_list)
