@@ -76,13 +76,15 @@ def parse_for_django_classes(module: Dict[str, Any], raise_errors=False) -> Dict
     return module_content
 
 
-def get_data_type(class_content):
+def get_data_type(class_content, raise_errors=False):
     data_type = None
     if class_content['value']['_type'] == ASTDataType.CONSTANT:
         data_type = 'CONSTANT'
     elif class_content['value']['_type'] == ASTDataType.CALL:
         func_ = class_content['value']['func']
         data_type = func_.get('attr')
+        if data_type is None:
+            data_type = func_.get('id')
     elif class_content['value']['_type'] == ASTDataType.NAME:
         func_ = class_content['value']['func']
         data_type = func_.get('id')
@@ -90,5 +92,7 @@ def get_data_type(class_content):
         error_msg = f'Unsupported data type {class_content["value"]["_type"]}.'
         DjangoParsingException(error_msg)
     if data_type is None:
+        if raise_errors:
+            raise DjangoParsingException('Error')
         data_type = 'UNSUPPORTED'
     return data_type

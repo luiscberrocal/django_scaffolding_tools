@@ -43,6 +43,9 @@ class AbstractModelFieldHandler(ModelFieldHandler):
         for handler in self._next_handlers:
             yield handler
 
+    def __len__(self):
+        self.__iter__()
+        return len(self._next_handlers)
 
 
 class DateTimeFieldHandler(AbstractModelFieldHandler):

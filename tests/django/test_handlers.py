@@ -41,18 +41,18 @@ def test_date_time_char_handler():
         "arguments": [],
         "data_type": "CharField"
     },
-    {
-        "name": "payment_id",
-        "keywords": [
-            {
-                "name": "max_length",
-                "value_type_TMP": "Constant",
-                "value": 16
-            }
-        ],
-        "arguments": [],
-        "data_type": "CharField"
-    }
+        {
+            "name": "payment_id",
+            "keywords": [
+                {
+                    "name": "max_length",
+                    "value_type_TMP": "Constant",
+                    "value": 16
+                }
+            ],
+            "arguments": [],
+            "data_type": "CharField"
+        }
     ]
 
     handlers = [
@@ -72,7 +72,7 @@ def test_date_time_char_handler():
     ]
     for i, field_data in enumerate(field_list):
         result = handler.handle(field_data)
-        assert result['factory_field'] == expected_values[i] #, f'assertion error with {field_data["name"]}'
+        assert result['factory_field'] == expected_values[i]  # , f'assertion error with {field_data["name"]}'
 
 
 def test_all(fixtures_folder, output_folder):
@@ -129,8 +129,9 @@ def test_iteration():
             handlers[i].set_next(handlers[i + 1])
 
     main_handler = handlers[0]
-    for handler in main_handler:
-        print(f'{handler.__class__.__name__} {handler.field}')
 
     handler_list = list(main_handler)
-    print(handler_list)
+    for i, handler in enumerate(handler_list):
+        assert handler == handlers[i + 1]
+
+    assert len(main_handler) == len(handlers) - 1
