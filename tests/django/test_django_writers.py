@@ -18,6 +18,6 @@ def test_write_model_serializer_from_models_help(fixtures_folder, output_folder)
     write_model_serializer_from_models_file(models_file, serializer_file, write_intermediate=True, camel_case=False)
 
 def test_write_model_factories_from_models_file(output_folder):
-    models_file = Path('/home/luiscberrocal/adelantos/bcp-integration/bcp_integration/api/models.py')
+    models_file = Path('/home/luiscberrocal/PycharmProjects/alpha_clinic/alpha_clinic/patients/models.py')
     output_file = output_folder / 'django' / 'factories.py'
     write_model_factories_from_models_file(models_file, output_file, write_intermediate=True)
