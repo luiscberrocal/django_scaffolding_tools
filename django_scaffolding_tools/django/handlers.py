@@ -32,8 +32,6 @@ class AbstractModelFieldHandler(ModelFieldHandler):
 class DateTimeFieldHandler(AbstractModelFieldHandler):
     field = 'DateTimeField'
 
-    # field = 'CharField'
-
     def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
         if field_data['data_type'] == self.field:
             field_data['factory_field'] = f'{self.field} Not supported'
@@ -154,7 +152,7 @@ class DateTimeCharFieldHandler(AbstractModelFieldHandler):
                 value = f'LazyAttribute(lambda x: faker.date_time_between(start_date="-1y", ' \
                         f'end_date="now", tzinfo=timezone(settings.TIME_ZONE)).strftime({self.date_format}))'
             else:
-                return None
+                return super().handle(field_data)
             field_data['factory_field'] = value
             return field_data
         else:
