@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 
 import click
+import environ
 
 from django_scaffolding_tools.django.utils import DjangoAppManager
 from django_scaffolding_tools.django.writers import write_model_serializer_from_models_file
