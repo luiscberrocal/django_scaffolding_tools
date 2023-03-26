@@ -22,7 +22,7 @@ def parse_for_django_classes(module: Dict[str, Any], raise_errors=False) -> Dict
                     field['keywords'] = list()
                     field['arguments'] = list()
                     try:
-                        field['data_type'] = get_data_type(class_content)
+                        field['data_type'] = get_field_data_type(class_content)
                     except KeyError as e:
                         error_message = f'Key error {e}. Model {model["name"]} attr {field["name"]}'
                         raise DjangoParsingException(error_message)
@@ -76,15 +76,15 @@ def parse_for_django_classes(module: Dict[str, Any], raise_errors=False) -> Dict
     return module_content
 
 
-def get_data_type(class_content, raise_errors=False):
+def get_field_data_type(class_content, raise_errors=False):
     data_type = None
     if class_content['value']['_type'] == ASTDataType.CONSTANT:
         data_type = 'CONSTANT'
     elif class_content['value']['_type'] == ASTDataType.CALL:
         func_ = class_content['value']['func']
         data_type = func_.get('attr')
-        # if data_type is None:
-        #     data_type = func_.get('id')
+        if data_type is None:
+            data_type = func_.get('id')
     elif class_content['value']['_type'] == ASTDataType.NAME:
         func_ = class_content['value']['func']
         data_type = func_.get('id')
