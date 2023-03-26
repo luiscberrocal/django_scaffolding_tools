@@ -1,12 +1,11 @@
-from typing import Dict, Any, Tuple
-
-from django.apps.registry import apps
+import os
 
 from django_scaffolding_tools.exceptions import DjangoParsingException
 
-
+from django.apps.registry import apps
 class DjangoAppManager:
     def __init__(self):
+
         self.installed_apps = dict(self.get_installed_apps())
 
     def get_app(self, app_name):
@@ -73,25 +72,14 @@ class DjangoAppManager:
             field_dict['remote_field'] = field.remote_field.model.__name__
         field_list.append(field_dict)
         return field_dict
+def main():
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "example.settings")
+    import django
+    django.setup()
+    manager = DjangoAppManager()
+    print(list(manager.get_installed_apps()))
+    app_data = manager.get_app_data('servers')
+    print(app_data)
 
-
-def get_max_length(field_data: Dict[str, Any]) -> int:
-    if field_data['data_type'] != 'CharField':
-        raise DjangoParsingException('Max length can only be used for CharField.')
-    for keyword in field_data['keywords']:
-        if keyword.get('name') == 'max_length':
-            return keyword['value']
-    raise DjangoParsingException('No max length keyword found.')
-
-
-def get_decimal_info(field_data: Dict[str, Any]) -> Tuple[int, int]:
-    max_digits = 0
-    decimal_places = 0
-    if field_data['data_type'] != 'DecimalField':
-        raise DjangoParsingException('Not a decimal field.')
-    for keyword in field_data['keywords']:
-        if keyword.get('name') == 'max_digits':
-            max_digits = keyword['value']
-        elif keyword.get('name') == 'decimal_places':
-            decimal_places = keyword['value']
-    return max_digits, decimal_places
+if __name__ == '__main__':
+    main()
