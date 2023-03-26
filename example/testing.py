@@ -78,6 +78,8 @@ def main():
     django.setup()
     manager = DjangoAppManager()
     print(list(manager.get_installed_apps()))
+    app_data = manager.get_app_data('servers')
+    print(app_data)
 
 if __name__ == '__main__':
     main()

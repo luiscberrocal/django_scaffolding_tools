@@ -2,7 +2,7 @@ from django.db import models
 
 
 class OperatingSystem(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, help_text='Operating System Name')
     version = models.CharField(max_length=5)
     licenses_available = models.IntegerField()
     cost = models.DecimalField(decimal_places=2, max_digits=7)

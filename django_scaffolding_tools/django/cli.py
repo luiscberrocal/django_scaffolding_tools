@@ -1,9 +1,11 @@
+import json
 import os
 import sys
 from pathlib import Path
 
 import click
 
+from django_scaffolding_tools.django.utils import DjangoAppManager
 from django_scaffolding_tools.django.writers import write_model_serializer_from_models_file
 
 
@@ -28,6 +30,28 @@ def main(command, folder, model_file, output_folder, output_file, camel_case):
         click.echo(f'output_file: {output_file}')
         write_model_serializer_from_models_file(model_full_path, output_file, camel_case=camel_case)
 
+
+
+@click.command()
+@click.option('--settings', default='config.settings.local')
+@click.option('--output-folder', default=Path(os.getcwd()) / 'output', type=click.Path(exists=True))
+@click.option('--app')
+def models_to_json(app, output_folder, settings):
+    def quick_serialize(value):
+        return f'{value}'
+
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE",settings)
+    import django
+    django.setup()
+    manager = DjangoAppManager()
+    # print(list(manager.get_installed_apps()))
+    app_data = manager.get_app_data(app)
+
+    print(app_data)
+    filename = output_folder / f'{app}.json'
+    with open(filename, 'w') as json_file:
+        json.dump(app_data, json_file, indent=4, default=quick_serialize)
+    click.echo(f'Save file {filename}')
 
 
 if __name__ == "__main__":

@@ -46,8 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'django_test_tools',
     TEST_APP_SERVERS,
     TEST_APP_PEOPLE,
     # if your app has other dependencies that need to be added to the site
@@ -173,11 +171,6 @@ LOGGING = {
     'loggers': {
         'django.security.DisallowedHost': {
             'level': 'ERROR',
-            'handlers': ['console', ],
-            'propagate': True
-        },
-        'django_test_tools': {
-            'level': 'DEBUG',
             'handlers': ['console', ],
             'propagate': True
         },
