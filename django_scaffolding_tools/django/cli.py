@@ -31,18 +31,21 @@ def main(command, folder, model_file, output_folder, output_file, camel_case):
         write_model_serializer_from_models_file(model_full_path, output_file, camel_case=camel_case)
 
 
-
 @click.command()
 @click.option('--settings', default='config.settings.local')
 @click.option('--output-folder', default=Path(os.getcwd()) / 'output', type=click.Path(exists=True))
 @click.option('--app')
 def models_to_json(app, output_folder, settings):
+    current_path = os.getcwd()
+    print(f'>>>> {current_path}')
+    sys.path.insert(0, current_path)
     def quick_serialize(value):
         return f'{value}'
 
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE",settings)
+    os.environ["DJANGO_SETTINGS_MODULE"] = settings
     import django
     django.setup()
+
     manager = DjangoAppManager()
     # print(list(manager.get_installed_apps()))
     app_data = manager.get_app_data(app)
