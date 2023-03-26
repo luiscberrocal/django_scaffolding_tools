@@ -34,11 +34,14 @@ def main(command, folder, model_file, output_folder, output_file, camel_case):
 @click.command()
 @click.option('--settings', default='config.settings.local')
 @click.option('--output-folder', default=Path(os.getcwd()) / 'output', type=click.Path(exists=True))
+@click.option('--envs-file', type=click.Path(exists=True))
 @click.option('--app')
-def models_to_json(app, output_folder, settings):
+def models_to_json(app, output_folder, settings, envs_file):
+
     current_path = os.getcwd()
     print(f'>>>> {current_path}')
     sys.path.insert(0, current_path)
+    env.read_env(str(envs_file))
     def quick_serialize(value):
         return f'{value}'
 
@@ -47,7 +50,6 @@ def models_to_json(app, output_folder, settings):
     django.setup()
 
     manager = DjangoAppManager()
-    # print(list(manager.get_installed_apps()))
     app_data = manager.get_app_data(app)
 
     print(app_data)
