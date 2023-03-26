@@ -37,11 +37,13 @@ def main(command, folder, model_file, output_folder, output_file, camel_case):
 @click.option('--envs-file', type=click.Path(exists=True))
 @click.option('--app')
 def models_to_json(app, output_folder, settings, envs_file):
-
     current_path = os.getcwd()
     print(f'>>>> {current_path}')
     sys.path.insert(0, current_path)
+
+    env = environ.Env()
     env.read_env(str(envs_file))
+
     def quick_serialize(value):
         return f'{value}'
 
