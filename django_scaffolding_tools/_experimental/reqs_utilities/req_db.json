@@ -21,11 +21,11 @@
     },
     "sentry-sdk": {
         "name": "sentry-sdk",
-        "latest_version": "1.16.0",
-        "approved_version": "1.16.0",
+        "latest_version": "1.17.0",
+        "approved_version": "1.17.0",
         "group": null,
         "environment": "production",
-        "last_updated": "2023-03-01 10:51:42.403228",
+        "last_updated": "2023-03-27 13:31:18.800872",
         "home_page": "https://github.com/getsentry/sentry-python",
         "license": "BSD"
     },
@@ -41,11 +41,11 @@
     },
     "ipdb": {
         "name": "ipdb",
-        "latest_version": "0.13.11",
-        "approved_version": "0.13.11",
+        "latest_version": "0.13.13",
+        "approved_version": "0.13.13",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:23.220743",
+        "last_updated": "2023-03-27 13:31:37.270679",
         "home_page": "https://github.com/gotcha/ipdb",
         "license": "BSD"
     },
@@ -71,11 +71,11 @@
     },
     "django-stubs": {
         "name": "django-stubs",
-        "latest_version": "1.15.0",
-        "approved_version": "1.15.0",
+        "latest_version": "1.16.0",
+        "approved_version": "1.16.0",
         "group": null,
         "environment": "local",
-        "last_updated": "2023-03-01 10:52:53.044842",
+        "last_updated": "2023-03-27 13:31:50.773001",
         "home_page": "https://github.com/typeddjango/django-stubs",
         "license": "MIT"
     },
@@ -101,11 +101,11 @@
     },
     "djangorestframework-stubs": {
         "name": "djangorestframework-stubs",
-        "latest_version": "1.9.1",
-        "approved_version": "1.9.1",
+        "latest_version": "1.10.0",
+        "approved_version": "1.10.0",
         "group": null,
         "environment": "local",
-        "last_updated": "2023-03-01 10:53:09.065797",
+        "last_updated": "2023-03-27 13:32:00.867192",
         "home_page": "https://github.com/typeddjango/djangorestframework-stubs",
         "license": "MIT"
     },
@@ -151,11 +151,11 @@
     },
     "coverage": {
         "name": "coverage",
-        "latest_version": "7.2.1",
-        "approved_version": "7.2.1",
+        "latest_version": "7.2.2",
+        "approved_version": "7.2.2",
         "group": null,
         "environment": "local",
-        "last_updated": "2023-03-01 10:53:43.821424",
+        "last_updated": "2023-03-27 13:32:16.719184",
         "home_page": "https://github.com/nedbat/coveragepy",
         "license": "Apache-2.0"
     },
@@ -191,11 +191,11 @@
     },
     "pre-commit": {
         "name": "pre-commit",
-        "latest_version": "3.1.1",
-        "approved_version": "3.1.1",
+        "latest_version": "3.2.1",
+        "approved_version": "3.2.1",
         "group": null,
         "environment": "local",
-        "last_updated": "2023-03-01 10:54:13.059993",
+        "last_updated": "2023-03-27 13:32:27.616857",
         "home_page": "https://github.com/pre-commit/pre-commit",
         "license": "MIT"
     },
@@ -261,11 +261,11 @@
     },
     "pytz": {
         "name": "pytz",
-        "latest_version": "2022.7.1",
-        "approved_version": "2022.7.1",
+        "latest_version": "2023.2",
+        "approved_version": "2023.2",
         "group": null,
         "environment": "base",
-        "last_updated": "2023-03-01 10:54:29.331679",
+        "last_updated": "2023-03-27 13:32:42.093782",
         "home_page": "http://pythonhosted.org/pytz",
         "license": "MIT"
     },
@@ -341,11 +341,11 @@
     },
     "django-celery-beat": {
         "name": "django-celery-beat",
-        "latest_version": "2.4.0",
-        "approved_version": "2.4.0",
+        "latest_version": "2.5.0",
+        "approved_version": "2.5.0",
         "group": null,
         "environment": "base",
-        "last_updated": "2022-12-29 10:05:33.219931",
+        "last_updated": "2023-03-27 13:33:18.756740",
         "home_page": "https://github.com/celery/django-celery-beat",
         "license": "BSD"
     },
@@ -381,11 +381,11 @@
     },
     "django-allauth": {
         "name": "django-allauth",
-        "latest_version": "0.52.0",
-        "approved_version": "0.52.0",
+        "latest_version": "0.53.1",
+        "approved_version": "0.53.1",
         "group": null,
         "environment": "base",
-        "last_updated": "2023-03-01 10:55:41.236694",
+        "last_updated": "2023-03-27 13:33:38.884335",
         "home_page": "http://www.intenct.nl/projects/django-allauth/",
         "license": ""
     },
@@ -441,11 +441,11 @@
     },
     "drf-spectacular": {
         "name": "drf-spectacular",
-        "latest_version": "0.26.0",
-        "approved_version": "0.26.0",
+        "latest_version": "0.26.1",
+        "approved_version": "0.26.1",
         "group": null,
         "environment": "base",
-        "last_updated": "2023-03-07 13:19:58.803523",
+        "last_updated": "2023-03-27 13:33:53.070365",
         "home_page": "https://github.com/tfranzel/drf-spectacular",
         "license": "BSD"
     },
@@ -481,11 +481,11 @@
     },
     "django-filter": {
         "name": "django-filter",
-        "latest_version": "22.1",
-        "approved_version": "22.1",
+        "latest_version": "23.1",
+        "approved_version": "23.1",
         "group": null,
         "environment": null,
-        "last_updated": "2023-03-01 10:28:40.925319",
+        "last_updated": "2023-03-27 13:34:04.876774",
         "home_page": "https://github.com/carltongibson/django-filter/tree/main",
         "license": "BSD"
     }
