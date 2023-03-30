@@ -21,11 +21,11 @@
     },
     "sentry-sdk": {
         "name": "sentry-sdk",
-        "latest_version": "1.17.0",
-        "approved_version": "1.17.0",
+        "latest_version": "1.18.0",
+        "approved_version": "1.18.0",
         "group": null,
         "environment": "production",
-        "last_updated": "2023-03-27 13:31:18.800872",
+        "last_updated": "2023-03-30 08:11:34.777763",
         "home_page": "https://github.com/getsentry/sentry-python",
         "license": "BSD"
     },
@@ -51,11 +51,11 @@
     },
     "watchfiles": {
         "name": "watchfiles",
-        "latest_version": "0.18.1",
-        "approved_version": "0.18.1",
+        "latest_version": "0.19.0",
+        "approved_version": "0.19.0",
         "group": null,
         "environment": "local",
-        "last_updated": "2022-12-29 10:05:23.548769",
+        "last_updated": "2023-03-30 08:12:04.475944",
         "home_page": "https://github.com/samuelcolvin/watchfiles",
         "license": "MIT"
     },
@@ -161,11 +161,11 @@
     },
     "black": {
         "name": "black",
-        "latest_version": "23.1.0",
-        "approved_version": "23.1.0",
+        "latest_version": "23.3.0",
+        "approved_version": "23.3.0",
         "group": null,
         "environment": "local",
-        "last_updated": "2023-03-01 10:54:02.473266",
+        "last_updated": "2023-03-30 08:12:30.946984",
         "home_page": null,
         "license": "MIT"
     },
@@ -261,11 +261,11 @@
     },
     "pytz": {
         "name": "pytz",
-        "latest_version": "2023.2",
-        "approved_version": "2023.2",
+        "latest_version": "2023.3",
+        "approved_version": "2023.3",
         "group": null,
         "environment": "base",
-        "last_updated": "2023-03-27 13:32:42.093782",
+        "last_updated": "2023-03-30 08:12:51.118559",
         "home_page": "http://pythonhosted.org/pytz",
         "license": "MIT"
     },

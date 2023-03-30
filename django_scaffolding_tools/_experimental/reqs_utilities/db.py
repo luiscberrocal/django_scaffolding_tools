@@ -127,8 +127,8 @@ def check_for_new_requirements(db: RequirementDatabase):
         latest = versions[-1]
         if latest == req.approved_version:
             continue
-        print(f'{name} {latest}')
-        print(f'Approved {req.approved_version} Latest{req.latest_version}')
+        print(f'Library {name} latest: {latest}')
+        print(f'DB approved {req.approved_version} latest {req.latest_version}')
         print(info)
         action = input('Update approved?')
         if action.upper() =='Y':
