@@ -21,6 +21,17 @@ def print_single2():
     print(LINE_UP, end=LINE_CLEAR)
 
 
+def print_progress():
+    for x in range(75):
+        print('*' * (75 - x), end='\r')
+        sleep(1)
+
+
+def print_percentage():
+    for x in range(10):
+        print("Progress {:2.1%}".format(x / 10), end="\r")
+        sleep(.5)
+
 
 if __name__ == '__main__':
-    print_single2()
+    print_progress()
