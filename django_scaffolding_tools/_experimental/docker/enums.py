@@ -12,6 +12,8 @@ class ProjectPostgresRegExp(str, Enum):
     PJ_PAYMENT = r"[_\-]?pj_django_payments[a-z_\-]*_postgres"
     MPI = r"multipagos[a-z_\-]*_postgres"
     PRO = r"payment[_\-]router[a-z_\-]*_postgres"
+    WUI = r"wu[a-z_\-]*_postgres"
+    OXXO= r"oxxo[a-z_\-]*_postgres"
 
 
 class TerminalColor(str, Enum):
