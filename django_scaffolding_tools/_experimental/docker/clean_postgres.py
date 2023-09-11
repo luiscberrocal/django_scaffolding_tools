@@ -92,4 +92,5 @@ def bold_text(text: str, color: Optional[TerminalColor] = None):
 
 if __name__ == '__main__':
     reg_expr = ProjectPostgresRegExp.PCA
+    reg_expr = 'new_provider'
     do_cleanup(reg_expr)
