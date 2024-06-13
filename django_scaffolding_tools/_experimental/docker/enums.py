@@ -14,6 +14,7 @@ class ProjectPostgresRegExp(str, Enum):
     PRO = r"payment[_\-]router[a-z_\-]*_postgres"
     WUI = r"wu[a-z_\-]*_postgres"
     OXXO= r"oxxo[a-z_\-]*_postgres"
+    # = r"oxxo[a-z_\-]*_postgres"
 
 
 class TerminalColor(str, Enum):
