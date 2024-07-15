@@ -91,5 +91,5 @@ def bold_text(text: str, color: Optional[TerminalColor] = None):
 
 
 if __name__ == '__main__':
-    reg_expr = ProjectPostgresRegExp.ECDL
+    reg_expr = ProjectPostgresRegExp.PPI
     do_cleanup(reg_expr)

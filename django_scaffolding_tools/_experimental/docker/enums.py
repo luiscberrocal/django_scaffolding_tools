@@ -13,7 +13,8 @@ class ProjectPostgresRegExp(str, Enum):
     MPI = r"multipagos[a-z_\-]*_postgres"
     PRO = r"payment[_\-]router[a-z_\-]*_postgres"
     WUI = r"wu[a-z_\-]*_postgres"
-    OXXO= r"oxxo[a-z_\-]*_postgres"
+    OXXO = r"oxxo[a-z_\-]*_postgres"
+    PPI = r"puntopago[a-z_\-]*_postgres"
     # = r"oxxo[a-z_\-]*_postgres"
 
 
