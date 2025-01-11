@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-scaffolding-tools"
-version = "0.10.5"
+version = "0.11.0"
 description = "Tools to quickly scaffold django apps and templates."
 authors = ["Luis C. Berrocal <luis.berrocal.1942@gmail.com>"]
 license = "MIT"
