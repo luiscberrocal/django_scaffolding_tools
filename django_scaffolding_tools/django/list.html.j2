@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{%  raw %}{% extends 'base.html' %}
 {% block head_title %}{{ header1_content }}{% endblock %}
 {% block content %}
   <div class="relative overflow-x-auto text-white" id="transaction-block">
@@ -15,4 +15,4 @@
     </h1>
     {% include 'finances/partials/transaction-container.html' %}
   </div>
-{% endblock %}
+{% endblock %}{% endraw %}
