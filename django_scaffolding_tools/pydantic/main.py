@@ -27,7 +27,7 @@ def extract_field_info(field: Dict[str, Any]) -> Dict[str, str]:
 
 def generate_csv(filename: str, output_filename: str) -> None:
     """Generates a CSV file from a Python file containing a Pydantic model."""
-    with open(filename, "r") as py_file:
+    with open(filename) as py_file:
         content = py_file.read()
 
     node = ast.parse(content)

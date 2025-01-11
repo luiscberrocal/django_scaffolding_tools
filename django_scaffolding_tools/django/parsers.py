@@ -1,7 +1,7 @@
-from typing import Dict, Any
+from typing import Any, Dict
 
 from django_scaffolding_tools.enums import ASTDataType
-from django_scaffolding_tools.exceptions import DjangoParsingException, DSTException
+from django_scaffolding_tools.exceptions import DjangoParsingException
 
 
 def parse_for_django_classes(module: Dict[str, Any], raise_errors=False) -> Dict[str, any]:
@@ -39,7 +39,7 @@ def parse_for_django_classes(module: Dict[str, Any], raise_errors=False) -> Dict
                             try:
                                 fk_classname = first_argument["id"]
                                 field["arguments"].append({"name": "fk_classname", "value": fk_classname})
-                            except KeyError as e:
+                            except KeyError:
                                 error_message = f'Error parsing field {field["name"]}'
                                 raise DjangoParsingException(error_message)
                     try:
@@ -64,10 +64,9 @@ def parse_for_django_classes(module: Dict[str, Any], raise_errors=False) -> Dict
                                     call_args_type = keyword["value"]["args"][0]["_type"]
                                     if call_args_type == ASTDataType.CONSTANT:
                                         keyword_value = keyword["value"]["args"][0].get("value")
-                            else:
-                                if raise_errors:
-                                    error_message = "Unexpected parsing error"
-                                    raise DjangoParsingException(error_message)
+                            elif raise_errors:
+                                error_message = "Unexpected parsing error"
+                                raise DjangoParsingException(error_message)
 
                             keyword_data["value"] = keyword_value
                             field["keywords"].append(keyword_data)

@@ -1,8 +1,6 @@
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 import humps
-
-from django_scaffolding_tools.enums import ASTDataType
 
 
 def build_model_serializer_template_data(

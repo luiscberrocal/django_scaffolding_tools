@@ -1,7 +1,6 @@
 import json
-from functools import partial
 from pathlib import Path
-from typing import Union, Dict, Any, List
+from typing import Any, Dict, List, Union
 
 
 def quick_json_write(

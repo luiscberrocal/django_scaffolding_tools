@@ -3,21 +3,21 @@ from pathlib import Path
 
 from django_scaffolding_tools.django.builders import build_model_serializer_template_data
 from django_scaffolding_tools.django.handlers import (
-    IntegerFieldHandler,
+    BooleanFieldHandler,
     CharFieldHandler,
-    ForeignKeyFieldHandler,
     DateFieldHandler,
+    DateTimeCharFieldHandler,
     DateTimeFieldHandler,
     DecimalFieldHandler,
-    BooleanFieldHandler,
-    DateTimeCharFieldHandler,
     EmailFieldHandler,
+    ForeignKeyFieldHandler,
+    IntegerFieldHandler,
     JSONFieldHandler,
 )
 from django_scaffolding_tools.django.parsers import parse_for_django_classes
 from django_scaffolding_tools.parsers import parse_file_for_ast_classes
-from django_scaffolding_tools.writers import ReportWriter
 from django_scaffolding_tools.utils.core import quick_write
+from django_scaffolding_tools.writers import ReportWriter
 
 
 def write_model_serializer_from_models_file(
@@ -92,7 +92,7 @@ faker = FakerFactory.create()\n"""
     lines.append(imports)
     for fp_data in model_data["classes"]:
         lines.append(f'class {fp_data["name"]}Factory(DjangoModelFactory):\n')
-        lines.append(f"\tclass Meta:\n")
+        lines.append("\tclass Meta:\n")
         lines.append(f'\t\tmodel = {fp_data["name"]}\n')
         lines.append("\n")
         for att in fp_data["attributes"]:

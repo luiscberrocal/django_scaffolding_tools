@@ -29,7 +29,7 @@ def print_progress():
 
 def print_percentage():
     for x in range(10):
-        print("Progress {:2.1%}".format(x / 10), end="\r")
+        print(f"Progress {x / 10:2.1%}", end="\r")
         sleep(0.5)
 
 

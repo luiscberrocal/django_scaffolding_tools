@@ -1,20 +1,15 @@
 from autoslug import AutoSlugField
 from django.conf import settings
-
+from django.db import IntegrityError, models
 from django.db.models import JSONField
-from django.db import models, IntegrityError
 from django.utils.translation import ugettext_lazy as _
-from model_utils.models import TimeStampedModel
-
-from .exceptions import ClinicException
-from ..core.models import Human, Auditable
 
 # Create your models here.
-from ..patients.models import Patient
+from .exceptions import ClinicException
 
 
 def build_slug(physician):
-    return "{} {}".format(physician.last_name, physician.first_name)
+    return f"{physician.last_name} {physician.first_name}"
 
 
 def upload_logo(instance, filename):
@@ -52,7 +47,7 @@ class Clinic(models.Model):
         try:
             return ClinicMembership.objects.create(clinic_member=clinic_member, clinic=self)
         except IntegrityError:
-            msg = _("{} is already a member of {}".format(clinic_member, self))
+            msg = _(f"{clinic_member} is already a member of {self}")
             raise ClinicException(msg)
 
     def balance(self):

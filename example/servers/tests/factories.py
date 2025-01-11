@@ -1,17 +1,12 @@
 import string
-
 from random import randint
-from pytz import timezone
 
 from django.conf import settings
-
-from factory import Iterator
-from factory import LazyAttribute
-from factory import SubFactory
-from factory import lazy_attribute
-from factory.django import DjangoModelFactory, FileField
-from factory.fuzzy import FuzzyText, FuzzyInteger
+from factory import Iterator, LazyAttribute, SubFactory
+from factory.django import DjangoModelFactory
+from factory.fuzzy import FuzzyText
 from faker import Factory as FakerFactory
+from pytz import timezone
 
 from example.servers.models import OperatingSystem, Server
 

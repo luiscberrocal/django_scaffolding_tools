@@ -3,7 +3,7 @@ import csv
 import re
 from operator import itemgetter
 from pathlib import Path
-from typing import Dict, Any, List, Callable, Tuple
+from typing import Any, Callable, Dict, List, Tuple
 
 import humps
 from ast2json import ast2json
@@ -115,7 +115,7 @@ SERIALIZER_FIELDS = {
 
 
 def parse_file_for_ast_classes(filename: Path) -> Dict[str, Any]:
-    with open(filename, "r") as py_file:
+    with open(filename) as py_file:
         content = py_file.read()
         node = ast.parse(content)
     node_dict = ast2json(node)
@@ -125,7 +125,7 @@ def parse_file_for_ast_classes(filename: Path) -> Dict[str, Any]:
 def parse_file_for_enum(csv_file: Path, delimiter: str = ",") -> List[Dict[str, Any]]:
     """Parses as csv file with value, name and description"""
     enumerations = list()
-    with open(csv_file, "r") as file:
+    with open(csv_file) as file:
         reader = csv.DictReader(file, delimiter=delimiter)
         for row in reader:
             row["value"] = row["value"].strip()

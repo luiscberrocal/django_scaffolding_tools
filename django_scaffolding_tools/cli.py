@@ -11,6 +11,7 @@ import click
 from django_scaffolding_tools.django.cli import models_to_json
 from django_scaffolding_tools.enums import CommandType
 from django_scaffolding_tools.writers import write_serializer_from_file
+
 from . import __version__ as current_version
 
 logger = logging.getLogger(__name__)
@@ -36,9 +37,8 @@ def main2(command, source_file, output_folder):
                 print(error_message)
                 return 200
             return 0
-        else:
-            print(f"NO output folder {output_folder}")
-            raise Exception("No output folder")
+        print(f"NO output folder {output_folder}")
+        raise Exception("No output folder")
 
 
 @click.group()

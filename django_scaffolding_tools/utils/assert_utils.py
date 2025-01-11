@@ -1,6 +1,5 @@
-from datetime import datetime, date
-from typing import Dict, Any, List
-from typing import NamedTuple
+from datetime import date, datetime
+from typing import Any, Dict, List, NamedTuple
 
 
 class AssertionTuple(NamedTuple):

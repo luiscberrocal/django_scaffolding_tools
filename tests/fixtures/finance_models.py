@@ -1,20 +1,21 @@
-from decimal import Decimal, ROUND_HALF_UP
 import logging
+from decimal import ROUND_HALF_UP, Decimal
+
 from django.conf import settings
-from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
-from django.db import models, IntegrityError, transaction
-from django.db.models import Sum, Q
+from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
+from django.db import IntegrityError, models, transaction
+from django.db.models import Q, Sum
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
 from model_utils.models import TimeStampedModel
 
-from .exceptions import FinanceException
-from .managers import InvoiceManager, EncounterManager, ClinicBillingCodeManager
-from ..clinics.models import CareTakingFacility, UniversalBillingCode, Clinic, ClinicMember, Company
+from ..clinics.models import CareTakingFacility, Clinic, ClinicMember, Company, UniversalBillingCode
 from ..core.models import Auditable
-from ..patients.models import Patient, InsuranceCompany
+from ..patients.models import InsuranceCompany, Patient
+from .exceptions import FinanceException
+from .managers import ClinicBillingCodeManager, EncounterManager, InvoiceManager
 
 logger = logging.getLogger(__name__)
 
@@ -106,8 +107,7 @@ class ClinicBillingCode(Auditable, TimeStampedModel):
         now = timezone.now().date()
         if self.expiration_date is not None and self.expiration_date > now:
             return _("{} - Standard Charge {} (expired)").format(self.universal_code, self.price)
-        else:
-            return _("{} - Standard Charge {}").format(self.universal_code, self.price)
+        return _("{} - Standard Charge {}").format(self.universal_code, self.price)
 
 
 class ChargeType(models.Model):
@@ -303,8 +303,8 @@ class Invoice(TimeStampedModel):
             payment_data["clinic"] = self.clinic
             payment_data["amount"] = kwargs.get("amount", self.total)
             payment_data["payment_type"] = payment_type
-            payment_data["bank"] = kwargs.get("bank", None)
-            payment_data["transaction_num"] = kwargs.get("transaction_num", None)
+            payment_data["bank"] = kwargs.get("bank")
+            payment_data["transaction_num"] = kwargs.get("transaction_num")
             payment_data["created_by"] = user
             payment_data["modified_by"] = user
             with transaction.atomic():
@@ -370,9 +370,7 @@ class BillingItem(TimeStampedModel):
         verbose_name_plural = _("encounters")
 
     def __str__(self):
-        return "{} {} {}".format(
-            self.billing_code.universal_code.code, self.billing_code.universal_code.description, self.charge
-        )
+        return f"{self.billing_code.universal_code.code} {self.billing_code.universal_code.description} {self.charge}"
 
 
 class Payment(Auditable, TimeStampedModel):
@@ -405,7 +403,7 @@ class Payment(Auditable, TimeStampedModel):
         verbose_name_plural = _("payments")
 
     def __str__(self):
-        return "{} {}".format(self.receipt_number, self.amount)
+        return f"{self.receipt_number} {self.amount}"
 
 
 class InvoicePayment(Auditable, TimeStampedModel):

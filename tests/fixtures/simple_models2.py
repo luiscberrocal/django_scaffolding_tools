@@ -1,6 +1,6 @@
+from django.config import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.config import settings
 
 # Create your models here.
 

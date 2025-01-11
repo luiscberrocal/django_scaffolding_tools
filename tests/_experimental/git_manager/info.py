@@ -1,7 +1,7 @@
 from pathlib import Path
 from pprint import pprint
 
-from git import Repo, Commit
+from git import Repo
 
 
 def get_commits():

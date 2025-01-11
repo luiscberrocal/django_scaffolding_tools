@@ -1,9 +1,6 @@
 import json
 import os
-import pickle
 from pathlib import Path
-
-from django_scaffolding_tools._experimental.backup_envs.gdrive import get_g_drive_credentials
 
 
 def main():
@@ -68,7 +65,7 @@ if __name__ == "__main__":
 
     g_drive_folder = Path(__file__).parent.parent.parent.parent / ".envs" / "google_drive"
     folder_ids_file = g_drive_folder / "google_drive_folders_id.json"
-    with open(folder_ids_file, "r") as json_file:
+    with open(folder_ids_file) as json_file:
         folder_ids = json.load(json_file)
     folder_id = folder_ids["Envs"]
 

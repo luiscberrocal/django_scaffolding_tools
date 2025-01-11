@@ -4,14 +4,14 @@ from datetime import datetime
 import humps
 import pytest
 
-from django_scaffolding_tools.builders import build_serializer_template_data, build_serializer_data
+from django_scaffolding_tools.builders import build_serializer_data, build_serializer_template_data
 from django_scaffolding_tools.parsers import (
     parse_dict,
-    transform_dict_to_model_list,
-    parse_for_patterns,
     parse_file_for_ast_classes,
-    parse_var_name,
     parse_file_for_enum,
+    parse_for_patterns,
+    parse_var_name,
+    transform_dict_to_model_list,
 )
 from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
 from django_scaffolding_tools.utils.core import quick_write
@@ -348,7 +348,7 @@ def test_simple_parsing_camel_case(output_folder, camel_case_dict):
 
 def test_attributes_with_list(output_folder, fixtures_folder):
     filename = fixtures_folder / "api_bulk.json"
-    with open(filename, "r") as json_file:
+    with open(filename) as json_file:
         raw_data_dict = json.load(json_file)
     prefix = "_with_list"
 

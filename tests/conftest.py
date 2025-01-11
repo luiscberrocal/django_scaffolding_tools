@@ -25,7 +25,7 @@ def camel_case_dict():
 
 @pytest.fixture(scope="session")
 def model_list_for_serializers():
-    with open("./fixtures/model_list.json", "r") as json_file:
+    with open("./fixtures/model_list.json") as json_file:
         model_list = json.load(json_file)
     return model_list
 

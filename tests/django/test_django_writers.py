@@ -1,8 +1,8 @@
 from pathlib import Path
 
 from django_scaffolding_tools.django.writers import (
-    write_model_serializer_from_models_file,
     write_model_factories_from_models_file,
+    write_model_serializer_from_models_file,
 )
 
 

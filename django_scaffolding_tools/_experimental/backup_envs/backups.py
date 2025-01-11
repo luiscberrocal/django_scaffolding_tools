@@ -3,7 +3,7 @@ import sys
 import zipfile
 from datetime import datetime
 from pathlib import Path
-from typing import List, Dict, Any, Tuple
+from typing import Any, Dict, List, Tuple
 
 
 def print_success(message):

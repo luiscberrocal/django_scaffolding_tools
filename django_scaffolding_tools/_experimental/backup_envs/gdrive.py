@@ -1,13 +1,11 @@
 # import the required libraries
 import json
 import pickle
-import os.path
-from mimetypes import MimeTypes
 from pathlib import Path
 
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
 from django_scaffolding_tools._experimental.backup_envs.exceptions import UploadError
@@ -153,7 +151,7 @@ def main():
     secrets_file = g_drive_folder / "client_secrets.json"
 
     folder_ids_file = g_drive_folder / "google_drive_folders_id.json"
-    with open(folder_ids_file, "r") as json_file:
+    with open(folder_ids_file) as json_file:
         folder_ids = json.load(json_file)
     folder_id = folder_ids["Envs"]
 

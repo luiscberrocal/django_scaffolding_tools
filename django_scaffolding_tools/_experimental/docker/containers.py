@@ -1,8 +1,8 @@
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 from tqdm import tqdm
 
-from django_scaffolding_tools._experimental.docker.commnads import run_commands, run_command_with_grep
+from django_scaffolding_tools._experimental.docker.commnads import run_command_with_grep, run_commands
 
 
 def get_containers(regexp: str):
@@ -21,7 +21,7 @@ def delete_containers(containers: List[Dict[str, Any]], reg_expression: str):
     if len(containers) != 0:
         for i, container in enumerate(containers):
             print(f'{i} {container["container_id"]} {container["image"]} {container["name"]}')
-        container_to_delete = input(f"Type the number of the container to delete (#, None [n], All [all]):")
+        container_to_delete = input("Type the number of the container to delete (#, None [n], All [all]):")
         if container_to_delete.isdigit():
             container_id = int(container_to_delete)
 

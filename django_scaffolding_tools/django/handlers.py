@@ -1,8 +1,8 @@
 import re
 from abc import ABC, abstractmethod
-from typing import Dict, Any, List, Optional
+from typing import Any, Dict
 
-from django_scaffolding_tools.django.utils import get_max_length, get_decimal_info
+from django_scaffolding_tools.django.utils import get_decimal_info, get_max_length
 
 
 class ModelFieldHandler(ABC):
@@ -58,8 +58,7 @@ class DateTimeFieldHandler(AbstractModelFieldHandler):
                 'end_date="now", tzinfo=timezone(settings.TIME_ZONE)))'
             )
             return field_data
-        else:
-            return super().handle(field_data)
+        return super().handle(field_data)
 
 
 class DateFieldHandler(AbstractModelFieldHandler):
@@ -72,8 +71,7 @@ class DateFieldHandler(AbstractModelFieldHandler):
                 'end_date="now", tzinfo=timezone(settings.TIME_ZONE)).date())'
             )
             return field_data
-        else:
-            return super().handle(field_data)
+        return super().handle(field_data)
 
 
 class ForeignKeyFieldHandler(AbstractModelFieldHandler):
@@ -85,8 +83,7 @@ class ForeignKeyFieldHandler(AbstractModelFieldHandler):
             value = f"SubFactory({class_name}Factory)"
             field_data["factory_field"] = value
             return field_data
-        else:
-            return super().handle(field_data)
+        return super().handle(field_data)
 
 
 class IntegerFieldHandler(AbstractModelFieldHandler):
@@ -108,8 +105,7 @@ class IntegerFieldHandler(AbstractModelFieldHandler):
                 )
             field_data["factory_field"] = value
             return field_data
-        else:
-            return super().handle(field_data)
+        return super().handle(field_data)
 
 
 class CharFieldHandler(AbstractModelFieldHandler):
@@ -129,8 +125,7 @@ class CharFieldHandler(AbstractModelFieldHandler):
                 value = f"LazyAttribute(lambda x: FuzzyText(length={max_length}, chars=string.digits).fuzz())"
             field_data["factory_field"] = value
             return field_data
-        else:
-            return super().handle(field_data)
+        return super().handle(field_data)
 
 
 class DecimalFieldHandler(AbstractModelFieldHandler):
@@ -150,8 +145,7 @@ class DecimalFieldHandler(AbstractModelFieldHandler):
             )
             field_data["factory_field"] = value
             return field_data
-        else:
-            return super().handle(field_data)
+        return super().handle(field_data)
 
 
 class BooleanFieldHandler(AbstractModelFieldHandler):
@@ -162,8 +156,7 @@ class BooleanFieldHandler(AbstractModelFieldHandler):
             value = "Iterator([True, False])"
             field_data["factory_field"] = value
             return field_data
-        else:
-            return super().handle(field_data)
+        return super().handle(field_data)
 
 
 class DateTimeCharFieldHandler(AbstractModelFieldHandler):
@@ -186,8 +179,7 @@ class DateTimeCharFieldHandler(AbstractModelFieldHandler):
                 return super().handle(field_data)
             field_data["factory_field"] = value
             return field_data
-        else:
-            return super().handle(field_data)
+        return super().handle(field_data)
 
 
 class EmailFieldHandler(AbstractModelFieldHandler):
@@ -195,10 +187,9 @@ class EmailFieldHandler(AbstractModelFieldHandler):
 
     def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
         if field_data["data_type"] == self.field:
-            field_data["factory_field"] = f"LazyAttribute(lambda x: faker.ascii_free_email())"
+            field_data["factory_field"] = "LazyAttribute(lambda x: faker.ascii_free_email())"
             return field_data
-        else:
-            return super().handle(field_data)
+        return super().handle(field_data)
 
 
 class JSONFieldHandler(AbstractModelFieldHandler):
@@ -206,7 +197,6 @@ class JSONFieldHandler(AbstractModelFieldHandler):
 
     def handle(self, field_data: Dict[str, Any]) -> Dict[str, Any] | None:
         if field_data["data_type"] == self.field:
-            field_data["factory_field"] = f"LazyAttribute(lambda x: faker.pydict(5, value_types=[str, int, float]))"
+            field_data["factory_field"] = "LazyAttribute(lambda x: faker.pydict(5, value_types=[str, int, float]))"
             return field_data
-        else:
-            return super().handle(field_data)
+        return super().handle(field_data)

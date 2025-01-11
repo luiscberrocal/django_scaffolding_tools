@@ -1,4 +1,4 @@
-from typing import Any, List, Dict
+from typing import Any, Dict, List
 
 from django_scaffolding_tools.enums import NativeDataType
 from django_scaffolding_tools.parsers import SERIALIZER_FIELDS

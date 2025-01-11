@@ -3,11 +3,11 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List, Union
 
-from jinja2 import PackageLoader, Environment
+from jinja2 import Environment, PackageLoader
 
 from django_scaffolding_tools.builders import build_serializer_data
 from django_scaffolding_tools.exceptions import DSTException
-from django_scaffolding_tools.parsers import parse_dict, transform_dict_to_model_list, parse_for_patterns
+from django_scaffolding_tools.parsers import parse_dict, parse_for_patterns, transform_dict_to_model_list
 from django_scaffolding_tools.patterns import PATTERN_FUNCTIONS
 
 
@@ -23,7 +23,7 @@ class ReportWriter:
 
 
 def write_serializer_from_file(source_file: Path, output_file: Path):
-    with open(source_file, "r") as json_file:
+    with open(source_file) as json_file:
         data = json.load(json_file)
 
     writer = ReportWriter()
@@ -93,7 +93,8 @@ def write_django_model_excel(models_list: List[Dict[str, Any]], filename: Path):
 
 def simple_write_to_excel(filename: Path, headers: Dict[str, Any], lines: List[Dict[str, Any]]):
     """Writes to excel a List of dictionaries. The headers keys must match the keys of the values to write.
-    The headers must contain a dictionary with the title key."""
+    The headers must contain a dictionary with the title key.
+    """
     from openpyxl.workbook import Workbook
 
     wb = Workbook()
@@ -106,7 +107,7 @@ def simple_write_to_excel(filename: Path, headers: Dict[str, Any], lines: List[D
     row += 1
     for line in lines:
         col = 1
-        for key in headers.keys():
+        for key in headers:
             value = line.get(key)
             if value is not None:
                 sheet.cell(row=row, column=col, value=value)

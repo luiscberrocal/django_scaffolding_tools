@@ -1,20 +1,19 @@
 from autoslug import AutoSlugField
 from django.conf import settings
-
+from django.db import IntegrityError, models
 from django.db.models import JSONField
-from django.db import models, IntegrityError
 from django.utils.translation import ugettext_lazy as _
 from model_utils.models import TimeStampedModel
 
-from .exceptions import ClinicException
-from ..core.models import Human, Auditable
+from ..core.models import Auditable, Human
 
 # Create your models here.
 from ..patients.models import Patient
+from .exceptions import ClinicException
 
 
 def build_slug(physician):
-    return "{} {}".format(physician.last_name, physician.first_name)
+    return f"{physician.last_name} {physician.first_name}"
 
 
 def upload_logo(instance, filename):
@@ -52,7 +51,7 @@ class Clinic(models.Model):
         try:
             return ClinicMembership.objects.create(clinic_member=clinic_member, clinic=self)
         except IntegrityError:
-            msg = _("{} is already a member of {}".format(clinic_member, self))
+            msg = _(f"{clinic_member} is already a member of {self}")
             raise ClinicException(msg)
 
     def balance(self):
@@ -114,7 +113,7 @@ class ClinicMember(Human):
     clinics = models.ManyToManyField(Clinic, through=ClinicMembership, related_name="members")
 
     def __str__(self):
-        return "{}, {}".format(self.last_name, self.first_name)
+        return f"{self.last_name}, {self.first_name}"
 
     class Meta:
         ordering = ("last_name", "first_name")
@@ -139,7 +138,7 @@ class UniversalBillingCode(TimeStampedModel):
     description = models.CharField(_("Description"), max_length=100)
 
     def __str__(self):
-        return "{} - {}".format(self.code, self.description)
+        return f"{self.code} - {self.description}"
 
     class Meta:
         ordering = ("code",)
@@ -157,7 +156,7 @@ class Diagnostic(Auditable, TimeStampedModel):
     description = models.CharField(_("Description"), max_length=150)
 
     def __str__(self):
-        return "{} - {}".format(self.code, self.description)
+        return f"{self.code} - {self.description}"
 
     class Meta:
         ordering = ("description",)
@@ -168,7 +167,7 @@ class Procedure(Auditable, TimeStampedModel):
     description = models.CharField(_("Description"), max_length=150)
 
     def __str__(self):
-        return "{} - {}".format(self.code, self.description)
+        return f"{self.code} - {self.description}"
 
     class Meta:
         ordering = ("description",)
@@ -188,9 +187,8 @@ class ClinicDiagnostic(Auditable, TimeStampedModel):
 
     def __str__(self):
         if self.type is None:
-            return "{} - {}".format(self.diagnostic.code, self.diagnostic.description)
-        else:
-            return "{} ({}) - {}".format(self.type, self.diagnostic.code, self.diagnostic.description)
+            return f"{self.diagnostic.code} - {self.diagnostic.description}"
+        return f"{self.type} ({self.diagnostic.code}) - {self.diagnostic.description}"
 
 
 class ClinicProcedure(Auditable, TimeStampedModel):
@@ -206,4 +204,4 @@ class ClinicProcedure(Auditable, TimeStampedModel):
         unique_together = ("clinic", "procedure")
 
     def __str__(self):
-        return "{} - {}".format(self.procedure.code, self.procedure.description)
+        return f"{self.procedure.code} - {self.procedure.description}"

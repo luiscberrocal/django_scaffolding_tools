@@ -1,32 +1,28 @@
-from example.servers.models import Server
-from ..factories import ServerFactory
+from django.db import IntegrityError
 from django.forms.models import model_to_dict
 from django.test import TestCase
-from django.conf import settings
-from example.servers.models import OperatingSystem
-from ..factories import OperatingSystemFactory
-from django.db import IntegrityError
+
+from example.servers.models import OperatingSystem, Server
+
+from ..factories import OperatingSystemFactory, ServerFactory
 
 
 class TestCaseOperatingSystem(TestCase):
     def test_create(self):
-        """
-        Test the creation of a OperatingSystem model using a factory
+        """Test the creation of a OperatingSystem model using a factory
         """
         operatingsystem = OperatingSystemFactory.create()
         self.assertEqual(1, OperatingSystem.objects.count())
 
     def test_create_batch(self):
-        """
-        Test the creation of 5 OperatingSystem models using a factory
+        """Test the creation of 5 OperatingSystem models using a factory
         """
         operatingsystems = OperatingSystemFactory.create_batch(5)
         self.assertEqual(5, OperatingSystem.objects.count())
         self.assertEqual(5, len(operatingsystems))
 
     def test_attribute_count(self):
-        """
-        Test that all attributes of OperatingSystem server are counted. It will count the primary key and all editable attributes.
+        """Test that all attributes of OperatingSystem server are counted. It will count the primary key and all editable attributes.
         This test should break if a new attribute is added.
         """
         operatingsystem = OperatingSystemFactory.create()
@@ -34,8 +30,7 @@ class TestCaseOperatingSystem(TestCase):
         self.assertEqual(5, len(operatingsystem_dict.keys()))
 
     def test_attribute_content(self):
-        """
-        Test that all attributes of OperatingSystem server have content. This test will break if an attributes name is changed.
+        """Test that all attributes of OperatingSystem server have content. This test will break if an attributes name is changed.
         """
         operatingsystem = OperatingSystemFactory.create()
         self.assertIsNotNone(operatingsystem.id)
@@ -63,23 +58,20 @@ class TestCaseOperatingSystem(TestCase):
 
 class TestCaseServer(TestCase):
     def test_create(self):
-        """
-        Test the creation of a Server model using a factory
+        """Test the creation of a Server model using a factory
         """
         server = ServerFactory.create()
         self.assertEqual(1, Server.objects.count())
 
     def test_create_batch(self):
-        """
-        Test the creation of 5 Server models using a factory
+        """Test the creation of 5 Server models using a factory
         """
         servers = ServerFactory.create_batch(5)
         self.assertEqual(5, Server.objects.count())
         self.assertEqual(5, len(servers))
 
     def test_attribute_count(self):
-        """
-        Test that all attributes of Server server are counted. It will count the primary key and all editable attributes.
+        """Test that all attributes of Server server are counted. It will count the primary key and all editable attributes.
         This test should break if a new attribute is added.
         """
         server = ServerFactory.create()
@@ -87,8 +79,7 @@ class TestCaseServer(TestCase):
         self.assertEqual(11, len(server_dict.keys()))
 
     def test_attribute_content(self):
-        """
-        Test that all attributes of Server server have content. This test will break if an attributes name is changed.
+        """Test that all attributes of Server server have content. This test will break if an attributes name is changed.
         """
         server = ServerFactory.create()
         self.assertIsNotNone(server.id)
@@ -104,8 +95,7 @@ class TestCaseServer(TestCase):
         self.assertIsNotNone(server.comments)
 
     def test_name_is_unique(self):
-        """
-        Tests attribute name of model Server to see if the unique constraint works.
+        """Tests attribute name of model Server to see if the unique constraint works.
         This test should break if the unique attribute is changed.
         """
         server = ServerFactory.create()

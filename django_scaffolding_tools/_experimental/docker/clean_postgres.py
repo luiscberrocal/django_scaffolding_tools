@@ -1,7 +1,7 @@
 from typing import List, Optional
 
-from django_scaffolding_tools._experimental.docker.commnads import run_commands, run_command_with_grep
-from django_scaffolding_tools._experimental.docker.containers import get_containers, delete_containers
+from django_scaffolding_tools._experimental.docker.commnads import run_command_with_grep, run_commands
+from django_scaffolding_tools._experimental.docker.containers import delete_containers, get_containers
 from django_scaffolding_tools._experimental.docker.enums import ProjectPostgresRegExp, TerminalColor
 
 

@@ -1,4 +1,4 @@
-from typing import Dict, Any, Tuple
+from typing import Any, Dict, Tuple
 
 from django.apps.registry import apps
 
@@ -32,8 +32,7 @@ class DjangoAppManager:
         return project_apps
 
     def get_app_data(self, app_name):
-        """
-        Read application data converts into a dictionary
+        """Read application data converts into a dictionary
 
         :param app_name: Application name
         :return: Dictionary with application data

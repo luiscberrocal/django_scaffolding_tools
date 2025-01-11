@@ -1,10 +1,8 @@
 from datetime import datetime
 from pathlib import Path
 
-import humps
-
 from django_scaffolding_tools._experimental.cover_letters.config import ConfigurationManager
-from django_scaffolding_tools._experimental.cover_letters.generators import write_docx_cover_letter, convert_docx_to_pdf
+from django_scaffolding_tools._experimental.cover_letters.generators import convert_docx_to_pdf, write_docx_cover_letter
 
 
 def test_write_cover_letter(fixtures_folder, output_folder):

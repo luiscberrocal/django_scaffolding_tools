@@ -1,14 +1,14 @@
 import json
 
 from django_scaffolding_tools.django.handlers import (
-    IntegerFieldHandler,
-    DateFieldHandler,
-    DateTimeFieldHandler,
-    CharFieldHandler,
-    ForeignKeyFieldHandler,
-    DecimalFieldHandler,
     BooleanFieldHandler,
+    CharFieldHandler,
+    DateFieldHandler,
     DateTimeCharFieldHandler,
+    DateTimeFieldHandler,
+    DecimalFieldHandler,
+    ForeignKeyFieldHandler,
+    IntegerFieldHandler,
 )
 
 
@@ -67,7 +67,7 @@ def test_all(fixtures_folder, output_folder):
     file = fixtures_folder / "model_data_models_payements.py.json"
     file = output_folder / "django" / "model_data_models.py.json"
 
-    with open(file, "r") as json_file:
+    with open(file) as json_file:
         class_data = json.load(json_file)
     handlers = [
         IntegerFieldHandler(),
@@ -88,7 +88,7 @@ def test_all(fixtures_folder, output_folder):
     for fp_data in class_data["classes"]:
         # fp_data = class_data['classes'][3]
         print(f'class {fp_data["name"]}Factory(DjangoModelFactory):')
-        print(f"\tclass Meta:")
+        print("\tclass Meta:")
         print(f'\t\tmodel = {fp_data["name"]}')
         print("")
         for att in fp_data["attributes"]:

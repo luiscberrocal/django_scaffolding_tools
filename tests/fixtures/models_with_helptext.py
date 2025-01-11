@@ -1,5 +1,4 @@
 import uuid
-
 from typing import Any, Dict
 
 from django.db import models
