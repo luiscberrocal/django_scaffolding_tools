@@ -1,6 +1,5 @@
-from datetime import datetime, date
-from typing import Dict, Any, List
-from typing import NamedTuple
+from datetime import date, datetime
+from typing import Any, Dict, List, NamedTuple
 
 
 class AssertionTuple(NamedTuple):
@@ -11,7 +10,7 @@ class AssertionTuple(NamedTuple):
 def process_dict(data: Dict[str, Any], var_name: str) -> List[AssertionTuple]:
     assertion_list = list()
     for key, value in data.items():
-        var_name_dict = f'{var_name}[\'{key}\']'
+        var_name_dict = f"{var_name}['{key}']"
         if isinstance(value, dict):
             processed_list = process_dict(value, var_name_dict)
             assertion_list.extend(processed_list)
@@ -25,14 +24,16 @@ def process_dict(data: Dict[str, Any], var_name: str) -> List[AssertionTuple]:
 
 
 def process_datetime(data: datetime, var_name: str) -> List[AssertionTuple]:
-    value = f'datetime({data.year}, {data.month}, {data.day}, {data.hour}, {data.minute},' \
-            f' {data.second}, {data.microsecond})'
+    value = (
+        f"datetime({data.year}, {data.month}, {data.day}, {data.hour}, {data.minute},"
+        f" {data.second}, {data.microsecond})"
+    )
 
     return [AssertionTuple(var_name=var_name, value=value)]
 
 
 def process_date(data: date, var_name: str) -> List[AssertionTuple]:
-    value = f'date({data.year}, {data.month}, {data.day})'
+    value = f"date({data.year}, {data.month}, {data.day})"
     return [AssertionTuple(var_name=var_name, value=value)]
 
 
@@ -51,7 +52,7 @@ def process_list(data: List[Any], var_name: str) -> List[AssertionTuple]:
     assertion_list = list()
 
     for i, value in enumerate(data):
-        new_var_name = f'{var_name}[{i}]'
+        new_var_name = f"{var_name}[{i}]"
         processor_function = PROCESSOR_FUNCTIONS.get(type(value))
         if processor_function is not None:
             processed_list = processor_function(value, new_var_name)
@@ -68,14 +69,14 @@ PROCESSOR_FUNCTIONS = {
     int: process_raw,
     bool: process_raw,
     float: process_raw,
-    list: process_list
+    list: process_list,
 }
 
 
 def generate_assertion_tuples(data_dict: Dict[str, Any], var_name: str) -> List[AssertionTuple]:
     assertion_list = list()
     for key, value in data_dict.items():
-        new_var_name = f'{var_name}[\'{key}\']'
+        new_var_name = f"{var_name}['{key}']"
         processor_function = PROCESSOR_FUNCTIONS.get(type(value))
         if processor_function is not None:
             processed_list = processor_function(value, new_var_name)
@@ -90,11 +91,11 @@ def generate_pytest_assertions(data_dict: Dict[str, Any], var_name: str) -> List
     for assertion in assertion_list:
         if isinstance(assertion.value, bool):
             if assertion.value:
-                assertion_message = f'assert {assertion.var_name}'
+                assertion_message = f"assert {assertion.var_name}"
             else:
-                assertion_message = f'assert not {assertion.var_name}'
+                assertion_message = f"assert not {assertion.var_name}"
         else:
-            assertion_message = f'assert {assertion.var_name} == {assertion.value}'
+            assertion_message = f"assert {assertion.var_name} == {assertion.value}"
         print(assertion_message)
         pytest_assertion_list.append(assertion_message)
     return pytest_assertion_list

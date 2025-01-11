@@ -1,5 +1,5 @@
 """Top-level package for Django Scaffolding Tools."""
 
 __author__ = """Luis C. Berrocal"""
-__email__ = 'luis.berrocal.1942@gmail.com'
-__version__ = '0.10.5'
+__email__ = "luis.berrocal.1942@gmail.com"
+__version__ = "0.11.0"

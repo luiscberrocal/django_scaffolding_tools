@@ -4,7 +4,6 @@ from ..models import Server
 
 
 class ServerSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Server
-        fields = '__all__'
+        fields = "__all__"

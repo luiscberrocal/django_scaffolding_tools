@@ -1,0 +1,8 @@
+name,alias,description,example,data_type
+service_source,serviceSource,The service that is sending the event.,,str
+service_version,serviceVersion,The version of the service at the moment the event was sent.,1.0.0,str
+country,,The country code of the event,ZA,str
+payment_provider,paymentProvider,The payment provider that processed the payment.,D_LOCAL,str
+payment_id,paymentId,The payment id that was processed,,str
+status,,The new status of the payment,,str
+previous_status,previousStatus,The previous status of the payment,,UNKNOWN
