@@ -1,4 +1,5 @@
 """Console script for django_scaffolding_tools."""
+
 import logging
 import os
 import sys
@@ -16,9 +17,9 @@ logger = logging.getLogger(__name__)
 
 
 @click.command()
-@click.argument('command')
-@click.option('--source-file')
-@click.option('--output-folder')
+@click.argument("command")
+@click.option("--source-file")
+@click.option("--output-folder")
 def main2(command, source_file, output_folder):
     """Console script for django_scaffolding_tools."""
     click.echo(f"See click documentation {os.getcwd()}")
@@ -26,18 +27,18 @@ def main2(command, source_file, output_folder):
         source_file_path = Path(source_file)
         output_folder = Path(output_folder)
         if output_folder.exists():
-            target_file = output_folder / '__serializers.py'
-            click.echo(f'JSON to serializer from {source_file_path} to {target_file}')
+            target_file = output_folder / "__serializers.py"
+            click.echo(f"JSON to serializer from {source_file_path} to {target_file}")
             try:
                 write_serializer_from_file(source_file_path, target_file)
             except Exception as e:
-                error_message = f'Type: {e.__class__.__name__} Error: {e}'
+                error_message = f"Type: {e.__class__.__name__} Error: {e}"
                 print(error_message)
                 return 200
             return 0
         else:
-            print(f'NO output folder {output_folder}')
-            raise Exception('No output folder')
+            print(f"NO output folder {output_folder}")
+            raise Exception("No output folder")
 
 
 @click.group()
@@ -48,15 +49,15 @@ def main():
 
 @click.command()
 def about():
-    banner_char = '-'
-    app_name = 'Django Scaffolding Tools'
+    banner_char = "-"
+    app_name = "Django Scaffolding Tools"
     length = len(app_name) + 4
     click.echo(banner_char * length)
-    click.echo(f'{banner_char} {app_name} {banner_char}')
+    click.echo(f"{banner_char} {app_name} {banner_char}")
     click.echo(banner_char * length)
-    click.echo(f'Operating System: {sys.platform}')
-    click.echo(f'Python : {python_version()}')
-    logger.debug('Ran about command.')
+    click.echo(f"Operating System: {sys.platform}")
+    click.echo(f"Python : {python_version()}")
+    logger.debug("Ran about command.")
 
 
 main.add_command(about)

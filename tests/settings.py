@@ -1,6 +1,7 @@
 """
 Base settings to build other settings files upon.
 """
+
 from enum import Enum
 from pathlib import Path
 
@@ -9,11 +10,11 @@ import environ
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent
 # ec_d_local_payment_collector/
 APPS_DIR = ROOT_DIR / "ec_d_local_payment_collector"
-TEST_OUTPUT_PATH = ROOT_DIR / 'output'
+TEST_OUTPUT_PATH = ROOT_DIR / "output"
 
 env = environ.Env()
-TEST_APP_SERVERS = 'example.servers'
-TEST_APP_PEOPLE = 'example.people'
+TEST_APP_SERVERS = "example.servers"
+TEST_APP_PEOPLE = "example.people"
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 if READ_DOT_ENV_FILE:
@@ -45,12 +46,7 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ROOT_DIR / 'django-scaffolding-tools.sqlite3'
-    }
-}
+DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ROOT_DIR / "django-scaffolding-tools.sqlite3"}}
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 # https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
@@ -86,7 +82,7 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
-    'django_celery_results'
+    "django_celery_results",
 ]
 
 LOCAL_APPS = [
@@ -130,9 +126,7 @@ PASSWORD_HASHERS = [
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -253,12 +247,7 @@ MANAGERS = ADMINS
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "formatters": {
-        "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s "
-                      "%(process)d %(thread)d %(message)s"
-        }
-    },
+    "formatters": {"verbose": {"format": "%(levelname)s %(asctime)s %(module)s " "%(process)d %(thread)d %(message)s"}},
     "handlers": {
         "console": {
             "level": "DEBUG",
@@ -267,11 +256,7 @@ LOGGING = {
         }
     },
     "loggers": {
-        'ec_d_local_payment_collector': {
-            "level": "DEBUG",
-            "handlers": ['console'],
-            "propagate": False
-        },
+        "ec_d_local_payment_collector": {"level": "DEBUG", "handlers": ["console"], "propagate": False},
     },
     "root": {"level": "INFO", "handlers": ["console"]},
 }
@@ -286,8 +271,8 @@ REST_FRAMEWORK = {
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 10
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 10,
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
@@ -298,21 +283,11 @@ CORS_URLS_REGEX = r"^/api/.*$"
 # ------------------------------------------------------------------------------
 
 PERMISSION_GROUPS = {
-    'payment_read': {
-        'name': 'PaymentReadGroup',
-        'description': 'Reading payments is allowed to this group'
+    "payment_read": {"name": "PaymentReadGroup", "description": "Reading payments is allowed to this group"},
+    "payment_callback": {
+        "name": "PaymentCallbackGroup",
+        "description": "Calling callback url is allowed to this group",
     },
-    'payment_callback': {
-        'name': 'PaymentCallbackGroup',
-        'description': 'Calling callback url is allowed to this group'
-    },
-    'payment_update': {
-        'name': 'PaymentUpdateGroup',
-        'description': 'Updating payments is allowed to this group'
-    },
-    'payment_create': {
-        'name': 'PaymentCreateGroup',
-        'description': 'Creating payments is allowed to this group'
-    },
+    "payment_update": {"name": "PaymentUpdateGroup", "description": "Updating payments is allowed to this group"},
+    "payment_create": {"name": "PaymentCreateGroup", "description": "Creating payments is allowed to this group"},
 }
-
