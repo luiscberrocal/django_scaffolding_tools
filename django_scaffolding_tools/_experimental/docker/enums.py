@@ -19,7 +19,10 @@ class ProjectPostgresRegExp(str, Enum):
     SLACK = r"[_\-]?slack_[a-z_\-]*_postgres"
     WOMPI = r"wompi[a-z_\-]*_postgres"
     MONITORING = r"monitoring[a-z_\-]*_postgres"
-    WUI = r"wu[a-z_\-]*_postgres"
+    WUI = r"western[a-z_\-]*_postgres"
+    BCP = r"bcp_integration[a-z_\-]*_postgres"
+    EXTENSIONS = r"extensions[a-z_\-]*_postgres"
+    HAPPY = r"happy[a-z_\-]*_postgres"
 
     # = r"oxxo[a-z_\-]*_postgres"
 
